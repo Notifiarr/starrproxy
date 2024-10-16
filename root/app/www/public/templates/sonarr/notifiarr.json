@@ -1,0 +1,122 @@
+{
+    "/api/v3/system/backup": [
+        "get"
+    ],
+    "/api/v3/command": [
+        "post",
+        "get"
+    ],
+    "/api/v3/command/{id}": [
+        "get"
+    ],
+    "/api/v3/customformat": [
+        "get",
+        "post"
+    ],
+    "/api/v3/customformat/{id}": [
+        "put",
+        "delete",
+        "get"
+    ],
+    "/api/v3/episode": [
+        "get"
+    ],
+    "/api/v3/episode/{id}": [
+        "get"
+    ],
+    "/api/v3/episode/monitor": [
+        "put"
+    ],
+    "/api/v3/episodefile": [
+        "get"
+    ],
+    "/api/v3/episodefile/{id}": [
+        "delete",
+        "get"
+    ],
+    "/api/v3/importlist": [
+        "get",
+        "post"
+    ],
+    "/api/v3/importlist/{id}": [
+        "put"
+    ],
+    "/api/v3/config/naming": [
+        "get"
+    ],
+    "/api/v3/config/naming/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v3/notification": [
+        "get",
+        "post"
+    ],
+    "/api/v3/notification/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v3/qualitydefinition/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v3/qualitydefinition": [
+        "get"
+    ],
+    "/api/v3/qualitydefinition/update": [
+        "put"
+    ],
+    "/api/v3/qualityprofile": [
+        "post",
+        "get"
+    ],
+    "/api/v3/qualityprofile/{id}": [
+        "delete",
+        "put",
+        "get"
+    ],
+    "/api/v3/queue/{id}": [
+        "delete"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/rootfolder": [
+        "get"
+    ],
+    "/api/v3/rootfolder/{id}": [
+        "get"
+    ],
+    "/api/v3/seasonpass": [
+        "post"
+    ],
+    "/api/v3/series": [
+        "get",
+        "post"
+    ],
+    "/api/v3/series/{id}": [
+        "get",
+        "put",
+        "delete"
+    ],
+    "/api/v3/series/editor": [
+        "put"
+    ],
+    "/api/v3/series/lookup": [
+        "get"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "get",
+        "post"
+    ],
+    "/api/v3/tag/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v3/releaseprofile": [
+        "get"
+    ]
+}

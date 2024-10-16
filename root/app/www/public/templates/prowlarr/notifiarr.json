@@ -1,0 +1,5 @@
+{
+    "/api/v1/system/status": [
+        "get"
+    ]
+}

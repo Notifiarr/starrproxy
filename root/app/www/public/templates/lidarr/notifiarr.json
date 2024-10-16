@@ -1,0 +1,57 @@
+{
+    "/api/v1/album": [
+        "get",
+        "post"
+    ],
+    "/api/v1/album/{id}": [
+        "get"
+    ],
+    "/api/v1/system/backup": [
+        "get"
+    ],
+    "/api/v1/command": [
+        "post",
+        "get"
+    ],
+    "/api/v1/history": [
+        "get"
+    ],
+    "/api/v1/metadataprofile": [
+        "get"
+    ],
+    "/api/v1/notification/{id}": [
+        "get",
+        "put"
+    ],
+    "/api/v1/notification": [
+        "get",
+        "post"
+    ],
+    "/api/v1/qualityprofile": [
+        "get"
+    ],
+    "/api/v1/queue/{id}": [
+        "delete"
+    ],
+    "/api/v1/queue": [
+        "get"
+    ],
+    "/api/v1/rootfolder/{id}": [
+        "get"
+    ],
+    "/api/v1/rootfolder": [
+        "get"
+    ],
+    "/api/v1/system/status": [
+        "get"
+    ],
+    "/api/v1/tag/{id}": [
+        "get",
+        "put",
+        "delete"
+    ],
+    "/api/v1/tag": [
+        "get",
+        "post"
+    ]
+}
