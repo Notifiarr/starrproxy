@@ -1,0 +1,19 @@
+.text-small {
+    font-size: small;
+}
+
+pre {
+    padding: 1em;
+    width: 100%;
+    overflow: auto;
+    overflow-y: hidden;
+    font-size: 12px;
+    line-height: 20px;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #777;
+}
+
+.modal-xxl {
+    --bs-modal-width:95%;
+}
