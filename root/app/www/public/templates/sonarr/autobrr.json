@@ -1,0 +1,8 @@
+{
+    "/api/v3/release/push": [
+        "post"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ]
+}

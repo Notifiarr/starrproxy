@@ -1,0 +1,66 @@
+{
+    "/api/v3/system/backup": [
+        "get"
+    ],
+    "/api/v3/customformat": [
+        "get",
+        "post"
+    ],
+    "/api/v3/customformat/{id}": [
+        "put",
+        "delete",
+        "get"
+    ],
+    "/api/v3/exclusions": [
+        "get"
+    ],
+    "/api/v3/movie": [
+        "get",
+        "post"
+    ],
+    "/api/v3/movie/{id}": [
+        "put",
+        "delete",
+        "get"
+    ],
+    "/api/v3/config/naming": [
+        "get",
+        "put"
+    ],
+    "/api/v3/config/naming/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v3/qualitydefinition/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v3/qualitydefinition": [
+        "get"
+    ],
+    "/api/v3/qualitydefinition/update": [
+        "put"
+    ],
+    "/api/v3/qualityprofile": [
+        "post",
+        "get"
+    ],
+    "/api/v3/qualityprofile/{id}": [
+        "delete",
+        "put",
+        "get"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/rootfolder": [
+        "get"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "get",
+        "post"
+    ]
+}
