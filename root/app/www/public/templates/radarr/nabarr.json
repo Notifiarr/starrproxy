@@ -1,0 +1,39 @@
+{
+    "/api/v3/exclusions": [
+        "get",
+        "post"
+    ],
+    "/api/v3/exclusions/{id}": [
+        "put",
+        "delete",
+        "get"
+    ],
+    "/api/v3/importlistexclusion": [
+        "get",
+        "post"
+    ],
+    "/api/v3/importlistexclusion/{id}": [
+        "put"
+    ],
+    "/api/v3/movie": [
+        "get",
+        "post"
+    ],
+    "/api/v3/movie/{id}": [
+        "put",
+        "delete",
+        "get"
+    ],
+    "/api/v3/qualityprofile": [
+        "post",
+        "get"
+    ],
+    "/api/v3/qualityprofile/{id}": [
+        "delete",
+        "put",
+        "get"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ]
+}
