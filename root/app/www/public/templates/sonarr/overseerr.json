@@ -12,6 +12,7 @@
         "get"
     ],
     "/api/v3/series": [
+        "get",
         "post"
     ],
     "/api/v3/series/{id}": [
