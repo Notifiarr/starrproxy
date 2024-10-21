@@ -12,16 +12,19 @@
         "get"
     ],
     "/api/v3/series": [
-        "get",
         "post"
     ],
     "/api/v3/series/{id}": [
+        "get"
+    ],
+    "/api/v3/series/lookup": [
         "get"
     ],
     "/api/v3/system/status": [
         "get"
     ],
     "/api/v3/tag": [
-        "get"
+        "get",
+        "post"
     ]
 }
