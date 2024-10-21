@@ -1,0 +1,27 @@
+{
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/command/{id}": [
+        "get"
+    ],
+    "/api/v3/movie": [
+        "get"
+    ],
+    "/api/v3/movie/editor": [
+        "put"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "get",
+        "post"
+    ],
+    "/api/v3/qualityprofile": [
+        "get"
+    ]
+}
