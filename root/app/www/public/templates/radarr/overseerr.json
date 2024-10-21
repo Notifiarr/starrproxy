@@ -1,6 +1,7 @@
 {
     "/api/v3/movie": [
-        "get"
+        "get",
+        "post"
     ],
     "/api/v3/movie/{id}": [
         "get"
