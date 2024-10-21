@@ -1,0 +1,27 @@
+{
+    "/api/v3/languageprofile": [
+        "get"
+    ],
+    "/api/v3/qualityprofile": [
+        "get"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/rootfolder": [
+        "get"
+    ],
+    "/api/v3/series": [
+        "get",
+        "post"
+    ],
+    "/api/v3/series/{id}": [
+        "get"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "get"
+    ]
+}
