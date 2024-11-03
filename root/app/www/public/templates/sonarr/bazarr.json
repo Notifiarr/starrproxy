@@ -1,11 +1,20 @@
 {
+    "/api/v3/command": [
+        "post"
+    ],
     "/api/v3/episode": [
         "get"
     ],
     "/api/v3/episode/{id}": [
         "get"
     ],
+    "/api/v3/episodefile": [
+        "get"
+    ],
     "/api/v3/episodefile/{id}": [
+        "get"
+    ],
+    "/api/v3/mediacover/{seriesId}/{filename}": [
         "get"
     ],
     "/api/v3/rootfolder": [
@@ -21,12 +30,6 @@
         "get"
     ],
     "/api/system/status": [
-        "get"
-    ],
-    "/api/v3/command": [
-        "post"
-    ],
-    "/api/v3/episodefile": [
         "get"
     ]
 }

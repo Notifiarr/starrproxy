@@ -2,6 +2,9 @@
     "/api/v3/command": [
         "post"
     ],
+    "/api/v3/mediacover/{movieId}/{filename}": [
+        "get"
+    ],
     "/api/v3/movie": [
         "get"
     ],
