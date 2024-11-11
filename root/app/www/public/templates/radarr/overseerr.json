@@ -19,6 +19,7 @@
         "get"
     ],
     "/api/v3/tag": [
-        "get"
+        "get",
+        "post"
     ]
 }
