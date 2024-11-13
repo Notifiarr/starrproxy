@@ -1,0 +1,29 @@
+{
+    "/api/v3/indexer": [
+        "get",
+        "post"
+    ],
+    "/api/v3/indexer/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v3/indexer/schema": [
+        "get"
+    ],
+    "/api/v3/indexer/test": [
+        "post"
+    ],
+    "/api/v3/indexer/testall": [
+        "post"
+    ],
+    "/api/v3/config/indexer": [
+        "get"
+    ],
+    "/api/v3/config/indexer/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v3/indexerflag": [
+        "get"
+    ]
+}
