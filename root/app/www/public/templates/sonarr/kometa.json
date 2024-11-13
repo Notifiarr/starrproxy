@@ -1,0 +1,17 @@
+{
+    "/api/v3/importlistexclusion": [
+        "get"
+    ],
+    "/api/v3/rootfolder": [
+        "get"
+    ],
+    "/api/v3/rootfolder/{id}": [
+        "get"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/qualityprofile": [
+        "get"
+    ]
+}
