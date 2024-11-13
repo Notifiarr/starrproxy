@@ -22,6 +22,9 @@
         "get",
         "post"
     ],
+    "/api/v3/movie/{id}": [
+        "get"
+    ],
     "/api/v3/movie/lookup": [
         "get"
     ]
