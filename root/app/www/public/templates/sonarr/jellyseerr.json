@@ -20,6 +20,9 @@
     "/api/v3/queue": [
         "get"
     ],
+    "/api/v3/series/{id}": [
+        "get"
+    ],
     "/api/v3/series": [
         "get"
     ]
