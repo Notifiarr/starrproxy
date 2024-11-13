@@ -1,5 +1,5 @@
 {
-    "/api/v3/importlistexclusion": [
+    "/api/v3/exclusions": [
         "get"
     ],
     "/api/v3/rootfolder": [
@@ -12,6 +12,18 @@
         "get"
     ],
     "/api/v3/qualityprofile": [
+        "get"
+    ],
+    "/api/v3/movie": [
+        "get"
+    ],
+    "/api/v3/movie/lookup": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "get"
+    ],
+    "/api/v3/importlistexclusion": [
         "get"
     ]
 }
