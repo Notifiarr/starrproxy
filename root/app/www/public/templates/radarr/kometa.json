@@ -2,6 +2,15 @@
     "/api/v3/exclusions": [
         "get"
     ],
+    "/api/v3/movie": [
+        "get"
+    ],
+    "/api/v3/movie/lookup": [
+        "get"
+    ],
+    "/api/v3/qualityprofile": [
+        "get"
+    ],
     "/api/v3/rootfolder": [
         "get"
     ],
@@ -11,16 +20,10 @@
     "/api/v3/system/status": [
         "get"
     ],
-    "/api/v3/qualityprofile": [
-        "get"
-    ],
-    "/api/v3/movie": [
-        "get"
-    ],
-    "/api/v3/movie/lookup": [
-        "get"
-    ],
     "/api/v3/tag": [
         "get"
+    ],
+    "/api/v3/movie/import": [
+        "post"
     ]
 }
