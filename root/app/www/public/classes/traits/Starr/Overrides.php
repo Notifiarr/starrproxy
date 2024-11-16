@@ -18,7 +18,9 @@ trait Overrides
 
         $overrides['lidarr']    = [];
         $overrides['prowlarr']  = [];
-        $overrides['radarr']    = [];
+        $overrides['radarr']    = [
+                                    '/api/' . $version . '/movie' => ['put']
+                                ];
         $overrides['readarr']   = [];
         $overrides['sonarr']    = [
                                     '/api/' . $version . '/series' => ['put']
