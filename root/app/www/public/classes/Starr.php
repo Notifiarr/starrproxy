@@ -228,18 +228,15 @@ class Starr
         return [];
     }
 
-    public function isAllowedEndpoint($endpoints, $endpoint)
+    public function findWildcardEndpoint($starrApp, $endpoint)
     {
-        if (!$endpoints || !$endpoint) {
-            return;
-        }
+        foreach (StarrApps::LIST as $listStarr) {
+            if (strtolower($listStarr) != strtolower($starrApp)) {
+                continue;
+            }
 
-        if ($endpoints[$endpoint]) {
-            return $endpoint;
-        }
+            $endpoints = $this->getEndpoints(strtolower($starrApp));
 
-        // CHECK IF THE ENDPOINT HAS WILDCARDS: /{...}/{...} OR /{...}
-        if (!$endpoints[$endpoint]) {
             $endpointRegexes    = ['/(.*)\/(.*)\/(.*)/', '/(.*)\/(.*)/'];
             $wildcardRegexes    = ['/(.*)({.*})\/({.*})/', '/(.*)({.*})/'];
 
@@ -258,7 +255,22 @@ class Starr
                     }
 
                     if ($accessMatches[1] == $requestMatches[1] . '/') {
-                        if (count($accessMatches) == count($requestMatches)) {
+                        $invalidType = false;
+                        foreach ($accessMatches as $accessIndex => $accessMatch) {
+                            if (str_equals_any($accessMatch, ['{id}', '{seriesId}', '{movieId}']) && !is_numeric($requestMatches[$accessIndex])) {
+                                $invalidType = true;
+                                break;
+                            }
+                        }
+
+                        if ($invalidType) {
+                            continue;
+                        }
+
+                        $requestEndpointParts   = explode('/', $endpoint);
+                        $starrEndpointParts     = explode('/', $accessEndpoint);
+    
+                        if (count($accessMatches) == count($requestMatches) && count($starrEndpointParts) == count($requestEndpointParts)) {
                             return $accessEndpoint;
                         }
                     }
@@ -267,6 +279,27 @@ class Starr
         }
 
         return;
+    }
+
+    public function isAllowedEndpoint($starrApp, $endpoints, $endpoint)
+    {
+        if (!$starrApp || !$endpoint) {
+            return ['allowed' => false];
+        }
+
+        $endpoints = $endpoints ?: [];
+
+        if ($endpoints[$endpoint]) {
+            return ['allowed' => true, 'starrEndpoint' => $endpoint];
+        }
+
+        // CHECK IF THE ENDPOINT HAS WILDCARDS: /{...}/{...} OR /{...}
+        if (!$endpoints[$endpoint]) {
+            $wildcard = $this->findWildcardEndpoint($starrApp, $endpoint);
+            return ['allowed' => $endpoints[$wildcard], 'starrEndpoint' => $wildcard];
+        }
+
+        return ['allowed' => false];
     }
 
     public function isAllowedEndpointMethod($endpoints, $endpoint, $method)

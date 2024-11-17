@@ -24,6 +24,7 @@ while ($migration = readdir($dir)) {
 }
 closedir($dir);
 
+$backups = $proxyDb->getBackups();
 ?>
 <div class="w-100 mb-2">
     <button class="btn btn-outline-success border-light" onclick="saveSettings()"><i class="far fa-save"></i> Save</button>
@@ -144,6 +145,24 @@ closedir($dir);
                                     <span class="text-small">Default: <?= BACKUP_AGE ?></span>
                                 </td>
                                 <td><input type="number" class="form-control d-inline-block w-25" id="setting-backupRetentionLength" value="<?= BACKUP_AGE ?>"> days</td>
+                            </tr>
+                            <tr>
+                                <td>Backups</td>
+                                <td>
+                                    <div class="row m-0 p-0">
+                                        <?php
+                                        foreach ($backups as $date => $databases) {
+                                            ?>
+                                            <div class="col-sm-12 col-lg-3">
+                                                <span><?= $date ?></span><br> 
+                                                <span class="text-secondary ms-2">⤷ <?= PROXY_DATABASE_NAME ?>: <?= $databases[PROXY_DATABASE_NAME] ?></span><br>
+                                                <span class="text-secondary ms-2">⤷ <?= USAGE_DATABASE_NAME ?>: <?= $databases[USAGE_DATABASE_NAME] ?></span><br>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

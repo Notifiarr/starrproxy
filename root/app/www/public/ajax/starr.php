@@ -244,6 +244,28 @@ if ($_POST['m'] == 'addEndpointAccess') {
     echo $error;
 }
 
+if ($_POST['m'] == 'removeEndpointAccess') {
+    $app = $proxyDb->getAppFromId($_POST['id'], $appsTable);
+    $app['endpoints'] = json_decode($app['endpoints'], true);
+
+    if (count($app['endpoints'][$_POST['endpoint']]) == 1) { //-- ONLY ONE METHOD, REMOVE THE ENDPOINT
+        unset($app['endpoints'][$_POST['endpoint']]);
+    } else { //-- MULTIPLE METHODS, REMOVE JUST THE ONE
+        foreach ($app['endpoints'][$_POST['endpoint']] as $methodIndex => $method) {
+            if ($method == $_POST['method']) {
+                unset($app['endpoints'][$_POST['endpoint']][$methodIndex]);
+                break;
+            }
+        }
+    }
+
+    $app['endpoints'] = json_encode($app['endpoints'], JSON_UNESCAPED_SLASHES);
+
+    $error = $proxyDb->updateApp($_POST['id'], $app);
+
+    echo $error;
+}
+
 if ($_POST['m'] == 'autoAdjustAppEndpoints') {
     foreach ($appsTable as $app) {
         if ($app['id'] != $_POST['appId']) {

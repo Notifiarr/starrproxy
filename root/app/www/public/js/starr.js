@@ -205,6 +205,24 @@ function addEndpointAccess(app, id, endpoint, method, endpointHash)
     });
 }
 // -------------------------------------------------------------------------------------------
+function removeEndpointAccess(app, id, endpoint, method, endpointHash)
+{
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/starr.php',
+        data: '&m=removeEndpointAccess&app=' + app + '&id=' + id + '&endpoint=' + endpoint + '&method=' + method,
+        success: function (resultData) {
+            if (resultData) {
+                toast('App access', resultData, 'error');
+                return;
+            }
+
+            $('#disallowed-endpoint-' + endpointHash + ', #allowed-endpoint-' + endpointHash).toggle();
+            toast('Endpoint access', 'The ' + endpoint + ' endpoint has been blocked for this app', 'success');
+        }
+    });
+}
+// -------------------------------------------------------------------------------------------
 function viewAppEndpointDiff(appId)
 {
     loadingStart();

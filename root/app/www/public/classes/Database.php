@@ -98,6 +98,28 @@ class Database
         }
     }
 
+    public function getBackups()
+    {
+        if (!is_dir(BACKUP_PATH)) {
+            return [];
+        }
+
+        $dir = opendir(BACKUP_PATH);
+        while ($backup = readdir($dir)) {
+            if ($backup[0] == '.' || !is_dir(BACKUP_PATH . $backup)) {
+                continue;
+            }
+
+            $proxyDatabaseSize = filesize(BACKUP_PATH . $backup . '/' . PROXY_DATABASE_NAME);
+            $usageDatabaseSize = filesize(BACKUP_PATH . $backup . '/' . USAGE_DATABASE_NAME);
+            $backups[$backup] = [PROXY_DATABASE_NAME => byteConversion($proxyDatabaseSize), USAGE_DATABASE_NAME => byteConversion($usageDatabaseSize)];
+        }
+        closedir($dir);
+        krsort($backups);
+
+        return $backups;
+    }
+
     public function getNewestMigration()
     {
         $newestMigration = '001';
