@@ -38,6 +38,7 @@ There are some pre-built templates that enable just the api access the app actua
 - DAPS
 - Jellyseerr
 - Kometa
+- LunaSea
 - Nabarr
 - Notifiarr
 - Omegabrr
