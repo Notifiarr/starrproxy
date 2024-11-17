@@ -1,4 +1,7 @@
 {
+    "/api/v3/calendar": [
+        "get"
+    ],    
     "/api/v3/wanted/missing": [
         "get"
     ],
