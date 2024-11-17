@@ -1,0 +1,14 @@
+{
+    "/api/v3/movie": [
+        "get"
+    ],
+    "/api/v3/movie/{id}": [
+        "get"
+    ],
+    "/api/v3/queue/details": [
+        "get"
+    ],
+    "/api/v3/queue/status": [
+        "get"
+    ]
+}
