@@ -1,0 +1,14 @@
+{
+    "/api/v3/wanted/missing": [
+        "get"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/queue/details": [
+        "get"
+    ],
+    "/api/v3/series": [
+        "get"
+    ]
+}
