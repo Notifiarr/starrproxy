@@ -14,12 +14,18 @@
     "/api/v3/episodefile/{id}": [
         "get"
     ],
+    "/api/v3/filesystem": [
+        "get"
+    ],    
     "/api/v3/mediacover/{seriesId}/{filename}": [
         "get"
     ],
     "/api/v3/rootfolder": [
         "get"
     ],
+    "/api/v3/series": [
+        "get"
+    ],    
     "/api/v3/series/{id}": [
         "get"
     ],
