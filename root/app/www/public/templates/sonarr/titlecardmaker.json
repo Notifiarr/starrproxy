@@ -8,9 +8,6 @@
     "/api/v3/tag": [
         "get"
     ],
-    "/api/v3/episode/": [
-        "get"
-    ],
     "/api/v3/series/lookup": [
         "get"
     ],
