@@ -72,5 +72,8 @@
     ],
     "/api/v3/tag/{id}": [
         "delete"
+    ],
+    "/api/v3/series/lookup": [
+        "get"
     ]
 }
