@@ -42,6 +42,7 @@ There are some pre-built templates that enable just the api access the app actua
 - LunaSea
 - Nabarr
 - Notifiarr
+- Nzb360
 - Omegabrr
 - Overseerr
 - Recyclarr\*
