@@ -1,0 +1,8 @@
+{
+    "/api/v1/indexer/categories": [
+        "get"
+    ],
+    "/api/v1/search": [
+        "get"
+    ]
+}
