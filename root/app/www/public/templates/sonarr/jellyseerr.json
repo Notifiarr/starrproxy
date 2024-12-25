@@ -25,7 +25,8 @@
     ],
     "/api/v3/series": [
         "get",
-        "post"
+        "post",
+        "put"
     ],
     "/api/v3/series/lookup": [
         "get"
