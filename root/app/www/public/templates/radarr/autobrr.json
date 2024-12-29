@@ -1,8 +1,14 @@
 {
+    "/api/v3/movie": [
+        "get"
+    ],
     "/api/v3/release/push": [
         "post"
     ],
     "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/tag": [
         "get"
     ]
 }
