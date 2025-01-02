@@ -1,0 +1,11 @@
+{
+    "/api/v3/rootfolder": [
+        "get"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/calendar": [
+        "get"
+    ]
+}
