@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.18
+FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.21
 
 # install packages
 RUN \
@@ -9,18 +9,18 @@ RUN \
     && awk '/^P:nginx$/,/V:/' /tmp/APKINDEX | sed -n 2p | sed 's/^V://'); \
   fi && \
   apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    php82-pecl-mcrypt && \
+    php83-pecl-mcrypt && \
   echo "**** configure php-fpm to pass env vars ****" && \
-  sed -E -i 's/^;?clear_env ?=.*$/clear_env = no/g' /etc/php82/php-fpm.d/www.conf && \
-  grep -qxF 'clear_env = no' /etc/php82/php-fpm.d/www.conf || echo 'clear_env = no' >> /etc/php82/php-fpm.d/www.conf && \
-  echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /etc/php82/php-fpm.conf
+  sed -E -i 's/^;?clear_env ?=.*$/clear_env = no/g' /etc/php83/php-fpm.d/www.conf && \
+  grep -qxF 'clear_env = no' /etc/php83/php-fpm.d/www.conf || echo 'clear_env = no' >> /etc/php83/php-fpm.d/www.conf && \
+  echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /etc/php83/php-fpm.conf
 
 RUN apk --no-cache add \ 
     # Database
-    php82-sqlite3 \ 
+    php83-sqlite3 \ 
     # Memcache
     memcached \ 
-    php82-pecl-memcached
+    php83-pecl-memcached
 
 # healthchecks
 HEALTHCHECK --interval=60s --timeout=30s --start-period=180s --start-interval=10s --retries=5 \
