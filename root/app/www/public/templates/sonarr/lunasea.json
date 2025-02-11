@@ -75,5 +75,8 @@
     ],
     "/api/v3/series/lookup": [
         "get"
+    ],
+    "/api/v3/episodefile/bulk": [
+        "delete"
     ]
 }
