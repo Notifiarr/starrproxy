@@ -44,7 +44,8 @@
         "put"
     ],
     "/api/v3/movie/{id}": [
-        "get"
+        "get",
+        "delete"
     ],
     "/api/v3/moviefile": [
         "get"
