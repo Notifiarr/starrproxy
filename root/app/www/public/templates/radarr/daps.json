@@ -23,5 +23,8 @@
     ],
     "/api/v3/qualityprofile": [
         "get"
+    ],
+    "/api/v3/rename": [
+        "get"
     ]
 }
