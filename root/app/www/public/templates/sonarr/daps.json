@@ -7,5 +7,26 @@
     ],
     "/api/v3/episode": [
         "get"
+    ],
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/command/{id}": [
+        "get"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/rename": [
+        "get"
+    ],
+    "/api/v3/series/editor": [
+        "put"
+    ],
+    "/api/v3/tag": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "post"
     ]
 }
