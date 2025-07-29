@@ -1,0 +1,14 @@
+{
+    "/api/v3/movie": [
+        "get"
+    ],
+    "/api/v3/movie/{id}": [
+        "delete"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "get"
+    ]
+}
