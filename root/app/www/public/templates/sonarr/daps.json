@@ -13,5 +13,21 @@
     ],
     "/api/v3/qualityprofile": [
         "get"
+    ],
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/command/{id}": [
+        "get"
+    ],
+    "/api/v3/rename": [
+        "get"
+    ],
+    "/api/v3/series/editor": [
+        "put"
+    ],
+    "/api/v3/tag": [
+        "get",
+        "post"
     ]
 }
