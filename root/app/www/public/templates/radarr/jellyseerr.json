@@ -23,6 +23,7 @@
         "post"
     ],
     "/api/v3/movie/{id}": [
+        "delete",
         "get"
     ],
     "/api/v3/movie/lookup": [
