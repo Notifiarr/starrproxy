@@ -30,7 +30,7 @@ $logList = getLogs();
                 <ul style="margin-bottom: 0px; padding-bottom: 0px;">
                     <li>
                         <i class="far fa-trash-alt text-danger" title="Delete access log" style="cursor:pointer;" onclick="deleteLog('<?= $log ?>')"></i> 
-                        <span id="app-log-<?= $index ?>" style="cursor:pointer;" onclick="viewLog('<?= $log ?>', <?= $index ?>)"><?= basename($log) ?></span>
+                        <span id="app-log-<?= $index ?>" style="cursor:pointer;" onclick="viewLog('<?= $log ?>', <?= $index ?>)"><?= basename($log) ?> (<?= date('m/d', filemtime($log)) ?>)</span>
                         <div style="float: right;"><?= byteConversion(filesize($log)) ?></div>
                     </li>
                 </ul>
@@ -50,7 +50,7 @@ $logList = getLogs();
                 <ul style="margin-bottom: 0px; padding-bottom: 0px;">
                     <li>
                         <i class="far fa-trash-alt text-danger" title="Delete access log" style="cursor:pointer;" onclick="deleteLog('<?= $log ?>')"></i> 
-                        <span id="app-log-<?= $index ?>" style="cursor:pointer;" onclick="viewLog('<?= $log ?>', <?= $index ?>)"><?= str_replace('access_', '', basename($log)) ?></span>
+                        <span id="app-log-<?= $index ?>" style="cursor:pointer;" onclick="viewLog('<?= $log ?>', <?= $index ?>)"><?= str_replace('access_', '', basename($log)) ?> (<?= date('m/d', filemtime($log)) ?>)</span>
                         <div style="float: right;"><?= byteConversion(filesize($log)) ?></div>
                     </li>
                 </ul>

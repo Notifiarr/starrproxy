@@ -8,6 +8,9 @@
     "/api/v3/movie": [
         "get"
     ],
+    "/api/v3/movie/{id}": [
+        "get"
+    ],
     "/api/v3/qualityprofile": [
         "get"
     ],
@@ -18,6 +21,9 @@
         "get"
     ],
     "/api/v3/tag": [
+        "get"
+    ],
+    "/api/v3/tag/{id}": [
         "get"
     ],
     "/api/system/status": [

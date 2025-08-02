@@ -33,11 +33,12 @@ class Database
     public function __construct($dbName)
     {
         global $starr, $shell, $cache;
+
         $this->connect(DATABASE_PATH . $dbName);
-        $this->dbName = $dbName;
-        $this->starr = $starr ?: new Starr();
-        $this->shell = $shell ?: new Shell();
-        $this->cache = $cache ?: new Cache();
+        $this->dbName   = $dbName;
+        $this->starr    = $starr ?: new Starr();
+        $this->shell    = $shell ?: new Shell();
+        $this->cache    = $cache ?: new Cache();
     }
 
     public function connect($dbFile)
@@ -107,6 +108,7 @@ class Database
             return [];
         }
 
+        $backups = [];
         $dir = opendir(BACKUP_PATH);
         while ($backup = readdir($dir)) {
             if ($backup[0] == '.' || !is_dir(BACKUP_PATH . $backup)) {
@@ -120,7 +122,7 @@ class Database
         closedir($dir);
         krsort($backups);
 
-        return $backups;
+        return $backups ?: [];
     }
 
     public function getNewestMigration()

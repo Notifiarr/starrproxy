@@ -26,5 +26,8 @@
     ],
     "/api/v3/health": [
         "get"
+    ],
+    "/api/v3/rename": [
+        "get"
     ]
 }

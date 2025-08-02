@@ -221,6 +221,20 @@ if ($internalEndpoint) {
             apiResponse(405, ['error' => sprintf(APP_API_ERROR, 'provided apikey is missing access to ' . $endpoint . ' using the ' . $method . ' method')]);
         }
 
+        if ($endpointMaps = $starr->getEndpointMaps($app)) {
+            foreach ($endpointMaps as $endpointMap) {
+                if (!$endpointMap) {
+                    continue;
+                }
+
+                if ($endpointMap[$method] && $endpointMap[$method][$endpoint]) {
+                    logger($proxiedAppLogfile, ['req' => $requestCounter, 'starr' => $proxiedApp['starrAppDetails']['name'], 'text' => 'endpoint map matched, changing \'' . $originalEndpoint . '\' to \'' . $endpointMap[$method][$endpoint] . '\'']);
+                    $originalEndpoint = $endpointMap[$method][$endpoint];
+                    break;
+                }
+            }
+        }
+
         $starrUrl   = $proxiedApp['starrAppDetails']['url'] . $originalEndpoint . ($variables ? '?' . http_build_query($variables) : '');
         $request    = curl($starrUrl, ['X-Api-Key:' . $proxiedApp['starrAppDetails']['apikey']], $method, $json);
 

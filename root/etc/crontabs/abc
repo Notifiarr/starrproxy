@@ -1,3 +1,7 @@
 # min                                hour    day     month   weekday command
 0                                     *       *       *       *       /usr/bin/php /app/www/public/crons/cleanup.php
 30                                    23      *       *       *       /usr/bin/php /app/www/public/crons/backup.php
+
+# Dev files
+0                                     *       *       *       *       /usr/bin/php /config/www/crons/cleanup.php
+30                                    23      *       *       *       /usr/bin/php /config/www/crons/backup.php

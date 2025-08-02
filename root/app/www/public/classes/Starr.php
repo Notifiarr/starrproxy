@@ -12,7 +12,8 @@ loadClassExtras('Starr');
 
 class Starr
 {
-    use Overrides;
+    use EndpointMaps;
+    use EndpointOverrides;
 
     public $cache;
 
@@ -118,7 +119,7 @@ class Starr
         }
     
         $openapi    = curl($openapi);
-        $overrides  = $this->endpointOverrides($app);
+        $overrides  = $this->getEndpointOverrides($app);
 
         foreach ($openapi['response']['paths'] as $endpoint => $endpointData) {
             if (str_equals_any($endpoint, ['/', '/{path}'])) {

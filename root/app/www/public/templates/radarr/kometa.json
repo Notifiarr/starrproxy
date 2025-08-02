@@ -25,5 +25,8 @@
     ],
     "/api/v3/movie/import": [
         "post"
+    ],
+    "/api/v3/movie/editor": [
+        "put"
     ]
 }

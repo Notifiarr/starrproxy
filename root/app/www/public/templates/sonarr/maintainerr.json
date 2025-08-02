@@ -1,0 +1,27 @@
+{
+    "/api/v3/episode": [
+        "get"
+    ],
+    "/api/v3/series": [
+        "get",
+        "put"
+    ],
+    "/api/v3/series/lookup": [
+        "get"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "get"
+    ],
+    "/api/v3/series/{id}": [
+        "get"
+    ],
+    "/api/v3/episodefile": [
+        "get"
+    ],
+    "/api/v3/episodefile/{id}": [
+        "delete"
+    ]
+}

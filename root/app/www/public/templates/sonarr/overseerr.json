@@ -1,4 +1,7 @@
 {
+    "/api/v3/importlistexclusion": [
+        "get"
+    ],
     "/api/v3/languageprofile": [
         "get"
     ],
@@ -13,7 +16,8 @@
     ],
     "/api/v3/series": [
         "get",
-        "post"
+        "post",
+        "put"
     ],
     "/api/v3/series/{id}": [
         "get"
@@ -26,6 +30,9 @@
     ],
     "/api/v3/tag": [
         "get",
+        "post"
+    ],
+    "/api/v3/command": [
         "post"
     ]
 }

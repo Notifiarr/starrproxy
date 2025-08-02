@@ -1,7 +1,8 @@
 {
     "/api/v3/movie": [
         "get",
-        "post"
+        "post",
+        "put"
     ],
     "/api/v3/movie/{id}": [
         "get"
@@ -24,5 +25,8 @@
     ],
     "/api/v3/movie/lookup": [
         "get"
+    ],
+    "/api/v3/command": [
+        "post"
     ]
 }

@@ -176,6 +176,10 @@ function getLog($logfile, $page = 1, $app = false)
                     $endpointUsage  = [];
                     foreach ($lines as $line) {
                         $error = '';
+                        if (str_contains_any($line, ['endpoint map matched'])) {
+                            $error = '<span class="text-warning">[WARNING]</span> ';
+                        }
+
                         if (str_contains_any($line, ['Code:3', 'Code:4', 'Code:5'])) {
                             $error = '<span class="text-danger">[ERROR]</span> ';
                         }
