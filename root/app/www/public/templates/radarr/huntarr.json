@@ -1,0 +1,24 @@
+{
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/wanted/cutoff": [
+        "get",
+        "get"
+    ],
+    "/api/v3/wanted/missing": [
+        "get",
+        "get"
+    ],
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/tag": [
+        "post",
+        "get"
+    ],
+    "/api/v3/movie/{id}": [
+        "get",
+        "put"
+    ]
+}

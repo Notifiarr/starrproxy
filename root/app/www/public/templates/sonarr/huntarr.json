@@ -1,0 +1,36 @@
+{
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/wanted/missing": [
+        "get"
+    ],
+    "/api/v3/wanted/cutoff": [
+        "get"
+    ],
+    "/api/v3/command/none": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "post",
+        "get"
+    ],
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/command/{id}": [
+        "get"
+    ],
+    "/api/v3/series/{id}": [
+        "get",
+        "put"
+    ],
+    "/api/v3/episode/{id}": {
+        "1": "get",
+        "2": "get",
+        "3": "get",
+        "4": "get",
+        "5": "get",
+        "6": "get"
+    }
+}
