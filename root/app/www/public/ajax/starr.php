@@ -90,7 +90,7 @@ if ($_POST['m'] == 'saveStarr') {
 if ($_POST['m'] == 'openAppStarrAccess') {
     $existing               = $proxyDb->getAppFromId($_POST['id'], $appsTable);
     $existing['endpoints']  = $existing['endpoints'] ? json_decode($existing['endpoints'], true) : [];
-    $existing['redactions'] = $existing['redactions'] ? array_filter(explode(',', $existing['redactions'])) : [];
+    $existing['redactions'] = trim($existing['redactions']) ? array_filter(explode(',', $existing['redactions'])) : [];
     $clone                  = isset($_POST['clone']) ? $proxyDb->getAppFromId($_POST['clone'], $appsTable) : [];
     $endpoints              = $starr->getEndpoints($app);
     $redactedOptions        = array_filter(explode(',', $settingsTable['redactionFields']));
@@ -143,7 +143,7 @@ if ($_POST['m'] == 'openAppStarrAccess') {
                 <?php
                 foreach ($redactedOptions as $redactedOption) {
                     $redactedOption = trim($redactedOption);
-                    ?><option <?= in_array($redactedOption, $existing['redactions']) ? 'selected ' : '' ?>value="<?= $redactedOption ?>"><?= $redactedOption ?></option><?php
+                    ?><option <?= !empty($existing['redactions']) && in_array($redactedOption, $existing['redactions']) ? 'selected ' : '' ?>value="<?= $redactedOption ?>"><?= $redactedOption ?></option><?php
                 }
                 ?>
                 </select>
