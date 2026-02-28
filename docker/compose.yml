@@ -1,0 +1,28 @@
+# Deploy a development environment for starrproxy
+---
+services:
+    starrproxy:
+        container_name: starrproxy_develop
+        networks:
+            isolated_nw:
+                ipv4_address: 172.28.0.5
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Etc/UTC
+        ports:
+            - 10000:80/tcp
+        volumes:
+            - ./.data/starrproxy/config:/config
+            - ../root/app/www/public:/app/www/public # -> Link local files for development
+        restart: unless-stopped
+        image: ghcr.io/notifiarr/starrproxy:local # -> Run `sh docker/build.sh` in root directory first
+
+networks:
+    isolated_nw:
+        name: starrproxy_isolated_nw
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 172.28.0.0/16
+                  gateway: 172.28.0.1
