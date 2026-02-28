@@ -10,7 +10,7 @@ ARG COMMIT_MSG=unknown
 
 # Install system packages
 ARG PHP_VERSION=85
-ARG INSTALL_PACKAGES="php${PHP_VERSION}-sqlite3 php${PHP_VERSION}-pecl-memcached"
+ARG INSTALL_PACKAGES="php${PHP_VERSION}-sqlite3 php${PHP_VERSION}-pecl-memcached memcached"
 RUN apk add --repository=https://dl-cdn.alpinelinux.org/alpine/v3.23/main --no-cache --update ${INSTALL_PACKAGES}
 
 # Image specific changes for starrproxy
