@@ -19,27 +19,20 @@ require 'loader.php';
 require ABSOLUTE_PATH . 'includes/header.php';
 
 ?>
-<div class="row w-100 m-5">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item <?= !$page || $page == 'home' ? 'active' : '' ?>"><?= $page != 'home' ? '<a href="?page=home">Home</a>' : 'Home' ?></li>
-        <?php
-        switch (true) {
-            case in_array($app, StarrApps::LIST):
-                $requiredPage = 'starr';
-                ?><li class="breadcrumb-item active"><?= ucfirst($app) ?></li><?php
-                break;
-            case $page:
-                $requiredPage = $page;
-                if ($page != 'home')  { 
-                    ?><li class="breadcrumb-item active"><?= ucfirst($page) ?></li><?php 
-                }
-                break;
-            default:
-                $requiredPage = 'home';
-                break;
-        }
-        ?>
-    </ol>
+<div class="row w-100" style="margin: 5rem 1rem;">
+    <?php
+    switch (true) {
+        case in_array($app, StarrApps::LIST):
+            $requiredPage = 'starr';
+            break;
+        case $page:
+            $requiredPage = $page;
+            break;
+        default:
+            $requiredPage = 'home';
+            break;
+    }
+    ?>
     <?php require ABSOLUTE_PATH . 'pages/' . $requiredPage . '.php'; ?>
 </div>
 <?php

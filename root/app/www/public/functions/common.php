@@ -89,3 +89,24 @@ function extractCookies($string) {
 
     return $cookies ?: [];
 }
+
+function getThemes()
+{
+    $themes     = [];
+    $themesPath = ABSOLUTE_PATH . 'themes/';
+
+    if (!is_dir($themesPath)) {
+        return $themes;
+    }
+
+    $dir = opendir($themesPath);
+    while ($file = readdir($dir)) {
+        if (str_contains($file, '.min.css')) {
+            $themes[] = str_replace('.min.css', '', $file);
+        }
+    }
+    closedir($dir);
+    sort($themes);
+
+    return $themes;
+}

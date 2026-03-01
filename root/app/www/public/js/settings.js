@@ -38,3 +38,19 @@ function bustCache(key)
     });
 }
 // -------------------------------------------------------------------------------------------
+function updateSetting(setting, value)
+{
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/settings.php',
+        data: '&m=updateSetting&setting=' + setting + '&value=' + value,
+        success: function () {
+            if (setting == 'defaultTheme') {
+                reload();
+            } else {
+                toast('Settings', 'The setting has been updated', 'success');
+            }
+        }
+    });
+}
+// -------------------------------------------------------------------------------------------

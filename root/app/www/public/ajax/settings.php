@@ -43,3 +43,7 @@ if ($_POST['m'] == 'saveSettings') {
 if ($_POST['m'] == 'bustCache') {
     $cache->bust($_POST['key']);
 }
+
+if ($_POST['m'] == 'updateSetting') {
+    $proxyDb->setSetting($_POST['setting'], $_POST['value']);
+}

@@ -2,6 +2,15 @@
     font-size: small;
 }
 
+body {
+    padding-top: 4.75rem;
+    padding-bottom: 4.75rem;
+}
+
+#footer {
+    background-color: var(--background-50) !important;
+}
+
 pre {
     padding: 1em;
     width: 100%;

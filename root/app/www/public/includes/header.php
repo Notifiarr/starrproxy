@@ -37,6 +37,8 @@ if (!$_SESSION['IN_UI']) {
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="libraries/bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="themes/base.css?t=<?= filemtime('themes/base.css') ?>" rel="stylesheet">
+        <link href="themes/<?= USER_THEME ?>.min.css?t=<?= filemtime('themes/' . USER_THEME . '.min.css') ?>" rel="stylesheet">
 
         <!-- Select2 Stylesheet -->
         <link href="libraries/select2/select2.min.css" rel="stylesheet">
@@ -45,12 +47,11 @@ if (!$_SESSION['IN_UI']) {
         <!-- Internal Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <body data-bs-theme="<?= USER_THEME_MODE ?>">
+        <nav class="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="?page=home">
                     <img src="images/logo-32.png"> <?= APP_NAME ?>
-                    <?= gitVersion() ?>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -90,9 +91,6 @@ if (!$_SESSION['IN_UI']) {
                         </li>
                         <li class="nav-item <?= !$settingsTable['uiHeaderHelp'] ? 'd-none' : '' ?>">
                             <a class="nav-link <?= $page == 'help' ? 'active' : '' ?>" href="/?page=help"><i class="far fa-question-circle"></i> <span class="me-3">Help</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://github.com/Notifiarr/starrproxy" target="_blank"><i class="fab fa-github"></i> <span class="me-3">Github</span></a>
                         </li>
                     </ul>
                 </div>
