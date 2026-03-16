@@ -19,7 +19,7 @@ require 'loader.php';
 require ABSOLUTE_PATH . 'includes/header.php';
 
 ?>
-<div class="row w-100" style="margin: 5rem 1rem;">
+<div class="row w-100" style="margin: 1rem;">
     <?php
     switch (true) {
         case in_array($app, StarrApps::LIST):

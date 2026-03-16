@@ -18,7 +18,7 @@ if (!$_SESSION['IN_UI']) {
 ?>
 </div>
 <footer id="footer" class="footer fixed-bottom bg-dark pb-3" style="height: 3.5rem !important;">
-    <div class="container bg-dark">
+    <div class="container-fluid bg-dark">
         <div id="footer-content" class="row bg-dark">
             <div id="footer-branch" class="col-4 text-center mt-2">
                 Version: <?= gitVersion() ?><br>
