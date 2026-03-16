@@ -170,7 +170,7 @@ function getLog($logfile, $page = 1, $app = false)
     </ul>
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade show active" id="access" role="tabpanel">
-            <table class="table table-bordered table-hover">
+            <table class="table table-no-squish table-bordered table-hover">
                 <?php
                 if ($lines) {
                     $endpointUsage  = [];

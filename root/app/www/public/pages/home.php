@@ -41,7 +41,7 @@ $getTotalUsageStats     = getTotalUsageStats($starrsTable, $appsTable, $usageTab
                 <div class="card mb-3">
                     <div class="card-header">Starr instances</div>
                     <div class="card-body">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-no-squish table-bordered table-hover">
                             <tr>
                                 <td></td>
                                 <td>Starr</td>
@@ -70,7 +70,7 @@ $getTotalUsageStats     = getTotalUsageStats($starrsTable, $appsTable, $usageTab
                 <div class="card mb-3">
                     <div class="card-header">Starr app endpoints</div>
                     <div class="card-body">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-no-squish table-bordered table-hover">
                             <tr>
                                 <td></td>
                                 <td>Starr</td>
@@ -103,7 +103,7 @@ $getTotalUsageStats     = getTotalUsageStats($starrsTable, $appsTable, $usageTab
                 <div class="card mb-3">
                     <div class="card-header">Starr api enforcement</div>
                     <div class="card-body">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-no-squish table-bordered table-hover">
                             <tr>
                                 <td></td>
                                 <td>Starr</td>
@@ -162,7 +162,7 @@ $getTotalUsageStats     = getTotalUsageStats($starrsTable, $appsTable, $usageTab
 
                         if ($notMatching) {
                             ?>
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-no-squish table-bordered table-hover">
                                 <tr>
                                     <td>Starr</td>
                                     <td>App</td>

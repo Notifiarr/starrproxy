@@ -1,10 +1,18 @@
-.text-small {
-    font-size: small;
-}
-
 body {
     padding-top: 4.75rem;
     padding-bottom: 4.75rem;
+}
+
+/* Styles for screens 600px or narrower */
+@media screen and (max-width: 600px) {
+    .table-no-squish {
+        width: auto !important;
+        white-space: nowrap;
+    }
+}
+
+.text-small {
+    font-size: small;
 }
 
 #footer {

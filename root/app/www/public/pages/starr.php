@@ -29,7 +29,7 @@ if (!$_SESSION['IN_UI']) {
     <div class="tab-content">
         <div class="tab-pane fade show active" id="<?= $tabIdPrefix ?>-instances" role="tabpanel">
             <div class="table-responsive mt-3">
-                <table class="table table-bordered" style="min-width: 750px;" align="center">
+                <table class="table table-no-squish table-bordered" style="min-width: 750px;" align="center">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -118,7 +118,7 @@ if (!$_SESSION['IN_UI']) {
                 <?php } ?>
             </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" style="min-width: 1000px;" align="center">
+                <table class="table table-no-squish table-bordered table-hover" style="min-width: 1000px;" align="center">
                     <thead>
                         <tr>
                             <th>App</th>

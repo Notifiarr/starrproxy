@@ -21,7 +21,7 @@ require '../loader.php';
 
 if ($_POST['m'] == 'openTemplateStarrAccess') {
     ?>
-    <table class="table table-bordered table-hover">
+    <table class="table table-no-squish table-bordered table-hover">
         <tr>
             <td>Path</td>
             <td><?= APP_USER_TEMPLATES_PATH . $_POST['app'] ?>/*.json</td>

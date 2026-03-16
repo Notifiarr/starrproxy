@@ -41,7 +41,7 @@ $cacheStats = $cache->stats();
             <div class="card-header">System</div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-hover">
+                    <table class="table table-no-squish table-sm table-bordered table-hover">
                         <tbody>
                             <tr>
                                 <td class="w-25">
@@ -69,7 +69,7 @@ $cacheStats = $cache->stats();
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-hover">
+                    <table class="table table-no-squish table-sm table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th colspan="2">Navigation</th>
@@ -139,7 +139,7 @@ $cacheStats = $cache->stats();
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-hover">
+                    <table class="table table-no-squish table-sm table-bordered table-hover">
                         <tbody>
                             <tr>
                                 <td class="w-25">
@@ -159,7 +159,7 @@ $cacheStats = $cache->stats();
             <div class="card-header">Database</div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-hover">
+                    <table class="table table-no-squish table-sm table-bordered table-hover">
                         <tbody>
                             <tr>
                                 <td class="w-25">
@@ -211,7 +211,7 @@ $cacheStats = $cache->stats();
             <div class="card-header">Logging</div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-hover">
+                    <table class="table table-no-squish table-sm table-bordered table-hover">
                         <tbody>
                             <tr>
                                 <td class="w-25">
@@ -238,7 +238,7 @@ $cacheStats = $cache->stats();
             <div class="card-header">Cache</div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-hover">
+                    <table class="table table-no-squish table-sm table-bordered table-hover">
                         <tbody>
                             <tr>
                                 <td class="w-25">Memcache enabled</td>

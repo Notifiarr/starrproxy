@@ -39,7 +39,7 @@ if ($_POST['m'] == 'openNotificationTriggers') {
     <div class="container">
         <h3><?= $platformName ?></h3>
         <div class="bg-primary rounded p-2">
-            <table class="table table-bordered table-hover">
+            <table class="table table-no-squish table-bordered table-hover">
                 <thead>
                     <tr>
                         <th><input type="checkbox" class="form-check-input" onchange="$('.notification-trigger').prop('checked', $(this).prop('checked'))"></th>
@@ -63,7 +63,7 @@ if ($_POST['m'] == 'openNotificationTriggers') {
                     ?>
                 </tbody>
             </table>
-            <table class="table table-bordered table-hover">
+            <table class="table table-no-squish table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>Setting</th>

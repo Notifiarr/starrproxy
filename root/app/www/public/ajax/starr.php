@@ -121,7 +121,7 @@ if ($_POST['m'] == 'openAppStarrAccess') {
     <?php if ($clone) { ?>
         <center><h4>Cloning: <span class="text-warning"><?= $clone['name'] ?></span></h4></center>
     <?php } ?>
-    <table class="table table-bordered table-hover">
+    <table class="table table-no-squish table-bordered table-hover">
         <tr>
             <td class="w-50">App<br><span class="text-small">The app that needs access to the <?= ucfirst($app) ?> API</span></td>
             <td><input type="text" class="form-control" placeholder="Notifiarr" id="access-name" value="<?= $existing['name'] ?>"></td>
@@ -172,7 +172,7 @@ if ($_POST['m'] == 'openAppStarrAccess') {
                 </span>
             </td>
             <td>
-                <table class="table table-hover">
+                <table class="table table-no-squish table-hover">
                     <?php
                     $counter = 1;
                     foreach ($endpoints as $endpoint => $endpointInfo) {
@@ -340,7 +340,7 @@ if ($_POST['m'] == 'viewAppEndpointDiff') {
 
     ?>
     <div class="table-responsive">
-        <table class="table table-bordered table-hover">
+        <table class="table table-no-squish table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Endpoint</th>
