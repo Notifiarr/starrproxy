@@ -44,4 +44,4 @@ foreach ($q as $query) {
 }
 
 //-- NEEDED SINCE WE ADD A NEW FIELD TO THIS TABLE
-$proxyDb->$cache->bust(APPS_TABLE_CACHE_KEY);
+$proxyDb->cache->bust(APPS_TABLE_CACHE_KEY);
