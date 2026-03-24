@@ -42,15 +42,17 @@ if ($_POST['m'] == 'openTemplateStarrAccess') {
 }
 
 if ($_POST['m'] == 'saveTemplateStarrAccess') {
-    $existing   = $proxyDb->getAppFromId($_POST['id'], $appsTable);
-    $endpoints  = $existing['endpoints'] ? json_decode($existing['endpoints'], true) : [];
-    $name       = strtolower(preg_replace('/[^a-zA-Z0-9 _-]/', '', $_POST['name']));
+    $existing  = $proxyDb->getAppFromId($_POST['id'], $appsTable);
+    $endpoints = $existing['endpoints'] ? json_decode($existing['endpoints'], true) : [];
+    $name      = strtolower(preg_replace('/[^a-zA-Z0-9 _-]/', '', $_POST['name']));
     file_put_contents(APP_USER_TEMPLATES_PATH . $app . '/' . $name . '.json', json_encode($endpoints, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 }
 
 if ($_POST['m'] == 'viewTemplate') {
     $template = file_get_contents(str_replace('./', '../', $_POST['template']));
-    ?><pre><i class="far fa-copy fa-2x text-info" style="cursor: pointer; float: right;" onclick="clipboard('template-json', 'html')" title="Copy template to clipboard"></i><span id="template-json"><?= $template ?></span></pre><?php
+    ?>
+    <pre><i class="far fa-copy fa-2x text-info" style="cursor: pointer; float: right;" onclick="clipboard('template-json', 'html')" title="Copy template to clipboard"></i><span id="template-json"><?= $template ?></span></pre>
+    <?php
 }
 
 if ($_POST['m'] == 'applyTemplateOptions') {

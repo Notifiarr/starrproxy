@@ -8,7 +8,7 @@
 */
 
 trait Usage
-{    
+{
     public function getUsageTable()
     {
         $usage = [];
@@ -32,10 +32,10 @@ trait Usage
 
     public function getStarrAppUsage($appId)
     {
-        $q = "SELECT *
+        $q   = "SELECT *
               FROM " . USAGE_TABLE . "
               WHERE app_id = " . intval($appId);
-        $r = $this->query($q);
+        $r   = $this->query($q);
         $row = $this->fetchAssoc($r);
 
         return $row ?: [];

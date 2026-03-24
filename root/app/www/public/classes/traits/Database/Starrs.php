@@ -65,9 +65,9 @@ trait Starrs
     public function addStarrApp($starrApp, $fields = [])
     {
         $q = "INSERT INTO " . STARRS_TABLE . "
-              (`starr`, `name`, `url`, `apikey`, `username`, `password`) 
-              VALUES 
-              ('". $this->starr->getStarrInterfaceIdFromName($starrApp) ."', '" . $this->prepare($fields['name']) . "', '" . $this->prepare($fields['url']) . "', '" . $this->prepare($fields['apikey']) . "', '" . $this->prepare($fields['username']) . "', '" . $this->prepare($fields['password']) . "')";
+              (`starr`, `name`, `url`, `apikey`, `username`, `password`)
+              VALUES
+              ('" . $this->starr->getStarrInterfaceIdFromName($starrApp) . "', '" . $this->prepare($fields['name']) . "', '" . $this->prepare($fields['url']) . "', '" . $this->prepare($fields['apikey']) . "', '" . $this->prepare($fields['username']) . "', '" . $this->prepare($fields['password']) . "')";
         $this->query($q);
 
         if ($this->error() != 'not an error') {

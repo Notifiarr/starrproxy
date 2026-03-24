@@ -80,18 +80,18 @@ class Starr
     }
 
     public function testConnection($app, $url, $apikey)
-    {    
-        $url        = $url . '/api/' . $this->apiVersion($app) . '/config/host';
-        $headers    = ['x-api-key:' . $apikey];
-        $curl       = curl($url, $headers);
-    
+    {
+        $url     = $url . '/api/' . $this->apiVersion($app) . '/config/host';
+        $headers = ['x-api-key:' . $apikey];
+        $curl    = curl($url, $headers);
+
         return $curl;
     }
 
     public function getEndpoints($app)
     {
-        $cacheKey   = sprintf(STARR_ENDPOINT_LIST_KEY, $app);
-        $cache      = $this->cache->get($cacheKey);
+        $cacheKey = sprintf(STARR_ENDPOINT_LIST_KEY, $app);
+        $cache    = $this->cache->get($cacheKey);
 
         if ($cache) {
             return json_decode($cache, true);
@@ -117,22 +117,22 @@ class Starr
                 $openapi = 'https://raw.githubusercontent.com/Whisparr/Whisparr/develop/src/Whisparr.Api.V3/openapi.json';
                 break;
         }
-    
-        $openapi    = curl($openapi);
-        $overrides  = $this->getEndpointOverrides($app);
+
+        $openapi   = curl($openapi);
+        $overrides = $this->getEndpointOverrides($app);
 
         foreach ($openapi['response']['paths'] as $endpoint => $endpointData) {
             if (str_equals_any($endpoint, ['/', '/{path}'])) {
                 continue;
             }
-    
+
             $endpointInfo = ['label' => '', 'methods' => []];
             foreach ($endpointData as $method => $methodParams) {
                 if (str_equals_any($methodParams['tags'][0], ['StaticResource'])) {
                     continue;
                 }
-    
-                $endpointInfo['label'] = $methodParams['tags'][0];
+
+                $endpointInfo['label']     = $methodParams['tags'][0];
                 $endpointInfo['methods'][] = $method;
 
                 if ($overrides) {
@@ -147,13 +147,13 @@ class Starr
                     }
                 }
             }
-    
+
             if ($endpointInfo) {
                 $endpoints[$endpoint] = $endpointInfo;
                 sort($endpoints[$endpoint]['methods']);
             }
         }
-    
+
         $this->cache->set($cacheKey, json_encode($endpoints), STARR_ENDPOINT_LIST_TIME);
 
         return $endpoints;
@@ -162,22 +162,22 @@ class Starr
     public function downloadBackup($starrBackup, $starrApp)
     {
         global $shell;
-    
+
         $cookie = '';
         if ($starrApp['username'] && $starrApp['password']) {
             $shell->exec('curl -c ' . APP_DATA_PATH . 'cookie.txt -X POST -d "username=' . $starrApp['username'] . '" -d "password=' . $starrApp['password'] . '" "' . $starrApp['url'] . '/login"');
             $cookies = extractCookies(file_get_contents(APP_DATA_PATH . 'cookie.txt'));
-    
+
             if ($cookies[0]['name']) {
                 $cookie = $cookies[0]['name'] . '=' . $cookies[0]['value'];
             }
         }
-    
+
         $starrBackup = $starrApp['url'] . $starrBackup;
         $proxyBackup = basename($starrBackup);
-    
+
         $localbackup = fopen(BACKUP_PATH . $proxyBackup, 'wb');
-        $ch = curl_init();
+        $ch          = curl_init();
         curl_setopt($ch, CURLOPT_URL, $starrBackup);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Cookie: ' . $cookie]);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -185,11 +185,11 @@ class Starr
         curl_exec($ch);
         curl_close($ch);
         fclose($localbackup);
-    
+
         if (file_exists(APP_DATA_PATH . 'cookie.txt')) {
             unlink(APP_DATA_PATH . 'cookie.txt');
         }
-    
+
         return file_exists(BACKUP_PATH . $proxyBackup) ? BACKUP_PATH . $proxyBackup : '';
     }
 
@@ -197,16 +197,16 @@ class Starr
     {
         global $proxyDb, $appsTable, $starrsTable;
 
-        $proxyDb        = $proxyDb ?: new Database(PROXY_DATABASE_NAME);
-        $starrsTable    = $starrsTable ?: $proxyDb->getStarrsTable();
-        $appsTable      = $appsTable ?: $proxyDb->getAppsTable();
+        $proxyDb     = $proxyDb ?: new Database(PROXY_DATABASE_NAME);
+        $starrsTable = $starrsTable ?: $proxyDb->getStarrsTable();
+        $appsTable   = $appsTable ?: $proxyDb->getAppsTable();
 
         $access = $starrAppDetails = $proxiedAppDetails = [];
 
         foreach ($appsTable as $proxiedApp) {
             if ((!$truncated && $apikey == $proxiedApp['apikey']) || ($truncated && $apikey == truncateMiddle($proxiedApp['apikey'], 20))) {
-                $proxiedAppDetails  = $proxiedApp;
-                $access             = json_decode($proxiedApp['endpoints'], true);
+                $proxiedAppDetails = $proxiedApp;
+                $access            = json_decode($proxiedApp['endpoints'], true);
 
                 foreach ($starrsTable as $starrApp) {
                     if ($proxiedApp['starr_id'] == $starrApp['id']) {
@@ -217,28 +217,28 @@ class Starr
                 break;
             }
         }
-    
+
         return [
-                'starrApp'          => $this->getStarrInterfaceNameFromId($starrApp['starr']), 
-                'starrAppDetails'   => $starrAppDetails, 
-                'access'            => $access, 
-                'proxiedAppDetails' => $proxiedAppDetails
-            ];
+            'starrApp'          => $this->getStarrInterfaceNameFromId($starrApp['starr']),
+            'starrAppDetails'   => $starrAppDetails,
+            'access'            => $access,
+            'proxiedAppDetails' => $proxiedAppDetails
+        ];
     }
 
     public function getAppFromStarrKey($apikey, $starrsTable)
-    {    
+    {
         global $proxyDb;
 
-        $proxyDb = $proxyDb ?: new Database(PROXY_DATABASE_NAME);
+        $proxyDb     = $proxyDb ?: new Database(PROXY_DATABASE_NAME);
         $starrsTable = $starrsTable ?: $proxyDb->getStarrsTable();
 
-        foreach ($starrsTable as $starrApp) {    
+        foreach ($starrsTable as $starrApp) {
             if ($starrApp['apikey'] == $apikey) {
                 return $starrApp;
             }
         }
-    
+
         return [];
     }
 
@@ -251,8 +251,8 @@ class Starr
 
             $endpoints = $this->getEndpoints(strtolower($starrApp));
 
-            $endpointRegexes    = ['/(.*)\/(.*)\/(.*)/', '/(.*)\/(.*)/'];
-            $wildcardRegexes    = ['/(.*)({.*})\/({.*})/', '/(.*)({.*})/'];
+            $endpointRegexes = ['/(.*)\/(.*)\/(.*)/', '/(.*)\/(.*)/'];
+            $wildcardRegexes = ['/(.*)({.*})\/({.*})/', '/(.*)({.*})/'];
 
             foreach ($wildcardRegexes as $index => $wildcardRegex) {
                 preg_match($endpointRegexes[$index], $endpoint, $requestMatches);
@@ -263,7 +263,7 @@ class Starr
 
                 foreach ($endpoints as $accessEndpoint => $accessMethods) {
                     preg_match($wildcardRegex, $accessEndpoint, $accessMatches);
-    
+
                     if (!$accessMatches) {
                         continue;
                     }
@@ -281,9 +281,9 @@ class Starr
                             continue;
                         }
 
-                        $requestEndpointParts   = explode('/', $endpoint);
-                        $starrEndpointParts     = explode('/', $accessEndpoint);
-    
+                        $requestEndpointParts = explode('/', $endpoint);
+                        $starrEndpointParts   = explode('/', $accessEndpoint);
+
                         if (count($accessMatches) == count($requestMatches) && count($starrEndpointParts) == count($requestEndpointParts)) {
                             return $accessEndpoint;
                         }

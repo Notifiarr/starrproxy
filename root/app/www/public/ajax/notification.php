@@ -20,14 +20,14 @@ if (!$_SESSION['IN_UI']) {
 require '../loader.php';
 
 if ($_POST['m'] == 'openNotificationTriggers') {
-    $_POST['linkId']            = $_POST['linkId'] ?: 0;
-    $notificationPlatformTable  = $proxyDb->getNotificationPlatforms();
-    $notificationTriggersTable  = $proxyDb->getNotificationTriggers();
-    $notificationLinkTable      = $proxyDb->getNotificationLinks();
-    $platformParameters         = json_decode($notificationPlatformTable[$_POST['platformId']]['parameters'], true);
-    $platformName               = $notifications->getNotificationPlatformNameFromId($_POST['platformId'], $notificationPlatformTable);
-    $linkRow                    = $notificationLinkTable[$_POST['linkId']];
-    $existingTriggers           = $existingParameters = [];
+    $_POST['linkId']           = $_POST['linkId'] ?: 0;
+    $notificationPlatformTable = $proxyDb->getNotificationPlatforms();
+    $notificationTriggersTable = $proxyDb->getNotificationTriggers();
+    $notificationLinkTable     = $proxyDb->getNotificationLinks();
+    $platformParameters        = json_decode($notificationPlatformTable[$_POST['platformId']]['parameters'], true);
+    $platformName              = $notifications->getNotificationPlatformNameFromId($_POST['platformId'], $notificationPlatformTable);
+    $linkRow                   = $notificationLinkTable[$_POST['linkId']];
+    $existingTriggers          = $existingParameters = [];
 
     if ($linkRow) {
         $existingTriggers   = $linkRow['trigger_ids'] ? json_decode($linkRow['trigger_ids'], true) : [];
@@ -38,14 +38,14 @@ if ($_POST['m'] == 'openNotificationTriggers') {
     ?>
     <div class="container">
         <h3><?= $platformName ?></h3>
-        <div class="bg-primary rounded p-2">
-            <table class="table table-no-squish table-bordered table-hover">
+        <div class="rounded p-2">
+            <table class="table table-no-squish table-bordered">
                 <thead>
                     <tr>
-                        <th><input type="checkbox" class="form-check-input" onchange="$('.notification-trigger').prop('checked', $(this).prop('checked'))"></th>
-                        <th width="25%">Trigger</th>
-                        <th>Description</th>
-                        <th>Event</th>
+                        <td><input type="checkbox" class="form-check-input" onchange="$('.notification-trigger').prop('checked', $(this).prop('checked'))"></td>
+                        <td width="25%">Trigger</td>
+                        <td>Description</td>
+                        <td>Event</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,11 +63,11 @@ if ($_POST['m'] == 'openNotificationTriggers') {
                     ?>
                 </tbody>
             </table>
-            <table class="table table-no-squish table-bordered table-hover">
+            <table class="table table-no-squish table-bordered">
                 <thead>
                     <tr>
-                        <th>Setting</th>
-                        <th></th>
+                        <td>Setting</td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,13 +84,13 @@ if ($_POST['m'] == 'openNotificationTriggers') {
                         <tr>
                             <td width="50%"><?= $platformParameterData['label'] . ($platformParameterData['required'] ? '<span class="ms-2 small-text text-danger">Required</span>' : '') ?><br><span class="small-text"><?= $platformParameterData['description'] ?></span></td>
                             <td>
-                            <?php
-                            switch ($platformParameterData['type']) {
-                                case 'text':
-                                    ?><input <?= $platformParameterData['required'] ? 'data-required="true"' : '' ?> type="text" id="notificationPlatformParameter-<?= $platformParameterField ?>" class="form-control" value="<?= $existingParameters[$platformParameterField] ?>"><?php
-                                    break;
-                            }
-                            ?>
+                                <?php
+                                switch ($platformParameterData['type']) {
+                                    case 'text':
+                                        ?><input <?= $platformParameterData['required'] ? 'data-required="true"' : '' ?> type="text" id="notificationPlatformParameter-<?= $platformParameterField ?>" class="form-control" value="<?= $existingParameters[$platformParameterField] ?>"><?php
+                                                   break;
+                                }
+                                ?>
                             </td>
                         </tr>
                         <?php
@@ -118,11 +118,11 @@ if ($_POST['m'] == 'addNotification') {
     }
 
     if (!$error) {
-        $notificationPlatformTable  = $proxyDb->getNotificationPlatforms();
-        $notificationTriggersTable  = $proxyDb->getNotificationTriggers();
-        $notificationLinkTable      = $proxyDb->getNotificationLinks();
-        $platformParameters         = json_decode($notificationPlatformTable[$_POST['platformId']]['parameters'], true);
-        $platformName               = $notifications->getNotificationPlatformNameFromId($_POST['platformId'], $notificationPlatformTable);
+        $notificationPlatformTable = $proxyDb->getNotificationPlatforms();
+        $notificationTriggersTable = $proxyDb->getNotificationTriggers();
+        $notificationLinkTable     = $proxyDb->getNotificationLinks();
+        $platformParameters        = json_decode($notificationPlatformTable[$_POST['platformId']]['parameters'], true);
+        $platformName              = $notifications->getNotificationPlatformNameFromId($_POST['platformId'], $notificationPlatformTable);
 
         //-- CHECK FOR REQUIRED FIELDS
         foreach ($platformParameters as $platformParameterField => $platformParameterData) {
@@ -168,11 +168,11 @@ if ($_POST['m'] == 'saveNotification') {
     }
 
     if (!$error) {
-        $notificationPlatformTable  = $proxyDb->getNotificationPlatforms();
-        $notificationTriggersTable  = $proxyDb->getNotificationTriggers();
-        $notificationLinkTable      = $proxyDb->getNotificationLinks();
-        $platformParameters         = json_decode($notificationPlatformTable[$_POST['platformId']]['parameters'], true);
-        $platformName               = $notifications->getNotificationPlatformNameFromId($_POST['platformId'], $notificationPlatformTable);
+        $notificationPlatformTable = $proxyDb->getNotificationPlatforms();
+        $notificationTriggersTable = $proxyDb->getNotificationTriggers();
+        $notificationLinkTable     = $proxyDb->getNotificationLinks();
+        $platformParameters        = json_decode($notificationPlatformTable[$_POST['platformId']]['parameters'], true);
+        $platformName              = $notifications->getNotificationPlatformNameFromId($_POST['platformId'], $notificationPlatformTable);
 
         //-- CHECK FOR REQUIRED FIELDS
         foreach ($platformParameters as $platformParameterField => $platformParameterData) {

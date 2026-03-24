@@ -35,10 +35,10 @@ class Database
         global $starr, $shell, $cache;
 
         $this->connect(DATABASE_PATH . $dbName);
-        $this->dbName   = $dbName;
-        $this->starr    = $starr ?: new Starr();
-        $this->shell    = $shell ?: new Shell();
-        $this->cache    = $cache ?: new Cache();
+        $this->dbName = $dbName;
+        $this->starr  = $starr ?: new Starr();
+        $this->shell  = $shell ?: new Shell();
+        $this->cache  = $cache ?: new Cache();
     }
 
     public function connect($dbFile)
@@ -109,7 +109,7 @@ class Database
         }
 
         $backups = [];
-        $dir = opendir(BACKUP_PATH);
+        $dir     = opendir(BACKUP_PATH);
         while ($backup = readdir($dir)) {
             if ($backup[0] == '.' || !is_dir(BACKUP_PATH . $backup)) {
                 continue;
@@ -117,7 +117,7 @@ class Database
 
             $proxyDatabaseSize = filesize(BACKUP_PATH . $backup . '/' . PROXY_DATABASE_NAME);
             $usageDatabaseSize = filesize(BACKUP_PATH . $backup . '/' . USAGE_DATABASE_NAME);
-            $backups[$backup] = [PROXY_DATABASE_NAME => byteConversion($proxyDatabaseSize), USAGE_DATABASE_NAME => byteConversion($usageDatabaseSize)];
+            $backups[$backup]  = [PROXY_DATABASE_NAME => byteConversion($proxyDatabaseSize), USAGE_DATABASE_NAME => byteConversion($usageDatabaseSize)];
         }
         closedir($dir);
         krsort($backups);
@@ -128,7 +128,7 @@ class Database
     public function getNewestMigration()
     {
         $newestMigration = '001';
-        $dir = opendir(MIGRATIONS_PATH);
+        $dir             = opendir(MIGRATIONS_PATH);
         while ($migration = readdir($dir)) {
             if (intval(substr($migration, 0, 3)) > intval($newestMigration) && str_contains($migration, '.php')) {
                 $newestMigration = substr($migration, 0, 3);
@@ -141,9 +141,9 @@ class Database
 
     public function migrations()
     {
-        $proxyDb    = $this;
-        $usageDb    = new Database(USAGE_DATABASE_NAME);
-        $starr      = new Starr();
+        $proxyDb = $this;
+        $usageDb = new Database(USAGE_DATABASE_NAME);
+        $starr   = new Starr();
 
         //-- DONT RUN MIGRATIONS IF IT IS ALREADY RUNNING
         if (file_exists(MIGRATION_FILE)) {
@@ -164,7 +164,7 @@ class Database
             logger(MIGRATION_LOG, ['text' => 'migration 001 <-']);
 
             $neededMigrations = [];
-            $dir = opendir(MIGRATIONS_PATH);
+            $dir              = opendir(MIGRATIONS_PATH);
             while ($migration = readdir($dir)) {
                 if (substr($migration, 0, 3) > '001' && substr($migration, 0, 3) > $this->getSetting('migration') && str_contains($migration, '.php')) {
                     $neededMigrations[substr($migration, 0, 3)] = $migration;
@@ -184,7 +184,7 @@ class Database
             }
         } else { //-- GET CURRENT MIGRATION & CHECK FOR NEEDED MIGRATIONS
             $neededMigrations = [];
-            $dir = opendir(MIGRATIONS_PATH);
+            $dir              = opendir(MIGRATIONS_PATH);
             while ($migration = readdir($dir)) {
                 if (substr($migration, 0, 3) > $this->getSetting('migration') && str_contains($migration, '.php')) {
                     $neededMigrations[substr($migration, 0, 3)] = $migration;

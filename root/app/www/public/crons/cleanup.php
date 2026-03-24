@@ -26,24 +26,24 @@ if (!defined('ABSOLUTE_PATH')) {
 require ABSOLUTE_PATH . 'loader.php';
 
 //-- OLD LOGS
-$folders   = [
-                LOGS_PATH,
-                LOGS_PATH . 'system/',
-                LOGS_PATH . 'notifications/'
-            ];
+$folders = [
+    LOGS_PATH,
+    LOGS_PATH . 'system/',
+    LOGS_PATH . 'notifications/'
+];
 
 foreach ($folders as $folder) {
     if (is_dir($folder)) {
         $dir = opendir($folder);
         while ($file = readdir($dir)) {
             $logfile = $folder . $file;
-    
+
             if (!str_contains($logfile, '.log')) {
                 continue;
             }
-    
+
             if (filemtime($logfile) <= (time() - (86400 * LOG_AGE))) {
-                echo date('c') . ' removing old logfile \'' . $logfile . '\''."\n";
+                echo date('c') . ' removing old logfile \'' . $logfile . '\'' . "\n";
                 $shell->exec('rm "' . $logfile . '"');
             }
         }
@@ -60,7 +60,7 @@ if (is_dir(BACKUP_PATH)) {
         //-- NOTIFIARR CORRUPTION CHECKS
         if (str_contains($backupFolder, '.zip')) {
             if (filemtime($backupFolder) <= (time() - (86400 * STARR_BACKUP_AGE))) {
-                echo date('c') . ' removing old starr backup \'' . $backupFolder . '\''."\n";
+                echo date('c') . ' removing old starr backup \'' . $backupFolder . '\'' . "\n";
                 $shell->exec('rm "' . $backupFolder . '"');
             }
         }
@@ -70,7 +70,7 @@ if (is_dir(BACKUP_PATH)) {
         }
 
         if (filemtime($backupFolder) <= (time() - (86400 * BACKUP_AGE))) {
-            echo date('c') . ' removing old backup \'' . $backupFolder . '\''."\n";
+            echo date('c') . ' removing old backup \'' . $backupFolder . '\'' . "\n";
             $shell->exec('rm -r "' . $backupFolder . '"');
         }
     }

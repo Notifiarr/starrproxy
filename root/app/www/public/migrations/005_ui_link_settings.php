@@ -15,16 +15,16 @@ $q[] = "UPDATE " . SETTINGS_TABLE . "
         SET value = '005'
         WHERE name = 'migration'";
 
-$settings   = [
-                'uiHeaderLidarr'        => true,
-                'uiHeaderProwlarr'      => true,
-                'uiHeaderRadarr'        => true,
-                'uiHeaderReadarr'       => true,
-                'uiHeaderSonarr'        => true,
-                'uiHeaderWhisparr'      => true,
-                'uiHeaderNotifications' => true,
-                'uiHeaderHelp'          => true
-            ];
+$settings = [
+    'uiHeaderLidarr'        => true,
+    'uiHeaderProwlarr'      => true,
+    'uiHeaderRadarr'        => true,
+    'uiHeaderReadarr'       => true,
+    'uiHeaderSonarr'        => true,
+    'uiHeaderWhisparr'      => true,
+    'uiHeaderNotifications' => true,
+    'uiHeaderHelp'          => true
+];
 
 $settingRows = [];
 foreach ($settings as $key => $val) {
@@ -32,7 +32,7 @@ foreach ($settings as $key => $val) {
 }
 
 $q[] = "INSERT INTO " . SETTINGS_TABLE . "
-        (`name`, `value`) 
+        (`name`, `value`)
         VALUES " . implode(', ', $settingRows);
 
 foreach ($q as $query) {

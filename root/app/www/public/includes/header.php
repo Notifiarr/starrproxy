@@ -18,6 +18,7 @@ if (!$_SESSION['IN_UI']) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="utf-8">
         <title><?= APP_NAME ?></title>
@@ -47,11 +48,12 @@ if (!$_SESSION['IN_UI']) {
         <!-- Internal Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
+
     <body data-bs-theme="<?= USER_THEME_MODE ?>">
         <nav class="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="?page=home">
-                    <img src="images/logo-32.png"> <?= APP_NAME ?>
+                    <p><span>starr</span>proxy</p>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -60,7 +62,7 @@ if (!$_SESSION['IN_UI']) {
                     <ul class="navbar-nav">
                         <?php
                         foreach (StarrApps::LIST as $index => $starrApp) {
-                            $active = $app == $starrApp;
+                            $active        = $app == $starrApp;
                             $starrAppCount = 0;
 
                             foreach ($starrsTable as $starrDbApp) {
@@ -72,25 +74,27 @@ if (!$_SESSION['IN_UI']) {
 
                             ?>
                             <li class="nav-item <?= !$settingsTable['uiHeader' . ucfirst($starrApp)] ? 'd-none' : '' ?>">
-                                <a class="nav-link <?= $active ? 'active' : '' ?>" href="/?app=<?= $starrApp ?>"><img src="images/logos/<?= $starrApp ?>.png" style="height: 18px;"> <span class="me-3"><?= ucfirst($starrApp) ?> - <?= $starrAppCount ?></span></a>
+                                <a class="nav-link <?= $active ? 'active' : '' ?>" href="/?app=<?= $starrApp ?>"><img src="images/logos/<?= $starrApp ?>.png" style="height: 18px;"> <span><?= ucfirst($starrApp) ?> <small><?= $starrAppCount ?></small></span></a>
                             </li>
                             <?php
                         }
                         ?>
+                    </ul>
+                    <ul class="navbar-nav navbar-icons ms-auto">
                         <li class="nav-item <?= !$settingsTable['uiHeaderNotifications'] ? 'd-none' : '' ?>">
-                            <a class="nav-link <?= $page == 'notifications' ? 'active' : '' ?>" href="/?page=notifications"><i class="fas fa-comment-dots me-2"></i> <span class="me-3">Notifications</span></a>
+                            <a class="nav-link <?= $page == 'notifications' ? 'active' : '' ?>" href="/?page=notifications"><i class="fas fa-comment-dots"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $page == 'templates' ? 'active' : '' ?>" href="/?page=templates"><i class="far fa-file-alt"></i> <span class="me-3">Templates</span></a>
+                            <a class="nav-link <?= $page == 'templates' ? 'active' : '' ?>" href="/?page=templates"><i class="far fa-file-alt"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $page == 'logs' ? 'active' : '' ?>" href="/?page=logs"><i class="fas fa-clipboard-list"></i> <span class="me-3">Logs</span></a>
+                            <a class="nav-link <?= $page == 'logs' ? 'active' : '' ?>" href="/?page=logs"><i class="fas fa-clipboard-list"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $page == 'settings' ? 'active' : '' ?>" href="/?page=settings"><i class="fas fa-cog"></i> <span class="me-3">Settings</span></a>
+                            <a class="nav-link <?= $page == 'settings' ? 'active' : '' ?>" href="/?page=settings"><i class="fas fa-cog"></i></a>
                         </li>
                         <li class="nav-item <?= !$settingsTable['uiHeaderHelp'] ? 'd-none' : '' ?>">
-                            <a class="nav-link <?= $page == 'help' ? 'active' : '' ?>" href="/?page=help"><i class="far fa-question-circle"></i> <span class="me-3">Help</span></a>
+                            <a class="nav-link <?= $page == 'help' ? 'active' : '' ?>" href="/?page=help"><i class="far fa-question-circle"></i></a>
                         </li>
                     </ul>
                 </div>

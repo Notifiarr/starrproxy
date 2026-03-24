@@ -195,7 +195,7 @@ function clipboard(elm, elmType)
 // ---------------------------------------------------------------------------------------------
 function reload()
 {
-    window.location.href = window.location.href;
+    window.location.reload();
 }
 // ---------------------------------------------------------------------------------------------
 function loadingStart()

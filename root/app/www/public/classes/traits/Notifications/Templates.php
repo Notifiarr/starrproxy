@@ -14,18 +14,18 @@ trait NotificationTemplates
         switch ($trigger) {
             case 'blocked':
                 return [
-                        'event'     => '', 
-                        'proxyApp'  => '',
-                        'starrApp'  => '',
-                        'endpoint'  => '',
-                        'method'    => ''
-                    ];
+                    'event'    => '',
+                    'proxyApp' => '',
+                    'starrApp' => '',
+                    'endpoint' => '',
+                    'method'   => ''
+                ];
             case 'test':
                 return [
-                        'event'     => '', 
-                        'title'     => '', 
-                        'message'   => ''
-                    ];
+                    'event'   => '',
+                    'title'   => '',
+                    'message' => ''
+                ];
             default:
                 return [];
         }

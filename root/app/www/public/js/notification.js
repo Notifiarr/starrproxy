@@ -148,7 +148,7 @@ function openNotificationTriggers(platformId, linkId = 0)
                 onOpen: function() {
                     loadingStop();
                 }
-            });           
+            });
         }
     });
 }

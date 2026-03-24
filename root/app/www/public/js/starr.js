@@ -162,7 +162,7 @@ function deleteAppStarrAccess(app, id)
                     toast('App access', resultData, 'error');
                     return;
                 }
-    
+
                 reload();
             }
         });
@@ -181,7 +181,7 @@ function resetUsage(app, id)
                     toast('Usage', resultData, 'error');
                     return;
                 }
-    
+
                 reload();
             }
         });

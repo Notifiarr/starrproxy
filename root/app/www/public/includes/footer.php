@@ -17,25 +17,13 @@ if (!$_SESSION['IN_UI']) {
 
 ?>
 </div>
-<footer id="footer" class="footer fixed-bottom bg-dark pb-3" style="height: 3.5rem !important;">
+<footer id="footer" class="footer fixed-bottom bg-dark">
     <div class="container-fluid bg-dark">
         <div id="footer-content" class="row bg-dark">
-            <div id="footer-branch" class="col-4 text-center mt-2">
-                Version: <?= gitVersion() ?><br>
-            </div>
-            <div id="footer-themes" class="col-4 text-center mt-2">
-                <select id="theme-select" class="form-select" onchange="updateSetting('defaultTheme', $(this).val());">
-                    <?php
-                    foreach ($themes as $theme) {
-                        ?>
-                        <option <?= $theme == USER_THEME ? 'selected' : '' ?> value="<?= $theme ?>"><?= $theme ?></option>
-                        <?php
-                    }
-                    ?>
-                </select>
-            </div>
-            <div id="footer-icons" class="col-4 text-end mt-2">
+            <div id="footer-branch" class="col-4 text-start">
                 <a href="https://github.com/Notifiarr/starrproxy" title="Visit the <?= APP_NAME ?> github" target="_blank"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://notifiarr.com/discord" title="Visit the <?= APP_NAME ?> github" target="_blank"><i class="fab fa-discord fa-lg"></i></a>
+                <span><?= gitVersion(true) ?></span>
             </div>
         </div>
     </div>
@@ -48,14 +36,12 @@ if (!$_SESSION['IN_UI']) {
 <div id="dialog-modal-container">
     <div class="modal fade" id="dialog-modal" style="z-index: 9999 !important;" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content bg-dark" style="border: grey solid 1px;">
-                <div class="modal-header" style="border: grey solid 1px;">
-                    <h5 class="modal-title w-100"></h5>
-                    <div class="d-flex text-end">
-                        <i class="far fa-window-close fa-2x" data-bs-dismiss="modal" style="cursor: pointer;"></i>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body" data-scrollbar=”true” data-wheel-propagation=”true”></div>
+                <div class="modal-body" data-scrollbar="true" data-wheel-propagation="true"></div>
                 <div class="modal-footer"></div>
             </div>
         </div>
@@ -96,7 +82,8 @@ while ($file = readdir($dir)) {
     }
 
     ?>
-    <script src="js/<?= $file ?>?t=<?= filemtime('js/' . $file) ?>"></script><?php
+    <script src="js/<?= $file ?>?t=<?= filemtime('js/' . $file) ?>"></script>
+    <?php
 }
 closedir($dir);
 ?>

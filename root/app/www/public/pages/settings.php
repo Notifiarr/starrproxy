@@ -16,7 +16,7 @@ if (!$_SESSION['IN_UI']) {
 }
 
 $migrations = '<option value="000">000_fresh_start</option>';
-$dir = opendir(MIGRATIONS_PATH);
+$dir        = opendir(MIGRATIONS_PATH);
 while ($migration = readdir($dir)) {
     if (str_contains($migration, '.php')) {
         $migrationFiles[] = $migration;
@@ -72,7 +72,7 @@ $cacheStats = $cache->stats();
                     <table class="table table-no-squish table-sm table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th colspan="2">Navigation</th>
+                                <td colspan="2">Navigation</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -113,7 +113,7 @@ $cacheStats = $cache->stats();
                         </tbody>
                         <thead>
                             <tr>
-                                <th colspan="2">Templates</th>
+                                <td colspan="2">Templates</td>
                             </tr>
                             <tr>
                                 <td class="w-25">Order</td>
@@ -189,7 +189,7 @@ $cacheStats = $cache->stats();
                                             foreach ($backups as $date => $databases) {
                                                 ?>
                                                 <div class="col-sm-12 col-lg-3">
-                                                    <span><?= $date ?></span><br> 
+                                                    <span><?= $date ?></span><br>
                                                     <span class="text-secondary ms-2">⤷ <?= PROXY_DATABASE_NAME ?>: <?= $databases[PROXY_DATABASE_NAME] ?></span><br>
                                                     <span class="text-secondary ms-2">⤷ <?= USAGE_DATABASE_NAME ?>: <?= $databases[USAGE_DATABASE_NAME] ?></span><br>
                                                 </div>

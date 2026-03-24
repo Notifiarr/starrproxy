@@ -12,7 +12,7 @@ function gitBranch()
     if (!defined('DOCKERFILE_BRANCH')) {
         return 'Source';
     }
-       
+
     return DOCKERFILE_BRANCH;
 }
 
@@ -34,11 +34,15 @@ function gitMessage()
     return DOCKERFILE_COMMIT_MSG;
 }
 
-function gitVersion()
+function gitVersion($full = false)
 {
     if (!defined('DOCKERFILE_COMMITS')) {
-        return '<span class="text-small text-secondary" title="Branch: ' . gitBranch() . ' - Commit: ' . gitHash() . '">v0.0.0</span>';
+        return ($full ? 'v' : '') . '0.0.0' . ($full ? ' - ' . gitBranch() : '');
     }
 
-    return '<span class="text-small text-secondary" title="Branch: ' . gitBranch() . ' - Commit: ' . gitHash() . '">v' . APP_X . '.' . APP_Y . '.' . DOCKERFILE_COMMITS . '</span>';
+    if ($full) {
+        return 'v' . APP_X . '.' . APP_Y . '.' . DOCKERFILE_COMMITS . ' - ' . gitBranch();
+    }
+
+    return APP_X . '.' . APP_Y . '.' . DOCKERFILE_COMMITS;
 }

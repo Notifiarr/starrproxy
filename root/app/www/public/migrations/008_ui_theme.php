@@ -11,8 +11,8 @@
 $q = [];
 
 $settings = [
-                'defaultTheme' => 'nzblack'
-            ];
+    'defaultTheme' => 'nzblack'
+];
 
 $settingRows = [];
 foreach ($settings as $key => $val) {
@@ -20,7 +20,7 @@ foreach ($settings as $key => $val) {
 }
 
 $q[] = "INSERT INTO " . SETTINGS_TABLE . "
-        (`name`, `value`) 
+        (`name`, `value`)
         VALUES " . implode(', ', $settingRows);
 
 //-- ALWAYS NEED TO BUMP THE MIGRATION ID

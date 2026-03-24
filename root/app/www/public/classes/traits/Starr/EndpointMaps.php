@@ -16,16 +16,16 @@ trait EndpointMaps
     {
         $version = $this->apiVersion($starr);
 
-        $maps['lidarr']     = [];
-        $maps['prowlarr']   = [];
-        $maps['radarr']     = [
-                                ['get' => ['/api/system/status' => '/api/' . $version . '/system/status']]
-                            ];
-        $maps['readarr']    = [];
-        $maps['sonarr']     = [
-                                ['get' => ['/api/system/status' => '/api/' . $version . '/system/status']]
-                            ];
-        $maps['whisparr']   = [];
+        $maps['lidarr']   = [];
+        $maps['prowlarr'] = [];
+        $maps['radarr']   = [
+            ['get' => ['/api/system/status' => '/api/' . $version . '/system/status']]
+        ];
+        $maps['readarr']  = [];
+        $maps['sonarr']   = [
+            ['get' => ['/api/system/status' => '/api/' . $version . '/system/status']]
+        ];
+        $maps['whisparr'] = [];
 
         return $maps[$starr];
     }

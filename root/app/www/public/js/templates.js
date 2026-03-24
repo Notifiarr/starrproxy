@@ -10,7 +10,7 @@ function viewTemplate(template, index)
         url: 'ajax/templates.php',
         data: '&m=viewTemplate&template=' + template,
         success: function (resultData) {
-            $('#template-viewer').html(resultData)
+            $('#template-viewer').html(resultData);
             loadingStop();
         }
     });

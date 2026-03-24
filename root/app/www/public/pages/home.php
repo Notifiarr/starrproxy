@@ -15,20 +15,18 @@ if (!$_SESSION['IN_UI']) {
     exit('Invalid session, refresh the page');
 }
 
-$getTotalAppStats       = getTotalAppStats($starrsTable);
-$getTotalEndpointStats  = getTotalEndpointStats($starrsTable, $appsTable);
-$getTotalUsageStats     = getTotalUsageStats($starrsTable, $appsTable, $usageTable);
+$getTotalAppStats      = getTotalAppStats($starrsTable);
+$getTotalEndpointStats = getTotalEndpointStats($starrsTable, $appsTable);
+$getTotalUsageStats    = getTotalUsageStats($starrsTable, $appsTable, $usageTable);
 ?>
 
 <div class="card mb-3">
     <div class="card-header">Purpose</div>
     <div class="card-body">
         <p class="card-text">
-            The list of 3<sup>rd</sup> party apps that utilize the starr app API's is ever growing but their is no limitation to what they can do and access! Most apps need very 
-            little access to function so why expose every method available and full access to your database needlessly?<br><br>
-
-            Permission scopes for apikeys is something that would be better served native in the apps but as it stands that request was denied years ago so it was time to simply make it 
-            possible with another solution.
+            The list of third-party apps using the Starr app APIs continues to grow, but there are currently no restrictions on what they can access or perform.<br>
+            In reality, most of these apps only require minimal permissions to function properly, so granting full access to every endpoint and your entire database is unnecessary and potentially risky.<br><br>
+            Ideally, API key permission scopes would be implemented natively within the apps themselves. However, since that request was declined years ago, it became necessary to develop an alternative solution to address this limitation.
         </p>
     </div>
 </div>
@@ -39,103 +37,142 @@ $getTotalUsageStats     = getTotalUsageStats($starrsTable, $appsTable, $usageTab
         <div class="row">
             <div class="col-sm-12 col-lg-3">
                 <div class="card mb-3">
-                    <div class="card-header">Starr instances</div>
+                    <div class="card-header">Instances</div>
                     <div class="card-body">
                         <table class="table table-no-squish table-bordered table-hover">
-                            <tr>
-                                <td></td>
-                                <td>Starr</td>
-                                <td>Instances</td>
-                            </tr>
-                            <?php
-                            if ($getTotalAppStats) {
-                                foreach ($getTotalAppStats as $starrApp => $instances) {
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>Starr</td>
+                                    <td>Instances</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if ($getTotalAppStats) {
+                                    foreach ($getTotalAppStats as $starrApp => $instances) {
+                                        ?>
+                                        <tr>
+                                            <td class="table-icon"><img src="images/logos/<?= $starrApp ?>.png" style="height:20px;"></td>
+                                            <td>
+                                                <?= ucfirst($starrApp) ?>
+                                            </td>
+                                            <td>
+                                                <?= $instances ?>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                } else {
                                     ?>
-                                    <tr>
-                                        <td><img src="images/logos/<?= $starrApp ?>.png" style="height:20px;"></td>
-                                        <td><?= ucfirst($starrApp) ?></td>
-                                        <td><?= $instances ?></td>
-                                    </tr>
+                                    <td colspan="3">Nothing protected! What are you waiting for?</td>
                                     <?php
                                 }
-                            } else {
-                                ?><td colspan="3">Nothing protected! What are you waiting for?</td><?php
-                            }
-                            ?>
+                                ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-lg-3">
                 <div class="card mb-3">
-                    <div class="card-header">Starr app endpoints</div>
+                    <div class="card-header">Endpoints</div>
                     <div class="card-body">
                         <table class="table table-no-squish table-bordered table-hover">
-                            <tr>
-                                <td></td>
-                                <td>Starr</td>
-                                <td>Apps</td>
-                                <td>Enabled</td>
-                                <td>Disabled</td>
-                            </tr>
-                            <?php
-                            if ($getTotalEndpointStats) {
-                                foreach ($getTotalEndpointStats as $starrApp => $endpointStats) {
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>Starr</td>
+                                    <td>Apps</td>
+                                    <td>Enabled</td>
+                                    <td>Disabled</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                if ($getTotalEndpointStats) {
+                                    foreach ($getTotalEndpointStats as $starrApp => $endpointStats) {
+                                        ?>
+                                        <tr>
+                                            <td><img src="images/logos/<?= $starrApp ?>.png" style="height:20px;"></td>
+                                            <td>
+                                                <?= ucfirst($starrApp) ?>
+                                            </td>
+                                            <td>
+                                                <?= number_format($endpointStats['apps']) ?>
+                                            </td>
+                                            <td>
+                                                <?= number_format($endpointStats['allowed']) ?>
+                                            </td>
+                                            <td>
+                                                <?= number_format($endpointStats['total'] - $endpointStats['allowed']) ?>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                } else {
                                     ?>
-                                    <tr>
-                                        <td><img src="images/logos/<?= $starrApp ?>.png" style="height:20px;"></td>
-                                        <td><?= ucfirst($starrApp) ?></td>
-                                        <td><?= number_format($endpointStats['apps']) ?></td>
-                                        <td><?= number_format($endpointStats['allowed']) ?></td>
-                                        <td><?= number_format($endpointStats['total'] - $endpointStats['allowed']) ?></td>
-                                    </tr>
+                                    <td colspan="5">Nothing protected! What are you waiting for?</td>
                                     <?php
                                 }
-                            } else {
-                                ?><td colspan="5">Nothing protected! What are you waiting for?</td><?php
-                            }
-                            ?>
+                                ?>
+                            </tbody>
+
                         </table>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-lg-3">
                 <div class="card mb-3">
-                    <div class="card-header">Starr api enforcement</div>
+                    <div class="card-header">Enforcement</div>
                     <div class="card-body">
                         <table class="table table-no-squish table-bordered table-hover">
-                            <tr>
-                                <td></td>
-                                <td>Starr</td>
-                                <td>Allowed</td>
-                                <td>Rejected</td>
-                            </tr>
-                            <?php
-                            if ($getTotalUsageStats) {
-                                foreach ($getTotalUsageStats as $starrApp => $usageStats) {
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>Starr</td>
+                                    <td>Allowed</td>
+                                    <td>Rejected</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                if ($getTotalUsageStats) {
+                                    foreach ($getTotalUsageStats as $starrApp => $usageStats) {
+                                        ?>
+                                        <tr>
+                                            <td><img src="images/logos/<?= $starrApp ?>.png" style="height:20px;"></td>
+                                            <td>
+                                                <?= ucfirst($starrApp) ?>
+                                            </td>
+                                            <td>
+                                                <?= number_format($usageStats['allowed']) ?>
+                                            </td>
+                                            <td>
+                                                <?= number_format($usageStats['rejected']) ?>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                } else {
                                     ?>
-                                    <tr>
-                                        <td><img src="images/logos/<?= $starrApp ?>.png" style="height:20px;"></td>
-                                        <td><?= ucfirst($starrApp) ?></td>
-                                        <td><?= number_format($usageStats['allowed']) ?></td>
-                                        <td><?= number_format($usageStats['rejected']) ?></td>
-                                    </tr>
+                                    <td colspan="4">Nothing protected! What are you waiting for?</td>
                                     <?php
                                 }
-                            } else {
-                                ?><td colspan="4">Nothing protected! What are you waiting for?</td><?php
-                            }
-                            ?>
+                                ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-lg-4">
                 <div class="card mb-3">
-                    <div class="card-header">Template problems</div>
+                    <div class="card-header">Issues</div>
                     <div class="card-body">
                         <?php
-                        $noTemplate = '';
+                        $noTemplate  = '';
                         $notMatching = [];
 
                         foreach ($appsTable as $app) {
@@ -143,8 +180,8 @@ $getTotalUsageStats     = getTotalUsageStats($starrsTable, $appsTable, $usageTab
                                 $noTemplate .= ($noTemplate ? ', ' : '') . $app['name'];
                             }
 
-                            $templateFile   = file_exists($app['template']) ? $app['template'] : str_replace('../', './', $app['template']);
-                            $appAccess      = json_decode($app['endpoints'], true);
+                            $templateFile = file_exists($app['template']) ? $app['template'] : str_replace('../', './', $app['template']);
+                            $appAccess    = json_decode($app['endpoints'], true);
 
                             if (file_exists($templateFile)) {
                                 $appTemplate = getFile($templateFile);
@@ -163,28 +200,42 @@ $getTotalUsageStats     = getTotalUsageStats($starrsTable, $appsTable, $usageTab
                         if ($notMatching) {
                             ?>
                             <table class="table table-no-squish table-bordered table-hover">
-                                <tr>
-                                    <td>Starr</td>
-                                    <td>App</td>
-                                    <td>App access</td>
-                                    <td>Template access</td>
-                                    <td></td>
-                                </tr>
-                                <?php
-                                foreach ($notMatching as $starrAppName => $starrAppApps) {
-                                    foreach ($starrAppApps as $starrAppApp) {
-                                        ?>
-                                        <tr>
-                                            <td><?= $starrAppName ?></td>
-                                            <td><?= $starrAppApp['app'] ?></td>
-                                            <td><?= $starrAppApp['endpoints'] ?></td>
-                                            <td><?= $starrAppApp['template'] ?></td>
-                                            <td><i class="far fa-check-circle text-success" title="Match endpoints/methods to template" style="cursor:pointer;" onclick="viewAppEndpointDiff(<?= $starrAppApp['id'] ?>)"></i></td>
-                                        </tr>
-                                        <?php
+                                <thead>
+                                    <tr>
+                                        <td>Starr</td>
+                                        <td>App</td>
+                                        <td>Allowed Endpoints</td>
+                                        <td>Template Endpoints</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php
+                                    foreach ($notMatching as $starrAppName => $starrAppApps) {
+                                        foreach ($starrAppApps as $starrAppApp) {
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <?= $starrAppName ?>
+                                                </td>
+                                                <td>
+                                                    <?= $starrAppApp['app'] ?>
+                                                </td>
+                                                <td>
+                                                    <?= $starrAppApp['endpoints'] ?>
+                                                </td>
+                                                <td>
+                                                    <?= $starrAppApp['template'] ?>
+                                                </td>
+                                                <td><i class="far fa-check-circle text-success" title="Match endpoints/methods to template" style="cursor:pointer;" onclick="viewAppEndpointDiff(<?= $starrAppApp['id'] ?>)"></i></td>
+                                            </tr>
+                                            <?php
+                                        }
                                     }
-                                }
-                                ?>
+                                    ?>
+                                </tbody>
+
                             </table>
                             <?php
                         } else {
@@ -192,7 +243,8 @@ $getTotalUsageStats     = getTotalUsageStats($starrsTable, $appsTable, $usageTab
                         }
 
                         if ($noTemplate) {
-                            ?><hr>Apps with no template assigned: <?= $noTemplate ?><?php
+                            ?>
+                            <hr>Apps with no template assigned: <?= $noTemplate ?><?php
                         }
                         ?>
                     </div>

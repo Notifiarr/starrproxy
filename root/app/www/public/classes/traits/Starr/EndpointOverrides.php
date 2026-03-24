@@ -16,20 +16,20 @@ trait EndpointOverrides
     {
         $version = $this->apiVersion($starr);
 
-        $overrides['lidarr']    = [];
-        $overrides['prowlarr']  = [];
-        $overrides['radarr']    = [
-                                    '/api/system/status'                    => ['get'],
-                                    '/api/' . $version . '/movie'           => ['put'],
-                                    '/api/' . $version . '/config/naming'   => ['put']
-                                ];
-        $overrides['readarr']   = [];
-        $overrides['sonarr']    = [
-                                    '/api/system/status'                    => ['get'],
-                                    '/api/' . $version . '/series'          => ['put'],
-                                    '/api/' . $version . '/config/naming'   => ['put']
-                                ];
-        $overrides['whisparr']  = [];
+        $overrides['lidarr']   = [];
+        $overrides['prowlarr'] = [];
+        $overrides['radarr']   = [
+            '/api/system/status'                  => ['get'],
+            '/api/' . $version . '/movie' => ['put'],
+            '/api/' . $version . '/config/naming' => ['put']
+        ];
+        $overrides['readarr']  = [];
+        $overrides['sonarr']   = [
+            '/api/system/status'                  => ['get'],
+            '/api/' . $version . '/series' => ['put'],
+            '/api/' . $version . '/config/naming' => ['put']
+        ];
+        $overrides['whisparr'] = [];
 
         return $overrides[$starr];
     }

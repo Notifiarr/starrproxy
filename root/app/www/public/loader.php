@@ -22,18 +22,18 @@ if (!defined('ABSOLUTE_PATH')) {
 }
 
 //-- USED FOR MIGRATIONS, DEFINES SET BELOW
-$LOG_ROTATE_SIZE    = 2; //-- MB UNTIL ROTATE
-$LOG_AGE            = 2; //-- DELETE AFTER THIS AMOUNT OF DAYS
-$BACKUP_AGE         = 7; //-- DELETE AFTER THIS AMOUNT OF DAYS
+$LOG_ROTATE_SIZE = 2; //-- MB UNTIL ROTATE
+$LOG_AGE         = 2; //-- DELETE AFTER THIS AMOUNT OF DAYS
+$BACKUP_AGE      = 7; //-- DELETE AFTER THIS AMOUNT OF DAYS
 
 //-- SETUP SOME SHARED VARIABLES
-$page       = $_GET['page'] ?: $_POST['page'];
-$app        = $_GET['app'] ?: $_POST['app'];
-$appLabel   = ucfirst($app);
+$page     = $_GET['page'] ?: $_POST['page'];
+$app      = $_GET['app'] ?: $_POST['app'];
+$appLabel = ucfirst($app);
 
 //-- DIRECTORIES TO LOAD FILES FROM, ORDER IS IMPORTANT
-$autoloads          = ['includes', 'functions', 'functions/helpers', 'classes'];
-$ignoreAutoloads    = ['header.php', 'footer.php'];
+$autoloads       = ['includes', 'functions', 'functions/helpers', 'classes'];
+$ignoreAutoloads = ['header.php', 'footer.php'];
 
 foreach ($autoloads as $autoload) {
     $dir = ABSOLUTE_PATH . $autoload;
@@ -79,10 +79,10 @@ if (!file_exists(APP_APIKEY_FILE)) {
 define('APP_APIKEY', file_get_contents(APP_APIKEY_FILE));
 
 //-- LOAD THE TABLES
-$starrsTable    = $proxyDb->getStarrsTable();
-$appsTable      = $proxyDb->getAppsTable();
-$settingsTable  = $proxyDb->getSettings();
-$usageTable     = $usageDb->getUsageTable();
+$starrsTable   = $proxyDb->getStarrsTable();
+$appsTable     = $proxyDb->getAppsTable();
+$settingsTable = $proxyDb->getSettings();
+$usageTable    = $usageDb->getUsageTable();
 
 //-- SOMETIMES THE TABLE IS BUSY, RETRY
 if (!$usageTable && ($app || !$page || $page == 'home')) {

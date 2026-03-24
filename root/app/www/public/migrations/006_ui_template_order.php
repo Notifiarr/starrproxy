@@ -15,9 +15,9 @@ $q[] = "UPDATE " . SETTINGS_TABLE . "
         SET value = '006'
         WHERE name = 'migration'";
 
-$settings   = [
-                'templateOrder' => 1
-            ];
+$settings = [
+    'templateOrder' => 1
+];
 
 $settingRows = [];
 foreach ($settings as $key => $val) {
@@ -25,7 +25,7 @@ foreach ($settings as $key => $val) {
 }
 
 $q[] = "INSERT INTO " . SETTINGS_TABLE . "
-        (`name`, `value`) 
+        (`name`, `value`)
         VALUES " . implode(', ', $settingRows);
 
 foreach ($q as $query) {

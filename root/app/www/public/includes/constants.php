@@ -8,8 +8,8 @@
 */
 
 define('APP_NAME', 'Starr Proxy');
-define('APP_API_ERROR', APP_NAME .': %s');
-define('APP_URL', ($_SERVER['REQUEST_SCHEME'] ?: 'http') . '://'. $_SERVER['HTTP_HOST']);
+define('APP_API_ERROR', APP_NAME . ': %s');
+define('APP_URL', ($_SERVER['REQUEST_SCHEME'] ?: 'http') . '://' . $_SERVER['HTTP_HOST']);
 define('APP_X', 0);
 define('APP_Y', 1);
 

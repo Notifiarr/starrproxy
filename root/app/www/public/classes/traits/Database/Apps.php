@@ -59,8 +59,8 @@ trait Apps
         }
 
         $q = "INSERT INTO " . APPS_TABLE . "
-              (" . $fieldList . ") 
-              VALUES 
+              (" . $fieldList . ")
+              VALUES
               (" . $valueList . ")";
         $this->query($q);
 
@@ -124,8 +124,8 @@ trait Apps
 
         if ($this->error() != 'not an error' || $this->affectedRows() == 0) {
             $q = "INSERT INTO " . USAGE_TABLE . "
-                  ('app_id', 'allowed', 'rejected') 
-                  VALUES 
+                  ('app_id', 'allowed', 'rejected')
+                  VALUES
                   ('" . $appId . "', " . ($field == 'allowed' ? 1 : 0) . ", " . ($field == 'rejected' ? 1 : 0) . ")";
             $this->query($q);
         }
@@ -133,10 +133,10 @@ trait Apps
 
     public function getAppUsage($appId)
     {
-        $q = "SELECT *
+        $q   = "SELECT *
               FROM " . USAGE_TABLE . "
               WHERE app_id = " . intval($appId);
-        $r = $this->query($q);
+        $r   = $this->query($q);
         $row = $this->fetchAssoc($r);
 
         return $row ?: [];
@@ -145,7 +145,7 @@ trait Apps
     public function resetAppUsage($appId)
     {
         $q = "UPDATE " . USAGE_TABLE . "
-              SET allowed = 0, rejected = 0 
+              SET allowed = 0, rejected = 0
               WHERE app_id = " . intval($appId);
         $this->query($q);
 

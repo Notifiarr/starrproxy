@@ -32,12 +32,12 @@ if (!$_SESSION['IN_UI']) {
                 <table class="table table-no-squish table-bordered" style="min-width: 750px;" align="center">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>URL</th>
-                            <th>Apikey</th>
-                            <th><i class="far fa-question-circle" title="This is only needed for corruption checks with Notifiarr"></i> User</th>
-                            <th><i class="far fa-question-circle" title="This is only needed for corruption checks with Notifiarr"></i> Pass</th>
-                            <th class="w-25">&nbsp;</th>
+                            <td>Name</td>
+                            <td>URL</td>
+                            <td>API Key</td>
+                            <td><i class="far fa-question-circle" title="This is only needed for corruption checks with Notifiarr" style="cursor:help;"></i> User</td>
+                            <td><i class="far fa-question-circle" title="This is only needed for corruption checks with Notifiarr" style="cursor:help;"></i> Pass</td>
+                            <td class="w-25">&nbsp;</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -121,13 +121,13 @@ if (!$_SESSION['IN_UI']) {
                 <table class="table table-no-squish table-bordered table-hover" style="min-width: 1000px;" align="center">
                     <thead>
                         <tr>
-                            <th>App</th>
-                            <th>Instance</th>
-                            <th>Access</th>
-                            <th>Redactions</th>
-                            <th>Apikey</th>
-                            <th>Usage</th>
-                            <th>Actions</th>
+                            <td>App</td>
+                            <td>Instance</td>
+                            <td>Access</td>
+                            <td>Redactions</td>
+                            <td>Apikey</td>
+                            <td>Usage</td>
+                            <td>Actions</td>
                         </tr>
                     </thead>
                     <tbody>

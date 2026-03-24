@@ -69,12 +69,12 @@ if ($_POST['m'] == 'saveStarr') {
     }
 
     $fields = [
-                'name'      => $name, 
-                'url'       => $_POST['url'], 
-                'apikey'    => $_POST['apikey'], 
-                'username'  => rawurldecode($_POST['username']), 
-                'password'  => rawurldecode($_POST['password'])
-            ];
+        'name'     => $name,
+        'url'      => $_POST['url'],
+        'apikey'   => $_POST['apikey'],
+        'username' => rawurldecode($_POST['username']),
+        'password' => rawurldecode($_POST['password'])
+    ];
 
     if (!$error) {
         if ($_POST['starrId'] == '99') {
@@ -119,7 +119,9 @@ if ($_POST['m'] == 'openAppStarrAccess') {
 
     ?>
     <?php if ($clone) { ?>
-        <center><h4>Cloning: <span class="text-warning"><?= $clone['name'] ?></span></h4></center>
+        <center>
+            <h4>Cloning: <span class="text-warning"><?= $clone['name'] ?></span></h4>
+        </center>
     <?php } ?>
     <table class="table table-no-squish table-bordered table-hover">
         <tr>
@@ -133,19 +135,22 @@ if ($_POST['m'] == 'openAppStarrAccess') {
         <tr>
             <td><?= ucfirst($app) ?> instance<br><span class="text-small">Select which instance this app will access</span></td>
             <td>
-                <select class="form-select" id="access-instance"><option value="">-- Select instance --</option><?= $appInstances ?></select>
+                <select class="form-select" id="access-instance">
+                    <option value="">-- Select instance --</option><?= $appInstances ?>
+                </select>
             </td>
         </tr>
         <tr>
             <td>Redactions<br><span class="text-small">Selected fields will have their value replaced with <code>{PROXY-REDACTED}</code> in the response</span></td>
             <td>
                 <select class="form-select" multiple size="5" id="access-redactions">
-                <?php
-                foreach ($redactedOptions as $redactedOption) {
-                    $redactedOption = trim($redactedOption);
-                    ?><option <?= !empty($existing['redactions']) && in_array($redactedOption, $existing['redactions']) ? 'selected ' : '' ?>value="<?= $redactedOption ?>"><?= $redactedOption ?></option><?php
-                }
-                ?>
+                    <?php
+                    foreach ($redactedOptions as $redactedOption) {
+                        $redactedOption = trim($redactedOption);
+                        ?>
+                        <option <?= !empty($existing['redactions']) && in_array($redactedOption, $existing['redactions']) ? 'selected ' : '' ?>value="<?= $redactedOption ?>"><?= $redactedOption ?></option><?php
+                    }
+                    ?>
                 </select>
             </td>
         </tr>
@@ -159,16 +164,16 @@ if ($_POST['m'] == 'openAppStarrAccess') {
             <td>
                 <?= ucfirst($app) ?> endpoints<br>
                 <span class="text-small">
-                    Check all: 
-                        <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-get').prop('checked', true)">get</span>,
-                        <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-post').prop('checked', true)">post</span>,
-                        <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-put').prop('checked', true)">put</span>,
-                        <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-delete').prop('checked', true)">delete</span><br>
-                    Uncheck all: 
-                        <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-get').prop('checked', false)">get</span>,
-                        <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-post').prop('checked', false)">post</span>,
-                        <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-put').prop('checked', false)">put</span>,
-                        <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-delete').prop('checked', false)">delete</span><br>
+                    Check all:
+                    <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-get').prop('checked', true)">get</span>,
+                    <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-post').prop('checked', true)">post</span>,
+                    <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-put').prop('checked', true)">put</span>,
+                    <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-delete').prop('checked', true)">delete</span><br>
+                    Uncheck all:
+                    <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-get').prop('checked', false)">get</span>,
+                    <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-post').prop('checked', false)">post</span>,
+                    <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-put').prop('checked', false)">put</span>,
+                    <span class="text-info" style="cursor: pointer;" onclick="$('.endpoint-delete').prop('checked', false)">delete</span><br>
                 </span>
             </td>
             <td>
@@ -230,13 +235,13 @@ if ($_POST['m'] == 'saveAppStarrAccess') {
         $endpoints[$val][] = $_POST['method-' . $id];
     }
 
-    $fields = [];
-    $fields['name']         = $_POST['name'];
-    $fields['apikey']       = $_POST['apikey'];
-    $fields['starr_id']     = intval($_POST['starr_id']);
-    $fields['endpoints']    = json_encode($endpoints, JSON_UNESCAPED_SLASHES);
-    $fields['template']     = $_POST['template'];
-    $fields['redactions']   = $_POST['redactions'];
+    $fields               = [];
+    $fields['name']       = $_POST['name'];
+    $fields['apikey']     = $_POST['apikey'];
+    $fields['starr_id']   = intval($_POST['starr_id']);
+    $fields['endpoints']  = json_encode($endpoints, JSON_UNESCAPED_SLASHES);
+    $fields['template']   = $_POST['template'];
+    $fields['redactions'] = $_POST['redactions'];
 
     if ($_POST['id'] != 99) {
         $error = $proxyDb->updateApp($_POST['id'], $fields);
@@ -260,10 +265,10 @@ if ($_POST['m'] == 'resetUsage') {
 }
 
 if ($_POST['m'] == 'addEndpointAccess') {
-    $app = $proxyDb->getAppFromId($_POST['id'], $appsTable);
-    $app['endpoints'] = json_decode($app['endpoints'], true);
+    $app                                    = $proxyDb->getAppFromId($_POST['id'], $appsTable);
+    $app['endpoints']                       = json_decode($app['endpoints'], true);
     $app['endpoints'][$_POST['endpoint']][] = $_POST['method'];
-    $app['endpoints'] = json_encode($app['endpoints'], JSON_UNESCAPED_SLASHES);
+    $app['endpoints']                       = json_encode($app['endpoints'], JSON_UNESCAPED_SLASHES);
 
     $error = $proxyDb->updateApp($_POST['id'], $app);
 
@@ -271,7 +276,7 @@ if ($_POST['m'] == 'addEndpointAccess') {
 }
 
 if ($_POST['m'] == 'removeEndpointAccess') {
-    $app = $proxyDb->getAppFromId($_POST['id'], $appsTable);
+    $app              = $proxyDb->getAppFromId($_POST['id'], $appsTable);
     $app['endpoints'] = json_decode($app['endpoints'], true);
 
     if (count($app['endpoints'][$_POST['endpoint']]) == 1) { //-- ONLY ONE METHOD, REMOVE THE ENDPOINT
@@ -298,12 +303,12 @@ if ($_POST['m'] == 'autoAdjustAppEndpoints') {
             continue;
         }
 
-        $templateFile   = file_exists($app['template']) ? $app['template'] : str_replace('../', './', $app['template']);
-        $appTemplate    = getFile($templateFile);
+        $templateFile = file_exists($app['template']) ? $app['template'] : str_replace('../', './', $app['template']);
+        $appTemplate  = getFile($templateFile);
 
         if ($appTemplate) {
             $app['endpoints'] = json_encode($appTemplate);
-            $error = $proxyDb->updateApp($_POST['appId'], $app);
+            $error            = $proxyDb->updateApp($_POST['appId'], $app);
         }
 
         break;
@@ -318,9 +323,9 @@ if ($_POST['m'] == 'viewAppEndpointDiff') {
             continue;
         }
 
-        $templateFile   = file_exists($app['template']) ? $app['template'] : str_replace('../', './', $app['template']);
-        $templateFile   = getFile($templateFile);
-        $appEndpoints   = json_decode($app['endpoints'], true);
+        $templateFile = file_exists($app['template']) ? $app['template'] : str_replace('../', './', $app['template']);
+        $templateFile = getFile($templateFile);
+        $appEndpoints = json_decode($app['endpoints'], true);
 
         break;
     }
@@ -343,42 +348,48 @@ if ($_POST['m'] == 'viewAppEndpointDiff') {
         <table class="table table-no-squish table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Endpoint</th>
-                    <th>Method</th>
-                    <th>Template</th>
-                    <th>App</th>
+                    <td>Endpoint</td>
+                    <td>Method</td>
+                    <td>Template</td>
+                    <td>App</td>
                 </tr>
             </thead>
             <tbody>
-            <?php
-            foreach ($endpoints as $endpoint => $methods) {
-                foreach ($methods as $method => $matches) {
-                    ?>
-                    <tr>
-                        <td><?= $endpoint ?></td>
-                        <td><?= $method ?></td>
-                        <?php
-                        if (count($matches) == 2) {
-                            ?><td><i class="far fa-check-circle text-success"></i></td><?php
-                            ?><td><i class="far fa-check-circle text-success"></i></td><?php
-                        } else {
-                            if (in_array('template', $matches)) {
-                                ?><td><i class="far fa-check-circle text-success"></i></td><?php
-                            } else {
-                                ?><td><i class="far fa-times-circle text-danger"></i></td><?php
-                            }
-                            if (in_array('app', $matches)) {
-                                ?><td><i class="far fa-check-circle text-success"></i></td><?php
-                            } else {
-                                ?><td><i class="far fa-times-circle text-danger"></i></td><?php
-                            }
-                        }
+                <?php
+                foreach ($endpoints as $endpoint => $methods) {
+                    foreach ($methods as $method => $matches) {
                         ?>
-                    </tr>
-                    <?php
+                        <tr>
+                            <td><?= $endpoint ?></td>
+                            <td><?= $method ?></td>
+                            <?php
+                            if (count($matches) == 2) {
+                                ?>
+                                <td><i class="far fa-check-circle text-success"></i></td><?php
+                                ?>
+                                <td><i class="far fa-check-circle text-success"></i></td><?php
+                            } else {
+                                if (in_array('template', $matches)) {
+                                    ?>
+                                    <td><i class="far fa-check-circle text-success"></i></td><?php
+                                } else {
+                                    ?>
+                                    <td><i class="far fa-times-circle text-danger"></i></td><?php
+                                }
+                                if (in_array('app', $matches)) {
+                                    ?>
+                                    <td><i class="far fa-check-circle text-success"></i></td><?php
+                                } else {
+                                    ?>
+                                    <td><i class="far fa-times-circle text-danger"></i></td><?php
+                                }
+                            }
+                            ?>
+                        </tr>
+                        <?php
+                    }
                 }
-            }
-            ?>
+                ?>
             </tbody>
             <tfoot>
                 <tr>

@@ -57,31 +57,32 @@ function createDirectoryTree($tree)
     $shell->exec('mkdir -p ' . $tree);
 }
 
-function extractCookies($string) {
+function extractCookies($string)
+{
     $lines = explode(PHP_EOL, $string);
 
     foreach ($lines as $line) {
         if (substr($line, 0, 10) == '#HttpOnly_') {
-            $line = substr($line, 10);
+            $line               = substr($line, 10);
             $cookie['httponly'] = true;
         } else {
             $cookie['httponly'] = false;
-        } 
+        }
 
         // we only care for valid cookie def lines
-        if (strlen( $line ) > 0 && $line[0] != '#' && substr_count($line, "\t") == 6) {
-            $tokens     = explode("\t", $line);
-            $tokens     = array_map('trim', $tokens);
-            $cookie     = [
-                            'domain'            => $tokens[0],
-                            'flag'              => $tokens[1],
-                            'path'              => $tokens[2],
-                            'secure'            => $tokens[3],
-                            'expiration-epoch'  => $tokens[4],
-                            'name'              => urldecode($tokens[5]),
-                            'value'             => urldecode($tokens[6]),
-                            'expiration'        => date('Y-m-d h:i:s', $tokens[4])
-                        ];
+        if (strlen($line) > 0 && $line[0] != '#' && substr_count($line, "\t") == 6) {
+            $tokens = explode("\t", $line);
+            $tokens = array_map('trim', $tokens);
+            $cookie = [
+                'domain'           => $tokens[0],
+                'flag'             => $tokens[1],
+                'path'             => $tokens[2],
+                'secure'           => $tokens[3],
+                'expiration-epoch' => $tokens[4],
+                'name'             => urldecode($tokens[5]),
+                'value'            => urldecode($tokens[6]),
+                'expiration'       => date('Y-m-d h:i:s', $tokens[4])
+            ];
 
             $cookies[] = $cookie;
         }
