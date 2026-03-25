@@ -2,20 +2,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+[data-bs-theme=dark] {
+    --accent-color: #ffa500;
+    --gray-100: #999999;
+    --gray-200: #424242;
+    --gray-300: #363636;
+    --gray-400: #d4d4d4;
+    --black-100: #141414;
+    --black-200: #080808;
+    --black-300: #181818;
+}
+
+:root, [data-bs-theme=light] {
+    --accent-color: #ffa500;
+    --gray-100: #333333;
+    --gray-200: #6b6b6b;
+    --gray-300: #999999;
+    --gray-400: #555555;
+    --black-100: #f5f5f5;
+    --black-200: #ffffff;
+    --black-300: #eeeeee;
+}
+
 * {
     font-family: "Inter", sans-serif;
-    --accent-color: #ffa500;
 }
 
 body {
-    background-color: #080808 !important;
+    background-color: var(--black-200) !important;
 }
 
 span {
     color: var(--accent-color);
 }
 .navbar-brand>p {
-    color: #999999;
+    color: var(--gray-100);
     font-family: "Geist", sans-serif;
     font-size: 28px;
     font-weight: 600;
@@ -27,8 +48,8 @@ span {
 
 .navbar {
     border: 0 !important;
-    background-color: #141414 !important;
-    border-bottom: 1px solid #424242 !important;
+    background-color: var(--black-100) !important;
+    border-bottom: 1px solid var(--gray-200) !important;
 }
 
 .nav-item .active {
@@ -43,7 +64,7 @@ span {
 }
 
 .nav-link>span {
-    color: #999999 !important;
+    color: var(--gray-100) !important;
 }
 
 .nav-link {
@@ -55,7 +76,7 @@ span {
 }
 
 .nav-link>span>small {
-    background-color: #424242 !important;
+    background-color: var(--gray-200) !important;
     padding: 0px 4px;
     border-radius: 8px;
     font-family: "Geist Mono", monospace;
@@ -67,17 +88,17 @@ span {
 
 .footer {
     border: 0 !important;
-    background-color: #141414 !important;
-    border-top: 1px solid #424242 !important;
+    background-color: var(--black-100) !important;
+    border-top: 1px solid var(--gray-200) !important;
 }
 
 #footer-content {
-    background-color: #141414 !important;
+    background-color: var(--black-100) !important;
     padding: 4px 0px;
 }
 
 #footer-branch>span {
-    background-color: #363636 !important;
+    background-color: var(--gray-300) !important;
     border-radius: 8px !important;
     padding: 0px 4px !important;
     font-family: "Geist Mono", monospace;
@@ -86,52 +107,52 @@ span {
 
 .card {
     padding: 0 !important;
-    background-color: #141414 !important;
-    border: 1px solid #424242 !important;
+    background-color: var(--black-100) !important;
+    border: 1px solid var(--gray-200) !important;
 }
 
 .card-header {
-    background-color: #181818 !important;
-    border-bottom: 1px solid #424242 !important;
-    color: #999999 !important;
+    background-color: var(--black-300) !important;
+    border-bottom: 1px solid var(--gray-200) !important;
+    color: var(--gray-100) !important;
     font-family: "Geist", sans-serif;
     font-size: 16px;
     font-weight: 600;
 }
 
 .card-text {
-    color: #d4d4d4 !important;
+    color: var(--gray-400) !important;
 }
 
 .modal-content {
-    background-color: #141414 !important;
+    background-color: var(--black-100) !important;
 }
 
 .modal-header {
-    background-color: #181818 !important;
-    border-bottom: 1px solid #424242 !important;
-    color: #999999 !important;
+    background-color: var(--black-300) !important;
+    border-bottom: 1px solid var(--gray-200) !important;
+    color: var(--gray-100) !important;
     font-family: "Geist", sans-serif;
     font-size: 16px;
     font-weight: 600;
 }
 
 .modal-body {
-    color: #d4d4d4 !important;
+    color: var(--gray-400) !important;
 }
 
 .modal-footer {
-    background-color: #181818 !important;
-    border-top: 1px solid #424242 !important;
-    color: #999999 !important;
+    background-color: var(--black-300) !important;
+    border-top: 1px solid var(--gray-200) !important;
+    color: var(--gray-100) !important;
     font-family: "Geist", sans-serif;
     font-size: 16px;
     font-weight: 600;
 }
 
 table, tr, td {
-    background-color: #141414 !important;
-    color: #d4d4d4 !important;
+    background-color: var(--black-100) !important;
+    color: var(--gray-400) !important;
     border-bottom: 1px solid var(--accent-color) !important;
 }
 
@@ -142,13 +163,13 @@ table {
 
 thead {
     border: 0 !important;
-    border-top: 1px solid #424242 !important;
-    border-bottom: 1px solid #424242 !important;
+    border-top: 1px solid var(--gray-200) !important;
+    border-bottom: 1px solid var(--gray-200) !important;
 }
 
 thead td, thead tr {
     border: 0 !important;
-    border: 1px solid #424242 !important;
+    border: 1px solid var(--gray-200) !important;
 }
 
 thead>tr {
@@ -159,17 +180,17 @@ thead>tr {
 thead td {
     border-right: none !important;
     border-left: none !important;
-    color: #999999 !important;
+    color: var(--gray-100) !important;
 }
 
 thead td:first-child {
     border-top-left-radius: 7px !important;
-    border-left: 1px solid #424242 !important;
+    border-left: 1px solid var(--gray-200) !important;
 }
 
 thead td:last-child {
     border-top-right-radius: 7px !important;
-    border-right: 1px solid #424242 !important;
+    border-right: 1px solid var(--gray-200) !important;
 }
 
 tbody td {
@@ -203,8 +224,8 @@ td img {
 }
 
 .nav-tabs>li {
-    border-left: 1px solid #424242 !important;
-    border-bottom: 1px solid #424242 !important;
+    border-left: 1px solid var(--gray-200) !important;
+    border-bottom: 1px solid var(--gray-200) !important;
 }
 
 .nav-tabs>li:last-child {
@@ -212,7 +233,7 @@ td img {
 }
 
 .nav-tabs>.nav-item {
-    background-color: #181818 !important;
+    background-color: var(--black-300) !important;
 }
 
 .nav-tabs>.nav-item>a {
@@ -224,11 +245,89 @@ td img {
     font-weight: 700;
 }
 
-input[type=text], input[type=password] {
-    background-color: #141414 !important;
-    color: #d4d4d4 !important;
+input[type=checkbox]:checked {
+    background-color: var(--accent-color) !important;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=checkbox] {
+    background-color: var(--black-100) !important;
+}
+
+input[type=text], input[type=password], .form-select, .select2-search>input, textarea, input[type=number] {
+    background-color: var(--black-100) !important;
+    color: var(--gray-400) !important;
+}
+
+select:focus {
+    border: 1px solid var(--accent-color) !important;
+}
+
+input[type=text]:focus, input[type=password]:focus, .select2-search>input:focus, textarea:focus, input[type=number]:focus {
+    border: 1px solid var(--accent-color) !important;
+}
+
+button[id^='apikey-'] {
+    background-image: none !important;
+    background-color: var(--black-100) !important;
+    border-left: none !important;
+}
+
+.dropdown-menu {
+    background-color: var(--gray-200) !important;
+    color: var(--gray-400) !important;
+}
+
+[data-bs-theme=light] .dropdown-menu {
+    background-color: var(--black-200) !important;
+}
+
+.dropdown-menu>div span {
+    color: var(--gray-400) !important;
+    font-size: 14px;
+}
+
+.bg-dark {
+    background-color: var(--black-100) !important;
+}
+
+.select2-selection, .select2-search, .select2-results {
+    background-color: var(--black-100) !important;
+    color: var(--gray-400) !important;
+    border: none !important;
+}
+
+.select2-selection>span {
+    color: var(--gray-400) !important;
+}
+
+li[class^='select2-results'] {
+    background-color: var(--black-100) !important;
+    color: var(--gray-400) !important;
+    border: none !important;
+}
+
+li[class^='select2-results']:hover {
+    background-color: var(--gray-200) !important;
+    color: var(--gray-100) !important;
+}
+
+[class^='select2'] {
+    outline: none !important;
+}
+
+*:focus {
+    outline: none !important;
+}
+
+.select2-selection:focus {
+    border: 1px solid var(--accent-color) !important;
+    outline-width: 0;
+}
+
+.select2-selection::highlight {
+    border: none !important;
+}
+
+.select2-dropdown {
     border: 1px solid var(--accent-color) !important;
 }

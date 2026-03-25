@@ -96,6 +96,23 @@ if (!$_SESSION['IN_UI']) {
                         <li class="nav-item <?= !$settingsTable['uiHeaderHelp'] ? 'd-none' : '' ?>">
                             <a class="nav-link <?= $page == 'help' ? 'active' : '' ?>" href="/?page=help"><i class="far fa-question-circle"></i></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme" style="transform: translateY(3px);">
+                                <i class="fas fa-cloud-sun"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" onclick="swapLightDark('light')">
+                                        <i class="bi bi-sun-fill"></i><span class="ms-2">Light</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" onclick="swapLightDark('dark')">
+                                        <i class="bi bi-moon-stars-fill"></i><span class="ms-2">Dark</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

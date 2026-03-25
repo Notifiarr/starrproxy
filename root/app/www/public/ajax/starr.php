@@ -214,7 +214,7 @@ if ($_POST['m'] == 'openAppStarrAccess') {
             </td>
         </tr>
     </table>
-    <div class="bg-dark w-100 p-3 text-center" style="position: sticky; bottom: 0px;">
+    <div class="bg-dark w-100 text-center" style="position: sticky; bottom: -20px; padding: 12px;">
         <button class="btn btn-success" onclick="saveAppStarrAccess('<?= $app ?>', <?= $_POST['id'] ?>)"><i class="far fa-save"></i> Enable access</button>
     </div>
     <?php

@@ -111,10 +111,15 @@ $cacheStats = $cache->stats();
                                 </td>
                             </tr>
                         </tbody>
+                    </table>
+
+                    <table class="table table-no-squish table-sm table-bordered table-hover">
                         <thead>
                             <tr>
                                 <td colspan="2">Templates</td>
                             </tr>
+                        </thead>
+                        <tbody>
                             <tr>
                                 <td class="w-25">Order</td>
                                 <td>
@@ -124,7 +129,7 @@ $cacheStats = $cache->stats();
                                     </select>
                                 </td>
                             </tr>
-                        </thead>
+                        </tbody>
                     </table>
                     <br>** Refresh the page after changing UI settings
                 </div>

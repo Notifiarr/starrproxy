@@ -1,3 +1,9 @@
+function swapLightDark(theme)
+{
+    document.body.setAttribute('data-bs-theme', theme);
+    updateSetting('defaultThemeMode', theme);
+}
+// -------------------------------------------------------------------------------------------
 function toast(title, message, type)
 {
     const uniqueId = Date.now() + Math.floor(Math.random() * 1000);

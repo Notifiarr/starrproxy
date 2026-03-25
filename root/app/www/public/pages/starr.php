@@ -32,11 +32,11 @@ if (!$_SESSION['IN_UI']) {
                 <table class="table table-no-squish table-bordered" style="min-width: 750px;" align="center">
                     <thead>
                         <tr>
-                            <td>Name</td>
-                            <td>URL</td>
-                            <td>API Key</td>
-                            <td><i class="far fa-question-circle" title="This is only needed for corruption checks with Notifiarr" style="cursor:help;"></i> User</td>
-                            <td><i class="far fa-question-circle" title="This is only needed for corruption checks with Notifiarr" style="cursor:help;"></i> Pass</td>
+                            <td style="width: 10%;">Name</td>
+                            <td style="width: 20%;">URL</td>
+                            <td style="width: 20%;">API Key</td>
+                            <td style="width: 20%;"><i class="far fa-question-circle" title="This is only needed for corruption checks with Notifiarr" style="cursor:help;"></i> User</td>
+                            <td style="width: 20%;"><i class="far fa-question-circle" title="This is only needed for corruption checks with Notifiarr" style="cursor:help;"></i> Pass</td>
                             <td class="w-25">&nbsp;</td>
                         </tr>
                     </thead>
@@ -76,15 +76,15 @@ if (!$_SESSION['IN_UI']) {
                                     <td>
                                         <div class="input-group mb-3">
                                             <input type="text" class="form-control" id="instance-apikey-<?= $starrInstance['id'] ?>" data-apikey="<?= $starrInstance['apikey'] ?>" placeholder="12345-67890-09876-54321" value="<?= truncateMiddle($starrInstance['apikey'], 20) ?>" aria-describedby="apikey-<?= $starrInstance['id'] ?>">
-                                            <button class="btn btn-primary" type="button" id="apikey-<?= $starrInstance['id'] ?>" onclick="$('#instance-apikey-<?= $starrInstance['id'] ?>').val($('#instance-apikey-<?= $starrInstance['id'] ?>').data('apikey'))">Show</button>
+                                            <button class="btn btn-primary" type="button" id="apikey-<?= $starrInstance['id'] ?>" onclick="$('#instance-apikey-<?= $starrInstance['id'] ?>').val($('#instance-apikey-<?= $starrInstance['id'] ?>').data('apikey'))"><i class="fas fa-eye"></i></button>
                                         </div>
                                     </td>
                                     <td><input type="text" class="form-control" id="instance-username-<?= $starrInstance['id'] ?>" placeholder="username" value="<?= $starrInstance['username'] ?>"></td>
                                     <td><input type="password" class="form-control" id="instance-password-<?= $starrInstance['id'] ?>" placeholder="password" value="<?= $starrInstance['password'] ?>"></td>
-                                    <td align="center">
-                                        <button class="btn btn-outline-info" type="button" onclick="testStarr('<?= $starrInstance['id'] ?>', '<?= $app ?>')"><i class="fas fa-network-wired"></i> Test API</button>
-                                        <button class="btn btn-outline-success" type="button" onclick="saveStarr('<?= $starrInstance['id'] ?>', '<?= $app ?>')"><i class="fas fa-save"></i> Save</button>
-                                        <button class="btn btn-outline-danger" type="button" onclick="deleteStarr('<?= $starrInstance['id'] ?>', '<?= $app ?>')"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <td align="right">
+                                        <button class="btn btn-outline-info" type="button" onclick="testStarr('<?= $starrInstance['id'] ?>', '<?= $app ?>')"><i class="fas fa-network-wired"></i></button>
+                                        <button class="btn btn-outline-success" type="button" onclick="saveStarr('<?= $starrInstance['id'] ?>', '<?= $app ?>')"><i class="fas fa-save"></i></button>
+                                        <button class="btn btn-outline-danger" type="button" onclick="deleteStarr('<?= $starrInstance['id'] ?>', '<?= $app ?>')"><i class="fas fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                                 <?php
@@ -97,9 +97,9 @@ if (!$_SESSION['IN_UI']) {
                             <td><input type="text" class="form-control" id="instance-apikey-99" placeholder="12345-67890-09876-54321"></td>
                             <td><input type="text" class="form-control" id="instance-username-99" placeholder="username"></td>
                             <td><input type="text" class="form-control" id="instance-password-99" placeholder="password"></td>
-                            <td align="center">
-                                <button class="btn btn-outline-info" type="button" onclick="testStarr('99', '<?= $app ?>')"><i class="fas fa-network-wired"></i> Test API</button>
-                                <button class="btn btn-outline-success" type="button" onclick="saveStarr('99', '<?= $app ?>')"><i class="fas fa-plus-circle"></i> Add</button>
+                            <td align="right">
+                                <button class="btn btn-outline-info" type="button" onclick="testStarr('99', '<?= $app ?>')"><i class="fas fa-network-wired"></i></button>
+                                <button class="btn btn-outline-success" type="button" onclick="saveStarr('99', '<?= $app ?>')"><i class="fas fa-plus-circle"></i></button>
                             </td>
                         </tr>
                     </tbody>
