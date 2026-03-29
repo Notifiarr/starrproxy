@@ -82,19 +82,29 @@ if (!$_SESSION['IN_UI']) {
                     </ul>
                     <ul class="navbar-nav navbar-icons ms-auto">
                         <li class="nav-item <?= !$settingsTable['uiHeaderNotifications'] ? 'd-none' : '' ?>">
-                            <a class="nav-link <?= $page == 'notifications' ? 'active' : '' ?>" href="/?page=notifications"><i class="fas fa-comment-dots"></i></a>
+                            <a class="nav-link <?= $page == 'notifications' ? 'active' : '' ?>" href="/?page=notifications" title="Notifications"><i class="fas fa-comment-dots"></i>
+                                <span class="d-md-none">Notifications</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $page == 'templates' ? 'active' : '' ?>" href="/?page=templates"><i class="far fa-file-alt"></i></a>
+                            <a class="nav-link <?= $page == 'templates' ? 'active' : '' ?>" href="/?page=templates" title="Templates"><i class="far fa-file-alt"></i>
+                                <span class="d-md-none">Templates</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $page == 'logs' ? 'active' : '' ?>" href="/?page=logs"><i class="fas fa-clipboard-list"></i></a>
+                            <a class="nav-link <?= $page == 'logs' ? 'active' : '' ?>" href="/?page=logs" title="Logs"><i class="fas fa-clipboard-list"></i>
+                                <span class="d-md-none">Logs</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $page == 'settings' ? 'active' : '' ?>" href="/?page=settings"><i class="fas fa-cog"></i></a>
+                            <a class="nav-link <?= $page == 'settings' ? 'active' : '' ?>" href="/?page=settings" title="Settings"><i class="fas fa-cog"></i>
+                                <span class="d-md-none">Settings</span>
+                            </a>
                         </li>
                         <li class="nav-item <?= !$settingsTable['uiHeaderHelp'] ? 'd-none' : '' ?>">
-                            <a class="nav-link <?= $page == 'help' ? 'active' : '' ?>" href="/?page=help"><i class="far fa-question-circle"></i></a>
+                            <a class="nav-link <?= $page == 'help' ? 'active' : '' ?>" href="/?page=help" title="Help"><i class="far fa-question-circle"></i>
+                                <span class="d-md-none">Help</span>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme" style="transform: translateY(3px);">
