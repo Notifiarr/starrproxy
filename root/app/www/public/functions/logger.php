@@ -149,20 +149,20 @@ function getLog($logfile, $page = 1, $app = false)
             </li>
         <?php } ?>
         <?php if (!$app) { ?>
-            <li class="ms-5">
+            <li class="nav-item" style="display: flex; gap: 8px; padding-left: 12px;">
                 <?php if ($page != 1) { ?>
                     <?php if ($pages >= 2) { ?>
-                        <button class="btn btn-sm btn-info" onclick="viewLog('<?= $logfile ?>', '<?= $_POST['index'] ?>', 1)"><i class="fas fa-fast-backward"></i> Start</button>
+                        <button style="place-self: center; font-size: 16px; padding: 2px 8px;" class="btn btn-outline-success border-light" onclick="viewLog('<?= $logfile ?>', '<?= $_POST['index'] ?>', 1)"><i class="fas fa-fast-backward"></i> Start</button>
                     <?php } ?>
-                    <button class="btn btn-sm btn-info" onclick="viewLog('<?= $logfile ?>', '<?= $_POST['index'] ?>', <?= $page - 1 ?>)"><i class="fas fa-backward"></i> Back</button>
+                    <button style="place-self: center; font-size: 16px; padding: 2px 8px;" class="btn btn-outline-success border-light" onclick="viewLog('<?= $logfile ?>', '<?= $_POST['index'] ?>', <?= $page - 1 ?>)"><i class="fas fa-backward"></i> Back</button>
                 <?php } ?>
                 <?php if ($page != $pages) { ?>
-                    <button class="btn btn-sm btn-info" onclick="viewLog('<?= $logfile ?>', '<?= $_POST['index'] ?>', <?= $page + 1 ?>)"><i class="fas fa-forward"></i> Next</button>
+                    <button style="place-self: center; font-size: 16px; padding: 2px 8px;" class="btn btn-outline-success border-light" onclick="viewLog('<?= $logfile ?>', '<?= $_POST['index'] ?>', <?= $page + 1 ?>)"><i class="fas fa-forward"></i> Next</button>
                     <?php if ($pages >= 2) { ?>
-                        <button class="btn btn-sm btn-info" onclick="viewLog('<?= $logfile ?>', '<?= $_POST['index'] ?>', <?= $pages ?>)"><i class="fas fa-fast-forward"></i> End</button>
+                        <button style="place-self: center; font-size: 16px; padding: 2px 8px;" class="btn btn-outline-success border-light" onclick="viewLog('<?= $logfile ?>', '<?= $_POST['index'] ?>', <?= $pages ?>)"><i class="fas fa-fast-forward"></i> End</button>
                     <?php } ?>
                 <?php } ?>
-                <span class="ms-3">Page: <?= $page ?>/<?= $pages ?></span>
+                <span class="px-3" style="place-self: center;"><i class="fas fa-ellipsis-v" style="padding-right: 4px;"></i><?= $page ?>/<?= $pages ?></span>
             </li>
         <?php } else { ?>
             <span class="ms-3">Newest <?= LOG_LINES_PER_PAGE ?> filtered lines</span>

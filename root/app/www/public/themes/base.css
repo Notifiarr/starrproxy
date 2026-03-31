@@ -331,3 +331,13 @@ li[class^='select2-results']:hover {
 .select2-dropdown {
     border: 1px solid var(--accent-color) !important;
 }
+
+pre {
+    background-color: var(--black-100) !important;
+    font-family: "Geist Mono", monospace !important;
+    color: var(--gray-400) !important;
+}
+
+pre>span {
+    color: var(--gray-400) !important;
+}
