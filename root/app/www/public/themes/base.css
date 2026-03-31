@@ -340,4 +340,5 @@ pre {
 
 pre>span {
     color: var(--gray-400) !important;
+    font-family: "Geist Mono", monospace !important;
 }
