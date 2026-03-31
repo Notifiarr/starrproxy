@@ -31,5 +31,34 @@
 
     "files.eol": "\n",
     "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true
+    "files.trimFinalNewlines": true,
+    "cSpell.words": [
+        "addstarr",
+        "apikey",
+        "Autobrr",
+        "Bazarr",
+        "Cleanuparr",
+        "DAPS",
+        "everytime",
+        "Jellyseerr",
+        "Kometa",
+        "lidarr",
+        "Maintainerr",
+        "Nabarr",
+        "notifiarr",
+        "Notifiarr",
+        "notifiarr's",
+        "Omegabrr",
+        "Organizr",
+        "Overseerr",
+        "Prowlarr",
+        "radarr",
+        "readarr",
+        "Recyclarr",
+        "sonarr",
+        "starrproxy",
+        "Unmanic",
+        "Unpackerr",
+        "whisparr"
+    ]
 }

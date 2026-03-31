@@ -1,0 +1,35 @@
+{
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/command/{id}": [
+        "get"
+    ],
+    "/api/v3/episode": [
+        "get"
+    ],
+    "/api/v3/episodefile": [
+        "get"
+    ],
+    "/api/v3/qualityprofile": [
+        "get"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/queue/{id}": [
+        "delete"
+    ],
+    "/api/v3/series": [
+        "get"
+    ],
+    "/api/v3/series/{id}": [
+        "get"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "get"
+    ]
+}

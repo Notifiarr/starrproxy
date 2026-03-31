@@ -1,0 +1,17 @@
+{
+    "/api/v1/album": [
+        "get"
+    ],
+    "/api/v1/command": [
+        "post"
+    ],
+    "/api/v1/queue": [
+        "get"
+    ],
+    "/api/v1/queue/{id}": [
+        "delete"
+    ],
+    "/api/v1/system/status": [
+        "get"
+    ]
+}

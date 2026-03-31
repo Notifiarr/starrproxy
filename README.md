@@ -35,18 +35,25 @@ There are some pre-built templates that enable just the api access the app actua
 
 - Autobrr
 - Bazarr
+- Cleanuparr
+- Cross-seed
 - DAPS
 - Homepage
 - Jellyseerr
 - Kometa
 - LunaSea
+- Maintainerr
 - Nabarr
 - Notifiarr
 - Nzb360
 - Omegabrr
+- Organizr
 - Overseerr
+- Prowlarr
+- Qui
 - Recyclarr\*
 - TitleCardMaker
+- Unmanic
 - Unpackerr
 
 \* Has a requirement of unique URLs for each app, this means you will need to add a fake base to the url. Example: `http://10.1.0.100:9090/radarr1`
