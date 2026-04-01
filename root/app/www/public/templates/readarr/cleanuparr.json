@@ -5,6 +5,9 @@
     "/api/v1/command": [
         "post"
     ],
+    "/api/v1/command/{id}": [
+        "get"
+    ],
     "/api/v1/queue": [
         "get"
     ],

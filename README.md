@@ -5,7 +5,7 @@
 
 ## Note
 
-This is still being tested and generating templates. Feel free to join the Notifiarr discord and ask questions in the `#starrproxy` channel or help out with templates
+Feel free to join the Notifiarr discord and ask questions in the `#starrproxy` channel or help out with templates. We only make them as users add new apps that dont have them
 
 ## Navigation
 
@@ -49,6 +49,7 @@ There are some pre-built templates that enable just the api access the app actua
 - Omegabrr
 - Organizr
 - Overseerr
+- Postarr
 - Prowlarr
 - Qui
 - Recyclarr\*
@@ -56,6 +57,10 @@ There are some pre-built templates that enable just the api access the app actua
 - TitleCardMaker
 - Unmanic
 - Unpackerr
+
+### Removed templates
+
+- Huntarr: For obvious reasons.
 
 \* Has a requirement of unique URLs for each app, this means you will need to add a fake base to the url. Example: `http://10.1.0.100:9090/radarr1`
 
