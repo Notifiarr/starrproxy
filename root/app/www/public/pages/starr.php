@@ -117,7 +117,7 @@ if (!$_SESSION['IN_UI']) {
                     <span class="text-warning">Add some <?= $app ?> instances in the first tab so you can assign apps to them.</span>
                 <?php } ?>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" style="min-height: 100vh;">
                 <table class="table table-no-squish table-bordered table-hover" style="min-width: 1000px;" align="center">
                     <thead>
                         <tr>

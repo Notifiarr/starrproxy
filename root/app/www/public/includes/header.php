@@ -52,7 +52,8 @@ if (!$_SESSION['IN_UI']) {
     <body data-bs-theme="<?= USER_THEME_MODE ?>">
         <nav class="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="?page=home">
+                <a class="navbar-brand" href="?page=home" style="display: flex; padding-left: 0;">
+                    <img src="images/logo-512.png" style="max-height: 30px; transform: translateY(8px); padding-right: 6px;">
                     <p><span>starr</span>proxy</p>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
