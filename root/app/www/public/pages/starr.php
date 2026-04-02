@@ -154,7 +154,7 @@ if (!$_SESSION['IN_UI']) {
                                 ?>
                                 <tr>
                                     <td><?= $accessApp['name'] ?></td>
-                                    <td><?= $parentStarrApp['name'] ?> <span class="text-small"><?= $parentStarrApp['url'] ?></span></td>
+                                    <td><?= $parentStarrApp['name'] ?> <br> <a href="<?= $parentStarrApp['url'] ?>" target="_blank"><i class="fas fa-external-link-alt fa-md me-1"></i></a> <span class="text-small"><?= $parentStarrApp['url'] ?></span></td>
                                     <td>
                                         <?= count($accessApp['endpoints'], COUNT_RECURSIVE) ?> endpoint<?= count($accessApp['endpoints'], COUNT_RECURSIVE) == 1 ? '' : 's' ?><br>
                                         <span class="text-small"><?= $template ?></span>
