@@ -51,9 +51,9 @@ There are some pre-built templates that enable just the api access the app actua
 - Overseerr
 - Postarr
 - Prowlarr
-- Qui
+- Qui\*
 - Recyclarr\*
-- Seerr
+- Seerr\*
 - TitleCardMaker
 - Unmanic
 - Unpackerr
@@ -62,7 +62,7 @@ There are some pre-built templates that enable just the api access the app actua
 
 - Huntarr: For obvious reasons.
 
-\* Has a requirement of unique URLs for each app, this means you will need to add a fake base to the url. Example: `http://10.1.0.100:9090/radarr1`
+\* This app has a requirement of unique URLs instead of using a unique URL + API key combo so this means you will need to add a fake base to the url if you use multiple instances. Example: `http://10.1.0.100:9090/radarr1` or `http://starrproxy:80/radarr2`
 
 ## Automation
 
