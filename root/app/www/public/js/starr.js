@@ -169,6 +169,13 @@ function deleteAppStarrAccess(app, id)
     }
 }
 // -------------------------------------------------------------------------------------------
+function resetUsageCounts(app, id)
+{
+    $('#' + app + '-' + id + '-requestCount').html('0');
+    $('#' + app + '-' + id + '-allowedCount').html('0');
+    $('#' + app + '-' + id + '-blockedCount').html('0');
+}
+// -------------------------------------------------------------------------------------------
 function resetUsage(app, id)
 {
     if (confirm('Are you sure you want to reset the usage counter?')) {
@@ -182,7 +189,7 @@ function resetUsage(app, id)
                     return;
                 }
 
-                reload();
+                resetUsageCounts(app, id);
             }
         });
     }

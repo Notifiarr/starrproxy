@@ -81,7 +81,7 @@ if (!$_SESSION['IN_UI']) {
                                     </td>
                                     <td><input type="text" class="form-control" id="instance-username-<?= $starrInstance['id'] ?>" placeholder="username" value="<?= $starrInstance['username'] ?>"></td>
                                     <td><input type="password" class="form-control" id="instance-password-<?= $starrInstance['id'] ?>" placeholder="password" value="<?= $starrInstance['password'] ?>"></td>
-                                    <td align="right">
+                                    <td class="text-end">
                                         <button class="btn btn-outline-info" type="button" onclick="testStarr('<?= $starrInstance['id'] ?>', '<?= $app ?>')"><i class="fas fa-network-wired"></i></button>
                                         <button class="btn btn-outline-success" type="button" onclick="saveStarr('<?= $starrInstance['id'] ?>', '<?= $app ?>')"><i class="fas fa-save"></i></button>
                                         <button class="btn btn-outline-danger" type="button" onclick="deleteStarr('<?= $starrInstance['id'] ?>', '<?= $app ?>')"><i class="fas fa-trash-alt"></i></button>
@@ -97,7 +97,7 @@ if (!$_SESSION['IN_UI']) {
                             <td><input type="text" class="form-control" id="instance-apikey-99" placeholder="12345-67890-09876-54321"></td>
                             <td><input type="text" class="form-control" id="instance-username-99" placeholder="username"></td>
                             <td><input type="text" class="form-control" id="instance-password-99" placeholder="password"></td>
-                            <td align="right">
+                            <td class="text-end">
                                 <button class="btn btn-outline-info" type="button" onclick="testStarr('99', '<?= $app ?>')"><i class="fas fa-network-wired"></i></button>
                                 <button class="btn btn-outline-success" type="button" onclick="saveStarr('99', '<?= $app ?>')"><i class="fas fa-plus-circle"></i></button>
                             </td>
@@ -166,8 +166,8 @@ if (!$_SESSION['IN_UI']) {
                                         <span id="app-<?= $accessApp['id'] ?>-apikey" style="display: none;"><?= $accessApp['apikey'] ?></span>
                                     </td>
                                     <td>
-                                        <?= number_format($usage['allowed'] + $usage['rejected']) ?> request<?= $usage['allowed'] + $usage['rejected'] == 1 ? '' : 's' ?><br>
-                                        <span class="text-small">Allowed: <?= number_format($usage['allowed']) ?> Blocked: <?= number_format($usage['rejected']) ?></span>
+                                        <span id="<?= $app ?>-<?= $accessApp['id'] ?>-requestCount"><?= number_format($usage['allowed'] + $usage['rejected']) ?></span> request<?= $usage['allowed'] + $usage['rejected'] == 1 ? '' : 's' ?><br>
+                                        <span class="text-small">Allowed: <span id="<?= $app ?>-<?= $accessApp['id'] ?>-allowedCount"><?= number_format($usage['allowed']) ?></span> Blocked: <span id="<?= $app ?>-<?= $accessApp['id'] ?>-blockedCount"><?= number_format($usage['rejected']) ?></span></span>
                                     </td>
                                     <td class="text-center">
                                         <div class="dropdown">
