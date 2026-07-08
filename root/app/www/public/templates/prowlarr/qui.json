@@ -1,0 +1,11 @@
+{
+    "/api/v1/search": [
+        "get"
+    ],
+    "/api/v1/indexer": [
+        "get"
+    ],
+    "/api/v1/indexer/{id}/newznab": [
+        "get"
+    ]
+}
