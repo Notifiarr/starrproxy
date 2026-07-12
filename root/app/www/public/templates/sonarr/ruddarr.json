@@ -1,0 +1,77 @@
+{
+    "/api/v3/calendar": [
+        "get"
+    ],
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/diskspace": [
+        "get"
+    ],
+    "/api/v3/episode": [
+        "get"
+    ],
+    "/api/v3/episode/monitor": [
+        "put"
+    ],
+    "/api/v3/episodefile": [
+        "get"
+    ],
+    "/api/v3/episodefile/{id}": [
+        "delete"
+    ],
+    "/api/v3/episodefile/bulk": [
+        "delete"
+    ],
+    "/api/v3/history": [
+        "get"
+    ],
+    "/api/v3/manualimport": [
+        "get"
+    ],
+    "/api/v3/notification": [
+        "get",
+        "post"
+    ],
+    "/api/v3/notification/{id}": [
+        "put",
+        "delete"
+    ],
+    "/api/v3/qualityprofile": [
+        "get"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/queue/{id}": [
+        "delete"
+    ],
+    "/api/v3/release": [
+        "get",
+        "post"
+    ],
+    "/api/v3/rootfolder": [
+        "get"
+    ],
+    "/api/v3/series": [
+        "get",
+        "post"
+    ],
+    "/api/v3/series/{id}": [
+        "get",
+        "put",
+        "delete"
+    ],
+    "/api/v3/series/editor": [
+        "put"
+    ],
+    "/api/v3/series/lookup": [
+        "get"
+    ],
+    "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v3/tag": [
+        "get"
+    ]
+}
