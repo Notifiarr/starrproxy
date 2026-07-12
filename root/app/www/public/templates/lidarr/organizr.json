@@ -1,11 +1,11 @@
 {
-    "/api/v3/rootfolder": [
+    "/api/v1/rootfolder": [
         "get"
     ],
-    "/api/v3/calendar": [
+    "/api/v1/calendar": [
         "get"
     ],
-    "/api/v3/queue": [
+    "/api/v1/queue": [
         "get"
     ]
 }
