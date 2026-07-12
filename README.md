@@ -53,6 +53,7 @@ There are some pre-built templates that enable just the api access the app actua
 - Prowlarr
 - Qui\*
 - Recyclarr\*
+- Ruddarr
 - Seerr\*
 - TitleCardMaker
 - Unmanic
