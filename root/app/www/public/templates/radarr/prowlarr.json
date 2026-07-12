@@ -5,8 +5,7 @@
     ],
     "/api/v3/indexer/{id}": [
         "put",
-        "get",
-        "post"
+        "get"
     ],
     "/api/v3/indexer/schema": [
         "get"
