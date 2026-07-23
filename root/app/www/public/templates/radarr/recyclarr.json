@@ -1,7 +1,4 @@
 {
-    "/api/v3/command/{id}": [
-        "get"
-    ],
     "/api/v3/customformat": [
         "get",
         "post"

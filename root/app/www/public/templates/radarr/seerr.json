@@ -1,10 +1,17 @@
 {
+    "/api/v3/command": [
+        "post"
+    ],
     "/api/v3/movie": [
         "get",
         "post",
         "put"
     ],
     "/api/v3/movie/{id}": [
+        "get",
+        "delete"
+    ],
+    "/api/v3/movie/lookup": [
         "get"
     ],
     "/api/v3/qualityprofile": [
@@ -23,10 +30,7 @@
         "get",
         "post"
     ],
-    "/api/v3/movie/lookup": [
-        "get"
-    ],
-    "/api/v3/command": [
-        "post"
+    "/api/v3/tag/{id}": [
+        "put"
     ]
 }

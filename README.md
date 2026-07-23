@@ -39,7 +39,6 @@ There are some pre-built templates that enable just the api access the app actua
 - Cross-seed
 - DAPS
 - Homepage
-- Jellyseerr
 - Kometa
 - LunaSea
 - Maintainerr
@@ -48,7 +47,6 @@ There are some pre-built templates that enable just the api access the app actua
 - Nzb360
 - Omegabrr
 - Organizr
-- Overseerr
 - Postarr
 - Prowlarr
 - Qui\*
@@ -62,6 +60,8 @@ There are some pre-built templates that enable just the api access the app actua
 ### Removed templates
 
 - Huntarr: For obvious reasons.
+- Jellyseerr: Superseded by [Seerr](https://docs.seerr.dev/blog/seerr-release/) (merged with Overseerr into one project).
+- Overseerr: Superseded by [Seerr](https://docs.seerr.dev/blog/seerr-release/) (automatic migration on first startup).
 
 \* This app has a requirement of unique URLs instead of using a unique URL + API key combo so this means you will need to add a fake base to the url if you use multiple instances. Example: `http://10.1.0.100:9090/radarr1` or `http://starrproxy:80/radarr2`
 

@@ -1,30 +1,55 @@
 {
-    "/api/v3/system/status": [
-        "get"
-    ],
-    "/api/v3/series": [
-        "get"
-    ],
-    "/api/v3/episode": [
-        "get"
-    ],
-    "/api/v3/health": [
-        "get"
-    ],
-    "/api/v3/qualityprofile": [
-        "get"
-    ],
     "/api/v3/command": [
         "post"
     ],
     "/api/v3/command/{id}": [
         "get"
     ],
+    "/api/v3/episode": [
+        "get"
+    ],
+    "/api/v3/episodefile": [
+        "get"
+    ],
+    "/api/v3/episodefile/{id}": [
+        "delete"
+    ],
+    "/api/v3/episodefile/bulk": [
+        "delete"
+    ],
+    "/api/v3/health": [
+        "get"
+    ],
+    "/api/v3/history": [
+        "get"
+    ],
+    "/api/v3/history/series": [
+        "get"
+    ],
+    "/api/v3/qualityprofile": [
+        "get"
+    ],
+    "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v3/queue/bulk": [
+        "delete"
+    ],
     "/api/v3/rename": [
         "get"
     ],
+    "/api/v3/series": [
+        "get"
+    ],
+    "/api/v3/series/{id}": [
+        "get",
+        "delete"
+    ],
     "/api/v3/series/editor": [
         "put"
+    ],
+    "/api/v3/system/status": [
+        "get"
     ],
     "/api/v3/tag": [
         "get",
