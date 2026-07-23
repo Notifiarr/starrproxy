@@ -129,6 +129,13 @@ Errors:
 
 ## Installation
 
+### Image tags
+
+- `:main` — release channel, updated when a build is cut from `main`.
+- `:develop` — tracks the `develop` branch directly, rebuilt on every merge to `develop`. May be ahead of `:main` between releases; use it if you need a fix that's merged but not yet released on `:main`.
+
+Both tags carry standard `org.opencontainers.image.*` labels (`.created`, `.revision`) — check those on a pulled image if you need to know exactly what's in it.
+
 ### Compose example
 
 ``` yaml
