@@ -1,14 +1,41 @@
 {
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/command/{id}": [
+        "get"
+    ],
+    "/api/v3/exclusions/bulk": [
+        "post"
+    ],
+    "/api/v3/history/movie": [
+        "get"
+    ],
     "/api/v3/movie": [
         "get"
     ],
     "/api/v3/movie/{id}": [
+        "get",
+        "put",
         "delete"
+    ],
+    "/api/v3/movie/editor": [
+        "put"
+    ],
+    "/api/v3/moviefile": [
+        "get"
+    ],
+    "/api/v3/moviefile/{id}": [
+        "delete"
+    ],
+    "/api/v3/qualityprofile": [
+        "get"
     ],
     "/api/v3/system/status": [
         "get"
     ],
     "/api/v3/tag": [
-        "get"
+        "get",
+        "post"
     ]
 }

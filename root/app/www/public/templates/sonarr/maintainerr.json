@@ -1,9 +1,36 @@
 {
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/command/{id}": [
+        "get"
+    ],
     "/api/v3/episode": [
+        "get"
+    ],
+    "/api/v3/episode/{id}": [
+        "get",
+        "put"
+    ],
+    "/api/v3/episodefile/{id}": [
+        "get",
+        "delete"
+    ],
+    "/api/v3/history/series": [
+        "get"
+    ],
+    "/api/v3/qualityprofile": [
         "get"
     ],
     "/api/v3/series": [
         "get",
+        "put"
+    ],
+    "/api/v3/series/{id}": [
+        "get",
+        "delete"
+    ],
+    "/api/v3/series/editor": [
         "put"
     ],
     "/api/v3/series/lookup": [
@@ -13,15 +40,7 @@
         "get"
     ],
     "/api/v3/tag": [
-        "get"
-    ],
-    "/api/v3/series/{id}": [
-        "get"
-    ],
-    "/api/v3/episodefile": [
-        "get"
-    ],
-    "/api/v3/episodefile/{id}": [
-        "delete"
+        "get",
+        "post"
     ]
 }

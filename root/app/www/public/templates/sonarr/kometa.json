@@ -2,11 +2,27 @@
     "/api/v3/importlistexclusion": [
         "get"
     ],
+    "/api/v3/languageprofile": [
+        "get"
+    ],
     "/api/v3/rootfolder": [
         "get"
     ],
-    "/api/v3/rootfolder/{id}": [
+    "/api/v3/seasonpass": [
+        "post"
+    ],
+    "/api/v3/series": [
         "get"
+    ],
+    "/api/v3/series/import": [
+        "post"
+    ],
+    "/api/v3/series/lookup": [
+        "get"
+    ],
+    "/api/v3/series/editor": [
+        "put",
+        "delete"
     ],
     "/api/v3/system/status": [
         "get"
@@ -14,17 +30,8 @@
     "/api/v3/qualityprofile": [
         "get"
     ],
-    "/api/v3/series": [
+    "/api/v3/tag": [
         "get",
         "post"
-    ],
-    "/api/v3/series/lookup": [
-        "get"
-    ],
-    "/api/v3/series/editor": [
-        "put"
-    ],
-    "/api/v3/tag": [
-        "get"
     ]
 }
