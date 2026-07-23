@@ -1,6 +1,12 @@
 {
-    "/api/v3/importlistexclusion": [
+    "/api/v3/command": [
+        "post"
+    ],
+    "/api/v3/episode": [
         "get"
+    ],
+    "/api/v3/episode/monitor": [
+        "put"
     ],
     "/api/v3/languageprofile": [
         "get"
@@ -20,7 +26,8 @@
         "put"
     ],
     "/api/v3/series/{id}": [
-        "get"
+        "get",
+        "delete"
     ],
     "/api/v3/series/lookup": [
         "get"
@@ -32,7 +39,7 @@
         "get",
         "post"
     ],
-    "/api/v3/command": [
-        "post"
+    "/api/v3/tag/{id}": [
+        "put"
     ]
 }

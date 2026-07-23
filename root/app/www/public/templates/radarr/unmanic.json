@@ -1,8 +1,11 @@
 {
+    "/api/v3/command": [
+        "post"
+    ],
     "/api/v3/movie/lookup": [
         "get"
     ],
-    "/api/v3/command": [
-        "post"
+    "/api/v3/queue": [
+        "get"
     ]
 }

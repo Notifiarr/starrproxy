@@ -16,7 +16,13 @@
     ],
     "/api/v3/filesystem": [
         "get"
-    ],    
+    ],
+    "/api/v3/history": [
+        "get"
+    ],
+    "/api/v3/languageprofile": [
+        "get"
+    ],
     "/api/v3/mediacover/{seriesId}/{filename}": [
         "get"
     ],
@@ -25,7 +31,7 @@
     ],
     "/api/v3/series": [
         "get"
-    ],    
+    ],
     "/api/v3/series/{id}": [
         "get"
     ],

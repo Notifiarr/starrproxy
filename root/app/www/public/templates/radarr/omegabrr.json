@@ -1,5 +1,8 @@
 {
     "/api/v3/movie": [
         "get"
+    ],
+    "/api/v3/tag": [
+        "get"
     ]
 }
