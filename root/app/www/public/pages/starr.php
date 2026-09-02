@@ -149,6 +149,7 @@ if (!$_SESSION['IN_UI']) {
                                 $templateFile = file_exists($accessApp['template']) ? $accessApp['template'] : str_replace('../', './', $accessApp['template']);
                                 if (file_exists($templateFile)) {
                                     $templateEndpoints = getFile($templateFile);
+                                    unset($templateEndpoints['signalr']);
                                     $template          = '<span ' . (count($accessApp['endpoints'], COUNT_RECURSIVE) != count($templateEndpoints, COUNT_RECURSIVE) ? 'class="text-warning" title="Template does not match, click to fix that" style="cursor: pointer;" onclick="viewAppEndpointDiff(' . $accessApp['id'] . ')"' : '') . '>Template: ' . count($templateEndpoints, COUNT_RECURSIVE) . ' endpoint' . (count($templateEndpoints, COUNT_RECURSIVE) == 1 ? '' : 's') . '</span>';
                                 }
                                 ?>
