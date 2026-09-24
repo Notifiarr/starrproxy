@@ -255,6 +255,38 @@ class Starr
         return [];
     }
 
+    public function requestMatchesEndpointTemplate($requestEndpoint, $templateEndpoint)
+    {
+        if (!$requestEndpoint || !$templateEndpoint || !str_contains($templateEndpoint, '{')) {
+            return false;
+        }
+
+        $requestParts  = explode('/', $requestEndpoint);
+        $templateParts = explode('/', $templateEndpoint);
+
+        if (count($requestParts) != count($templateParts)) {
+            return false;
+        }
+
+        foreach ($templateParts as $index => $templatePart) {
+            $requestPart = $requestParts[$index];
+
+            if (preg_match('/^\{.*\}$/', $templatePart)) {
+                if (str_equals_any($templatePart, ['{id}', '{seriesId}', '{movieId}']) && !is_numeric($requestPart)) {
+                    return false;
+                }
+
+                continue;
+            }
+
+            if ($templatePart != $requestPart) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function findWildcardEndpoint($starrApp, $endpoint)
     {
         foreach (StarrApps::LIST as $listStarr) {
@@ -264,43 +296,9 @@ class Starr
 
             $endpoints = $this->getEndpoints(strtolower($starrApp));
 
-            $endpointRegexes = ['/(.*)\/(.*)\/(.*)/', '/(.*)\/(.*)/'];
-            $wildcardRegexes = ['/(.*)({.*})\/({.*})/', '/(.*)({.*})/'];
-
-            foreach ($wildcardRegexes as $index => $wildcardRegex) {
-                preg_match($endpointRegexes[$index], $endpoint, $requestMatches);
-
-                if (!$requestMatches) {
-                    continue;
-                }
-
-                foreach ($endpoints as $accessEndpoint => $accessMethods) {
-                    preg_match($wildcardRegex, $accessEndpoint, $accessMatches);
-
-                    if (!$accessMatches) {
-                        continue;
-                    }
-
-                    if ($accessMatches[1] == $requestMatches[1] . '/') {
-                        $invalidType = false;
-                        foreach ($accessMatches as $accessIndex => $accessMatch) {
-                            if (str_equals_any($accessMatch, ['{id}', '{seriesId}', '{movieId}']) && !is_numeric($requestMatches[$accessIndex])) {
-                                $invalidType = true;
-                                break;
-                            }
-                        }
-
-                        if ($invalidType) {
-                            continue;
-                        }
-
-                        $requestEndpointParts = explode('/', $endpoint);
-                        $starrEndpointParts   = explode('/', $accessEndpoint);
-
-                        if (count($accessMatches) == count($requestMatches) && count($starrEndpointParts) == count($requestEndpointParts)) {
-                            return $accessEndpoint;
-                        }
-                    }
+            foreach ($endpoints as $accessEndpoint => $accessMethods) {
+                if ($this->requestMatchesEndpointTemplate($endpoint, $accessEndpoint)) {
+                    return $accessEndpoint;
                 }
             }
         }
@@ -320,9 +318,17 @@ class Starr
             return ['allowed' => true, 'starrEndpoint' => $endpoint];
         }
 
-        // CHECK IF THE ENDPOINT HAS WILDCARDS: /{...}/{...} OR /{...}
-        if (!$endpoints[$endpoint]) {
-            $wildcard = $this->findWildcardEndpoint($starrApp, $endpoint);
+        // CHECK IF THE ENDPOINT HAS WILDCARDS: /{...}/{...} OR /{...} OR /path/{...}/path
+        foreach ($endpoints as $allowedEndpoint => $methods) {
+            if ($this->requestMatchesEndpointTemplate($endpoint, $allowedEndpoint)) {
+                return ['allowed' => $methods, 'starrEndpoint' => $allowedEndpoint];
+            }
+        }
+
+        // FALL BACK TO OPENAPI TEMPLATE
+        $wildcard = $this->findWildcardEndpoint($starrApp, $endpoint);
+
+        if ($wildcard) {
             return ['allowed' => $endpoints[$wildcard], 'starrEndpoint' => $wildcard];
         }
 
