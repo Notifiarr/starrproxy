@@ -161,6 +161,10 @@ if ($_POST['m'] == 'openAppStarrAccess') {
             </td>
         </tr>
         <tr>
+            <td>SignalR<br><span class="text-small">Allow this app to use the arr SignalR/WebSocket endpoint</span></td>
+            <td><input type="checkbox" class="form-check-input" id="access-signalr" <?= $existing['signalr'] ? 'checked' : '' ?>></td>
+        </tr>
+        <tr>
             <td>
                 <?= ucfirst($app) ?> endpoints<br>
                 <span class="text-small">
@@ -242,6 +246,7 @@ if ($_POST['m'] == 'saveAppStarrAccess') {
     $fields['endpoints']  = json_encode($endpoints, JSON_UNESCAPED_SLASHES);
     $fields['template']   = $_POST['template'];
     $fields['redactions'] = $_POST['redactions'];
+    $fields['signalr']    = intval($_POST['signalr']);
 
     if ($_POST['id'] != 99) {
         $error = $proxyDb->updateApp($_POST['id'], $fields);
@@ -307,6 +312,8 @@ if ($_POST['m'] == 'autoAdjustAppEndpoints') {
         $appTemplate  = getFile($templateFile);
 
         if ($appTemplate) {
+            $app['signalr']   = intval(!empty($appTemplate['signalr']));
+            unset($appTemplate['signalr']);
             $app['endpoints'] = json_encode($appTemplate);
             $error            = $proxyDb->updateApp($_POST['appId'], $app);
         }
@@ -332,6 +339,10 @@ if ($_POST['m'] == 'viewAppEndpointDiff') {
 
     $endpoints = [];
     foreach ($templateFile as $templateEndpoint => $methods) {
+        if (!is_array($methods)) {
+            continue;
+        }
+
         foreach ($methods as $method) {
             $endpoints[$templateEndpoint][$method][] = 'template';
         }

@@ -38,11 +38,17 @@ function applyTemplateOptions()
                 const loopId        = $(this).prop('id');
 
                 $.each(resultData, function(endpoint, methods) {
+                    if (!Array.isArray(methods)) {
+                        return;
+                    }
+
                     if (loopEndpoint == endpoint && methods.includes(loopMethod)) {
                         $('#' + loopId).prop('checked', true);
                     }
                 });
             });
+
+            $('#access-signalr').prop('checked', resultData.signalr === true);
 
             toast('Templates', 'The selected template access has been applied', 'info');
         }

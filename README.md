@@ -90,6 +90,8 @@ If you need to auto add starr apps and 3rd party apps you can do that via the ap
 
 The `template` variable is not required but if you do not use an existing template then the app will have no starr api access initially.
 
+SignalR/WebSocket access is separately disabled by default. Enable the SignalR option when configuring an app that needs an arr `/signalr` connection. The Radarr and Sonarr Bazarr templates enable this option automatically.
+
 An example curl would be:
 
 ``` bash

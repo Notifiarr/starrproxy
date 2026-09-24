@@ -185,6 +185,7 @@ $getTotalUsageStats    = getTotalUsageStats($starrsTable, $appsTable, $usageTabl
 
                             if (file_exists($templateFile)) {
                                 $appTemplate = getFile($templateFile);
+                                unset($appTemplate['signalr']);
 
                                 if (count($appAccess, COUNT_RECURSIVE) != count($appTemplate, COUNT_RECURSIVE)) {
                                     foreach ($starrsTable as $starrApp) {

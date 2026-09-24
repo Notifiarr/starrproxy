@@ -1,4 +1,5 @@
 {
+    "signalr": true,
     "/api/v3/command": [
         "post"
     ],
