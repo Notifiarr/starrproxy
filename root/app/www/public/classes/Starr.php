@@ -90,11 +90,14 @@ class Starr
 
     public function getEndpoints($app)
     {
-        $cacheKey = sprintf(STARR_ENDPOINT_LIST_KEY, $app);
-        $cache    = $this->cache->get($cacheKey);
+        $cacheKey  = sprintf(STARR_ENDPOINT_LIST_KEY, $app);
+        $cache     = $this->cache->get($cacheKey);
+        $endpoints = [];
 
         if ($cache) {
-            return json_decode($cache, true);
+            $cached = json_decode($cache, true);
+
+            return is_array($cached) ? $cached : $endpoints;
         }
 
         switch ($app) {
@@ -114,21 +117,29 @@ class Starr
                 $openapi = 'https://raw.githubusercontent.com/Sonarr/Sonarr/develop/src/Sonarr.Api.V3/openapi.json';
                 break;
             case 'whisparr':
-                $openapi = 'https://raw.githubusercontent.com/Whisparr/Whisparr/develop/src/Whisparr.Api.V3/openapi.json';
+                // develop branch no longer hosts openapi.json; eros is the current docs source
+                $openapi = 'https://raw.githubusercontent.com/Whisparr/Whisparr/eros/src/Whisparr.Api.V3/openapi.json';
                 break;
+            default:
+                return $endpoints;
         }
 
         $openapi   = curl($openapi);
         $overrides = $this->getEndpointOverrides($app);
+        $paths     = is_array($openapi['response'] ?? null) ? ($openapi['response']['paths'] ?? null) : null;
 
-        foreach ($openapi['response']['paths'] as $endpoint => $endpointData) {
-            if (str_equals_any($endpoint, ['/', '/{path}'])) {
+        if (!is_array($paths)) {
+            return $endpoints;
+        }
+
+        foreach ($paths as $endpoint => $endpointData) {
+            if (!is_array($endpointData) || str_equals_any($endpoint, ['/', '/{path}'])) {
                 continue;
             }
 
             $endpointInfo = ['label' => '', 'methods' => []];
             foreach ($endpointData as $method => $methodParams) {
-                if (str_equals_any($methodParams['tags'][0], ['StaticResource'])) {
+                if (!is_array($methodParams) || str_equals_any($methodParams['tags'][0] ?? '', ['StaticResource'])) {
                     continue;
                 }
 
@@ -148,13 +159,15 @@ class Starr
                 }
             }
 
-            if ($endpointInfo) {
+            if ($endpointInfo['methods']) {
                 $endpoints[$endpoint] = $endpointInfo;
                 sort($endpoints[$endpoint]['methods']);
             }
         }
 
-        $this->cache->set($cacheKey, json_encode($endpoints), STARR_ENDPOINT_LIST_TIME);
+        if ($endpoints) {
+            $this->cache->set($cacheKey, json_encode($endpoints), STARR_ENDPOINT_LIST_TIME);
+        }
 
         return $endpoints;
     }

@@ -44,9 +44,9 @@ function getTotalEndpointStats($starrsTable, $appsTable)
 
             foreach ($appsTable as $proxiedApp) {
                 if ($proxiedApp['starr_id'] == $starrApp['id']) {
-                    $endpoints  = json_decode($proxiedApp['endpoints'], true);
+                    $endpoints  = json_decode($proxiedApp['endpoints'], true) ?: [];
                     $allowed   += count($endpoints);
-                    $total     += count($endpointList[$app]);
+                    $total     += count($endpointList[$app] ?: []);
                     $apps++;
                 }
             }
