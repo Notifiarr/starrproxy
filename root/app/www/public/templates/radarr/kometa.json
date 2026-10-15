@@ -2,6 +2,9 @@
     "/api/v3/exclusions": [
         "get"
     ],
+    "/api/v3/exclusions/paged": [
+        "get"
+    ],
     "/api/v3/movie": [
         "get"
     ],

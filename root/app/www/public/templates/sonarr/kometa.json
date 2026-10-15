@@ -2,6 +2,9 @@
     "/api/v3/importlistexclusion": [
         "get"
     ],
+    "/api/v3/importlistexclusion/paged": [
+        "get"
+    ],
     "/api/v3/languageprofile": [
         "get"
     ],
