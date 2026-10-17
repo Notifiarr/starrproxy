@@ -44,6 +44,9 @@ if ($_POST['m'] == 'openTemplateStarrAccess') {
 if ($_POST['m'] == 'saveTemplateStarrAccess') {
     $existing  = $proxyDb->getAppFromId($_POST['id'], $appsTable);
     $endpoints = $existing['endpoints'] ? json_decode($existing['endpoints'], true) : [];
+    if ($existing['signalr']) {
+        $endpoints['signalr'] = true;
+    }
     $name      = strtolower(preg_replace('/[^a-zA-Z0-9 _-]/', '', $_POST['name']));
     file_put_contents(APP_USER_TEMPLATES_PATH . $app . '/' . $name . '.json', json_encode($endpoints, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 }
