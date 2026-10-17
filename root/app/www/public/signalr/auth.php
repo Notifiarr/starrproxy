@@ -6,6 +6,9 @@ if (!defined('ABSOLUTE_PATH')) {
 
 require ABSOLUTE_PATH . 'loader.php';
 
+// The auth_request subrequest carries no query string; nginx passes the original URI.
+parse_str((string) parse_url($_SERVER['ORIG_QUERY'] ?? '', PHP_URL_QUERY), $_GET);
+
 $apikey     = $_GET['access_token'] ?: $_GET['apikey'] ?: $_SERVER['HTTP_X_API_KEY'];
 $proxiedApp = $starr->getAppFromProxiedKey($apikey);
 
