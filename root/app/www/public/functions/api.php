@@ -12,6 +12,31 @@ function generateApikey($length = 32)
     return substr(bin2hex(random_bytes($length)), 0, $length);
 }
 
+function forwardedQueryString($queryString, $strip = ['endpoint', 'apikey'])
+{
+    if (!$queryString) {
+        return '';
+    }
+
+    $kept = [];
+
+    foreach (explode('&', $queryString) as $part) {
+        if ($part === '') {
+            continue;
+        }
+
+        $name = urldecode(explode('=', $part, 2)[0]);
+
+        if (in_array($name, $strip, true)) {
+            continue;
+        }
+
+        $kept[] = $part;
+    }
+
+    return implode('&', $kept);
+}
+
 function apiResponse($code, $response, $responseHeaders = [])
 {
     session_unset();

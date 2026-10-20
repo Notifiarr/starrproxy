@@ -29,11 +29,6 @@ $logfile = LOGS_PATH . 'access.log';
 $internalEndpoint = false;
 $_GET['endpoint'] = strtolower($_GET['endpoint']);
 
-//-- BUILD THE PARAMETER LIST TO SEND THROUGH TO THE STARR APP
-$variables = $_GET ?: [];
-unset($variables['endpoint']); //-- THIS DOES NOT GO TO STARR
-unset($variables['apikey']); //-- THIS IS THE PROXIED KEY WHEN USED, STARR FAVORS GET OVER HEADER SO IT THROWS A 401 IF SENT
-
 list($endpoint, $parameters) = explode('?', $_GET['endpoint']);
 $originalEndpoint   = $endpoint;
 $method             = strtolower($_SERVER['REQUEST_METHOD']);
@@ -181,12 +176,13 @@ if ($internalEndpoint) {
             readfile($proxyBackup);
         }
     } elseif (!$endpoint && $_GET['feed']) { //-- iCal links, let them through
-        unset($variables['feed'], $variables['apikey']);
-        $starrUrl   = $proxiedApp['starrAppDetails']['url'] . $_GET['feed'] . ($variables ? '?' . http_build_query($variables) : '');
-        $request    = curl($starrUrl, ['X-Api-Key:' . $proxiedApp['starrAppDetails']['apikey']], $method, $json);
+        $forwardedQuery = forwardedQueryString($_SERVER['QUERY_STRING'] ?? '', ['endpoint', 'apikey', 'feed']);
+        $feedRequest    = $_GET['feed'] . ($forwardedQuery !== '' ? '?' . $forwardedQuery : '');
+        $starrUrl       = $proxiedApp['starrAppDetails']['url'] . $feedRequest;
+        $request        = curl($starrUrl, ['X-Api-Key:' . $proxiedApp['starrAppDetails']['apikey']], $method, $json);
 
-        logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $_GET['feed'] . ($variables ? '?' . http_build_query($variables) : ''), 'proxyCode' => 200, 'starrCode' => $request['code']]);
-        logger($proxiedAppLogfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $_GET['feed'] . ($variables ? '?' . http_build_query($variables) : ''), 'proxyCode' => 200, 'starrCode' => $request['code'], 'starrRequest' => $request]);
+        logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $feedRequest, 'proxyCode' => 200, 'starrCode' => $request['code']]);
+        logger($proxiedAppLogfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $feedRequest, 'proxyCode' => 200, 'starrCode' => $request['code'], 'starrRequest' => $request]);
 
         $usageDb->adjustAppUsage($proxiedApp['proxiedAppDetails']['id'], $request['code']);
 
@@ -250,8 +246,9 @@ if ($internalEndpoint) {
             }
         }
 
-        $starrUrl   = $proxiedApp['starrAppDetails']['url'] . $originalEndpoint . ($variables ? '?' . http_build_query($variables) : '');
-        $request    = curl($starrUrl, ['X-Api-Key:' . $proxiedApp['starrAppDetails']['apikey']], $method, $json);
+        $forwardedQuery = forwardedQueryString($_SERVER['QUERY_STRING'] ?? '');
+        $starrUrl       = $proxiedApp['starrAppDetails']['url'] . $originalEndpoint . ($forwardedQuery !== '' ? '?' . $forwardedQuery : '');
+        $request        = curl($starrUrl, ['X-Api-Key:' . $proxiedApp['starrAppDetails']['apikey']], $method, $json);
 
         logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $originalEndpoint, 'proxyCode' => 200, 'starrCode' => $request['code']]);
         logger($proxiedAppLogfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $originalEndpoint, 'proxyCode' => 200, 'starrCode' => $request['code'], 'starrRequest' => $request]);
