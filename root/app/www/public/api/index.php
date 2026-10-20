@@ -116,6 +116,9 @@ if ($internalEndpoint) {
             
                         $error = $proxyDb->addStarrApp($request['starr'], $fields);
 
+                        //-- RELOAD, THE TABLE LOADED BY loader.php IS STALE AFTER THE INSERT
+                        $starrsTable = $proxyDb->getStarrsTable();
+
                         //-- ADD THE APP ACCESS
                         $starrApp = $starr->getAppFromStarrKey($request['apikey'], $starrsTable);
 
