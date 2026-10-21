@@ -94,6 +94,11 @@ SignalR (`/signalr/messages` and `/signalr/messages/negotiate`) is granted like 
 
 The SignalR stream carries every broadcast event from the arr and cannot be field-redacted, so an app with any Redactions set is refused SignalR (401). Auth results for SignalR are logged as `proxyCode:auth-granted` (nginx contacts the arr after the auth check, so the real upstream status is not known to the log) and count as `allowed` in usage. SignalR connections are capped at 10 concurrent per client address (429 over the cap).
 
+SignalR limitations:
+
+- nginx opens the SignalR upstream itself, resolving the arr hostname through Docker's embedded DNS (`127.0.0.11`). An arr URL that only resolves through `/etc/hosts`, `localhost`, `extra_hosts`, or host networking works for REST but fails for SignalR. Use an IP address or a hostname resolvable by Docker DNS in the starr app URL.
+- The 10 connection cap keys on the client address nginx sees. starrproxy has no trusted-proxy setting, so behind a reverse proxy every client shares one cap of 10.
+
 An example curl would be:
 
 ``` bash
