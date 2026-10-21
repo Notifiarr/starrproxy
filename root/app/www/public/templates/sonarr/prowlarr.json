@@ -3,7 +3,16 @@
         "get",
         "post"
     ],
+    "/api/v5/indexer": [
+        "get",
+        "post"
+    ],
     "/api/v3/indexer/{id}": [
+        "get",
+        "put",
+        "delete"
+    ],
+    "/api/v5/indexer/{id}": [
         "get",
         "put",
         "delete"
@@ -11,7 +20,13 @@
     "/api/v3/indexer/schema": [
         "get"
     ],
+    "/api/v5/indexer/schema": [
+        "get"
+    ],
     "/api/v3/indexer/test": [
+        "post"
+    ],
+    "/api/v5/indexer/test": [
         "post"
     ]
 }

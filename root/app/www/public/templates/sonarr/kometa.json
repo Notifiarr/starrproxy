@@ -2,35 +2,67 @@
     "/api/v3/importlistexclusion": [
         "get"
     ],
+    "/api/v5/importlistexclusion": [
+        "get"
+    ],
     "/api/v3/languageprofile": [
         "get"
     ],
     "/api/v3/rootfolder": [
         "get"
     ],
+    "/api/v5/rootfolder": [
+        "get"
+    ],
     "/api/v3/seasonpass": [
+        "post"
+    ],
+    "/api/v5/seasonpass": [
         "post"
     ],
     "/api/v3/series": [
         "get"
     ],
+    "/api/v5/series": [
+        "get"
+    ],
     "/api/v3/series/import": [
         "post"
     ],
+    "/api/v5/series/import": [
+        "post"
+    ],
     "/api/v3/series/lookup": [
+        "get"
+    ],
+    "/api/v5/series/lookup": [
         "get"
     ],
     "/api/v3/series/editor": [
         "put",
         "delete"
     ],
+    "/api/v5/series/editor": [
+        "put",
+        "delete"
+    ],
     "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v5/system/status": [
         "get"
     ],
     "/api/v3/qualityprofile": [
         "get"
     ],
+    "/api/v5/qualityprofile": [
+        "get"
+    ],
     "/api/v3/tag": [
+        "get",
+        "post"
+    ],
+    "/api/v5/tag": [
         "get",
         "post"
     ],

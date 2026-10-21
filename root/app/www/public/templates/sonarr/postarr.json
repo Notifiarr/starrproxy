@@ -2,10 +2,19 @@
     "/api/v3/series": [
         "get"
     ],
+    "/api/v5/series": [
+        "get"
+    ],
     "/api/v3/series/{id}": [
         "get"
     ],
+    "/api/v5/series/{id}": [
+        "get"
+    ],
     "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v5/system/status": [
         "get"
     ]
 }

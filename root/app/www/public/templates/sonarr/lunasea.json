@@ -2,28 +2,55 @@
     "/api/v3/calendar": [
         "get"
     ],
+    "/api/v5/calendar": [
+        "get"
+    ],
     "/api/v3/command": [
+        "post"
+    ],
+    "/api/v5/command": [
         "post"
     ],
     "/api/v3/episode": [
         "get"
     ],
+    "/api/v5/episode": [
+        "get"
+    ],
     "/api/v3/episode/monitor": [
+        "put"
+    ],
+    "/api/v5/episode/monitor": [
         "put"
     ],
     "/api/v3/episodefile": [
         "get"
     ],
+    "/api/v5/episodefile": [
+        "get"
+    ],
     "/api/v3/episodefile/{id}": [
+        "delete"
+    ],
+    "/api/v5/episodefile/{id}": [
         "delete"
     ],
     "/api/v3/history": [
         "get"
     ],
+    "/api/v5/history": [
+        "get"
+    ],
     "/api/v3/history/series": [
         "get"
     ],
+    "/api/v5/history/series": [
+        "get"
+    ],
     "/api/v3/importlistexclusion": [
+        "get"
+    ],
+    "/api/v5/importlistexclusion": [
         "get"
     ],
     "/api/v3/languageprofile": [
@@ -32,26 +59,51 @@
     "/api/v3/mediacover/{seriesId}/{filename}": [
         "get"
     ],
+    "/api/v5/mediacover/{seriesId}/{filename}": [
+        "get"
+    ],
     "/api/v3/wanted/missing": [
+        "get"
+    ],
+    "/api/v5/wanted/missing": [
         "get"
     ],
     "/api/v3/qualityprofile": [
         "get"
     ],
+    "/api/v5/qualityprofile": [
+        "get"
+    ],
     "/api/v3/queue/{id}": [
+        "delete"
+    ],
+    "/api/v5/queue/{id}": [
         "delete"
     ],
     "/api/v3/queue": [
         "get"
     ],
+    "/api/v5/queue": [
+        "get"
+    ],
     "/api/v3/queue/details": [
+        "get"
+    ],
+    "/api/v5/queue/details": [
         "get"
     ],
     "/api/v3/release": [
         "get",
         "post"
     ],
+    "/api/v5/release": [
+        "get",
+        "post"
+    ],
     "/api/v3/rootfolder": [
+        "get"
+    ],
+    "/api/v5/rootfolder": [
         "get"
     ],
     "/api/v3/series": [
@@ -59,21 +111,42 @@
         "post",
         "put"
     ],
+    "/api/v5/series": [
+        "get",
+        "post"
+    ],
     "/api/v3/series/{id}": [
+        "delete",
+        "get"
+    ],
+    "/api/v5/series/{id}": [
         "delete",
         "get"
     ],
     "/api/v3/system/status": [
         "get"
     ],
+    "/api/v5/system/status": [
+        "get"
+    ],
     "/api/v3/tag": [
+        "get",
+        "post"
+    ],
+    "/api/v5/tag": [
         "get",
         "post"
     ],
     "/api/v3/tag/{id}": [
         "delete"
     ],
+    "/api/v5/tag/{id}": [
+        "delete"
+    ],
     "/api/v3/series/lookup": [
+        "get"
+    ],
+    "/api/v5/series/lookup": [
         "get"
     ]
 }

@@ -1,17 +1,32 @@
 {
     "/api/v3/calendar": [
         "get"
-    ],    
+    ],
+    "/api/v5/calendar": [
+        "get"
+    ],
     "/api/v3/wanted/missing": [
+        "get"
+    ],
+    "/api/v5/wanted/missing": [
         "get"
     ],
     "/api/v3/queue": [
         "get"
     ],
+    "/api/v5/queue": [
+        "get"
+    ],
     "/api/v3/queue/details": [
         "get"
     ],
+    "/api/v5/queue/details": [
+        "get"
+    ],
     "/api/v3/series": [
+        "get"
+    ],
+    "/api/v5/series": [
         "get"
     ]
 }

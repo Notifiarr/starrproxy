@@ -2,7 +2,13 @@
     "/api/v3/series": [
         "get"
     ],
+    "/api/v5/series": [
+        "get"
+    ],
     "/api/v3/tag": [
+        "get"
+    ],
+    "/api/v5/tag": [
         "get"
     ]
 }

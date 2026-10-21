@@ -2,14 +2,28 @@
     "/api/v3/system/backup": [
         "get"
     ],
+    "/api/v5/system/backup": [
+        "get"
+    ],
     "/api/v3/command": [
+        "post",
+        "get"
+    ],
+    "/api/v5/command": [
         "post",
         "get"
     ],
     "/api/v3/command/{id}": [
         "get"
     ],
+    "/api/v5/command/{id}": [
+        "get"
+    ],
     "/api/v3/customformat": [
+        "get",
+        "post"
+    ],
+    "/api/v5/customformat": [
         "get",
         "post"
     ],
@@ -18,19 +32,40 @@
         "delete",
         "get"
     ],
+    "/api/v5/customformat/{id}": [
+        "put",
+        "delete",
+        "get"
+    ],
     "/api/v3/episode": [
+        "get"
+    ],
+    "/api/v5/episode": [
         "get"
     ],
     "/api/v3/episode/{id}": [
         "get"
     ],
+    "/api/v5/episode/{id}": [
+        "get"
+    ],
     "/api/v3/episode/monitor": [
+        "put"
+    ],
+    "/api/v5/episode/monitor": [
         "put"
     ],
     "/api/v3/episodefile": [
         "get"
     ],
+    "/api/v5/episodefile": [
+        "get"
+    ],
     "/api/v3/episodefile/{id}": [
+        "delete",
+        "get"
+    ],
+    "/api/v5/episodefile/{id}": [
         "delete",
         "get"
     ],
@@ -38,14 +73,28 @@
         "get",
         "post"
     ],
+    "/api/v5/importlist": [
+        "get",
+        "post"
+    ],
     "/api/v3/importlist/{id}": [
+        "put"
+    ],
+    "/api/v5/importlist/{id}": [
         "put"
     ],
     "/api/v3/config/naming": [
         "get",
         "put"
     ],
+    "/api/v5/settings/naming": [
+        "get"
+    ],
     "/api/v3/config/naming/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v5/settings/naming/{id}": [
         "put",
         "get"
     ],
@@ -53,7 +102,15 @@
         "get",
         "post"
     ],
+    "/api/v5/connection": [
+        "get",
+        "post"
+    ],
     "/api/v3/notification/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v5/connection/{id}": [
         "put",
         "get"
     ],
@@ -61,7 +118,14 @@
         "put",
         "get"
     ],
+    "/api/v5/qualitydefinition/{id}": [
+        "put",
+        "get"
+    ],
     "/api/v3/qualitydefinition": [
+        "get"
+    ],
+    "/api/v5/qualitydefinition": [
         "get"
     ],
     "/api/v3/qualitydefinition/update": [
@@ -71,7 +135,16 @@
         "post",
         "get"
     ],
+    "/api/v5/qualityprofile": [
+        "post",
+        "get"
+    ],
     "/api/v3/qualityprofile/{id}": [
+        "delete",
+        "put",
+        "get"
+    ],
+    "/api/v5/qualityprofile/{id}": [
         "delete",
         "put",
         "get"
@@ -79,19 +152,38 @@
     "/api/v3/queue/{id}": [
         "delete"
     ],
+    "/api/v5/queue/{id}": [
+        "delete"
+    ],
     "/api/v3/queue": [
+        "get"
+    ],
+    "/api/v5/queue": [
         "get"
     ],
     "/api/v3/rootfolder": [
         "get"
     ],
+    "/api/v5/rootfolder": [
+        "get"
+    ],
     "/api/v3/rootfolder/{id}": [
+        "get"
+    ],
+    "/api/v5/rootfolder/{id}": [
         "get"
     ],
     "/api/v3/seasonpass": [
         "post"
     ],
+    "/api/v5/seasonpass": [
+        "post"
+    ],
     "/api/v3/series": [
+        "get",
+        "post"
+    ],
+    "/api/v5/series": [
         "get",
         "post"
     ],
@@ -100,16 +192,34 @@
         "put",
         "delete"
     ],
+    "/api/v5/series/{id}": [
+        "get",
+        "put",
+        "delete"
+    ],
     "/api/v3/series/editor": [
+        "put"
+    ],
+    "/api/v5/series/editor": [
         "put"
     ],
     "/api/v3/series/lookup": [
         "get"
     ],
+    "/api/v5/series/lookup": [
+        "get"
+    ],
     "/api/v3/system/status": [
         "get"
     ],
+    "/api/v5/system/status": [
+        "get"
+    ],
     "/api/v3/tag": [
+        "get",
+        "post"
+    ],
+    "/api/v5/tag": [
         "get",
         "post"
     ],
@@ -117,10 +227,20 @@
         "put",
         "get"
     ],
+    "/api/v5/tag/{id}": [
+        "put",
+        "get"
+    ],
     "/api/v3/releaseprofile": [
         "get"
     ],
+    "/api/v5/releaseprofile": [
+        "get"
+    ],
     "/api/v3/history": [
+        "get"
+    ],
+    "/api/v5/history": [
         "get"
     ]
 }
