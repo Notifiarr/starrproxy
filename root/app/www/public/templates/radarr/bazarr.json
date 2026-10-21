@@ -1,5 +1,4 @@
 {
-    "signalr": true,
     "/api/v3/command": [
         "post"
     ],
@@ -32,5 +31,11 @@
     ],
     "/api/system/status": [
         "get"
+    ],
+    "/signalr/messages": [
+        "get"
+    ],
+    "/signalr/messages/negotiate": [
+        "post"
     ]
 }

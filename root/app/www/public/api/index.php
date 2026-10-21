@@ -120,15 +120,12 @@ if ($internalEndpoint) {
                         if (!$error) {
                             $scopeKey       = generateApikey();
                             $scopeAccess    = $request['template'] ? json_decode(file_get_contents('../templates/' . $request['starr'] . '/' . $request['template'] . '.json'), true) : [];
-                            $signalr        = !empty($scopeAccess['signalr']);
-                            unset($scopeAccess['signalr']);
 
                             $fields = [
-                                        'name'      => $request['name'],
-                                        'apikey'    => $scopeKey,
+                                        'name'      => $request['name'], 
+                                        'apikey'    => $scopeKey, 
                                         'starr_id'  => intval($starrApp['id']),
-                                        'endpoints' => json_encode($scopeAccess, JSON_UNESCAPED_SLASHES),
-                                        'signalr'   => intval($signalr)
+                                        'endpoints' => json_encode($scopeAccess, JSON_UNESCAPED_SLASHES)
                                     ];
                             $error = $proxyDb->addApp($fields);
 

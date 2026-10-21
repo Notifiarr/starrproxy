@@ -90,7 +90,7 @@ If you need to auto add starr apps and 3rd party apps you can do that via the ap
 
 The `template` variable is not required but if you do not use an existing template then the app will have no starr api access initially.
 
-SignalR/WebSocket access is separately disabled by default. Enable the SignalR option when configuring an app that needs an arr `/signalr` connection. The Radarr and Sonarr Bazarr templates enable this option automatically.
+SignalR (`/signalr/messages` and `/signalr/messages/negotiate`) is granted like any other endpoint. It is allowed only when the app's endpoint list or template includes those entries, and it goes through the same scoped key, endpoint, and method checks as the REST API. The Radarr and Sonarr Bazarr templates include them.
 
 An example curl would be:
 

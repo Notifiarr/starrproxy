@@ -97,7 +97,7 @@ class Starr
         if ($cache) {
             $cached = json_decode($cache, true);
 
-            return is_array($cached) ? $cached : $endpoints;
+            return $this->addSignalrEndpoints(is_array($cached) ? $cached : $endpoints);
         }
 
         switch ($app) {
@@ -168,6 +168,16 @@ class Starr
         if ($endpoints) {
             $this->cache->set($cacheKey, json_encode($endpoints), STARR_ENDPOINT_LIST_TIME);
         }
+
+        return $this->addSignalrEndpoints($endpoints);
+    }
+
+    //-- SIGNALR IS NOT IN THE OPENAPI SPEC, LIST IT SO IT IS GRANTED LIKE ANY OTHER ENDPOINT
+    private function addSignalrEndpoints($endpoints)
+    {
+        $endpoints                                = $endpoints ?: [];
+        $endpoints['/signalr/messages']           = ['label' => 'SignalR', 'methods' => ['get']];
+        $endpoints['/signalr/messages/negotiate'] = ['label' => 'SignalR', 'methods' => ['post']];
 
         return $endpoints;
     }

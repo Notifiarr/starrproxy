@@ -125,7 +125,6 @@ function saveAppStarrAccess(app, id)
     params += '&starr_id=' + $('#access-instance').val();
     params += '&template=' + $('#access-template').val();
     params += '&redactions=' + $('#access-redactions').val();
-    params += '&signalr=' + ($('#access-signalr').prop('checked') ? 1 : 0);
 
     $.each($('[id^=endpoint-counter-]'), function() {
         const counter = $(this).attr('id').replace('endpoint-counter-', '');
