@@ -84,6 +84,11 @@ $block = function ($code, $extra = []) use ($logfile, $proxiedAppLogfile, $reque
     exit();
 };
 
+//-- THE SIGNALR STREAM CANNOT BE FIELD-REDACTED, SO AN APP WITH REDACTIONS NEVER GETS IT
+if (trim((string) $proxiedApp['proxiedAppDetails']['redactions'])) {
+    $block(401);
+}
+
 $isAllowedEndpoint = $starr->isAllowedEndpoint($app, $proxiedApp['access'], $endpoint);
 if (!$isAllowedEndpoint['allowed']) {
     $block(401);
@@ -101,8 +106,9 @@ if (!filter_var($backendUrl, FILTER_VALIDATE_URL) || !in_array(strtolower($backe
     exit();
 }
 
-logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $endpoint, 'proxyCode' => 200]);
-logger($proxiedAppLogfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $endpoint, 'proxyCode' => 200]);
+//-- AUTH ONLY: THE ARR HAS NOT BEEN CONTACTED YET, SO THIS IS NOT A PROXY RESULT AND IS NOT LOGGED AS 200
+logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $endpoint, 'proxyCode' => 'auth-granted']);
+logger($proxiedAppLogfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $endpoint, 'proxyCode' => 'auth-granted']);
 $usageDb->adjustAppUsage($proxiedApp['proxiedAppDetails']['id'], 200);
 
 //-- CONSUMED BY NGINX ONLY. THE REAL KEY IS INJECTED AS A REQUEST HEADER TO THE ARR

@@ -176,8 +176,8 @@ class Starr
     private function addSignalrEndpoints($endpoints)
     {
         $endpoints                                = $endpoints ?: [];
-        $endpoints['/signalr/messages']           = ['label' => 'SignalR', 'methods' => ['get']];
-        $endpoints['/signalr/messages/negotiate'] = ['label' => 'SignalR', 'methods' => ['post']];
+        $endpoints['/signalr/messages']           = ['label' => 'SignalR (all broadcast events, unredacted)', 'methods' => ['get']];
+        $endpoints['/signalr/messages/negotiate'] = ['label' => 'SignalR (negotiate)', 'methods' => ['post']];
 
         return $endpoints;
     }

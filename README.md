@@ -92,6 +92,8 @@ The `template` variable is not required but if you do not use an existing templa
 
 SignalR (`/signalr/messages` and `/signalr/messages/negotiate`) is granted like any other endpoint. It is allowed only when the app's endpoint list or template includes those entries, and it goes through the same scoped key, endpoint, and method checks as the REST API. The Radarr and Sonarr Bazarr templates include them.
 
+The SignalR stream carries every broadcast event from the arr and cannot be field-redacted, so an app with any Redactions set is refused SignalR (401). Auth results for SignalR are logged as `proxyCode:auth-granted` (nginx contacts the arr after the auth check, so the real upstream status is not known to the log) and count as `allowed` in usage. SignalR connections are capped at 10 concurrent per client address (429 over the cap).
+
 An example curl would be:
 
 ``` bash
