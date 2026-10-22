@@ -80,6 +80,10 @@ function openAppStarrAccess(app, id, clone = '')
         type: 'POST',
         url: 'ajax/starr.php',
         data: '&m=openAppStarrAccess&app=' + app + '&id=' + id + '&clone=' + clone,
+        error: function (xhr) {
+            loadingStop();
+            toast('Error', 'Failed to load access form (HTTP ' + xhr.status + '). Check the system log for details.', 'error');
+        },
         success: function (resultData) {
             dialogOpen({
                 id: 'openAppStarrAccess',

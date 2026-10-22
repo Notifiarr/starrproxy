@@ -16,17 +16,73 @@ class Starr
     use EndpointOverrides;
 
     public $cache;
+    public $customApps;
 
     public function __construct()
     {
         global $cache;
 
-        $this->cache = $cache ?: new Cache();
+        $this->cache      = $cache ?: new Cache();
+        $this->customApps = null;
     }
 
     public function __tostring()
     {
         return 'Class loaded: Starr';
+    }
+
+    public function loadCustomApps()
+    {
+        global $proxyDb;
+
+        if ($this->customApps === null && $proxyDb) {
+            $this->customApps = $proxyDb->getCustomApps();
+        }
+
+        return $this->customApps ?: [];
+    }
+
+    public function isHttpUrl($url)
+    {
+        return in_array(strtolower(parse_url($url, PHP_URL_SCHEME) ?: ''), ['http', 'https']) && parse_url($url, PHP_URL_HOST);
+    }
+
+    public function getAllAppsList()
+    {
+        $list       = StarrApps::LIST;
+        $customApps = $this->loadCustomApps();
+
+        foreach ($customApps as $customApp) {
+            $list[] = strtolower($customApp['name']);
+        }
+
+        return $list;
+    }
+
+    public function isCustomApp($name)
+    {
+        $customApps = $this->loadCustomApps();
+
+        foreach ($customApps as $customApp) {
+            if (strtolower($customApp['name']) == strtolower($name)) {
+                return $customApp;
+            }
+        }
+
+        return false;
+    }
+
+    public function getCustomAppFromId($id)
+    {
+        $customApps = $this->loadCustomApps();
+
+        foreach ($customApps as $customApp) {
+            if ($customApp['id'] + StarrApps::CUSTOM_ID_OFFSET == $id) {
+                return $customApp;
+            }
+        }
+
+        return false;
     }
 
     public function getStarrInterfaceIdFromName($name)
@@ -45,6 +101,13 @@ class Starr
             case 'whisparr':
                 return StarrApps::WHISPARR_ID;
         }
+
+        $customApp = $this->isCustomApp($name);
+        if ($customApp) {
+            return $customApp['id'] + StarrApps::CUSTOM_ID_OFFSET;
+        }
+
+        return null;
     }
 
     public function getStarrInterfaceNameFromId($id)
@@ -63,6 +126,42 @@ class Starr
             case StarrApps::WHISPARR_ID:
                 return strtolower(StarrApps::WHISPARR_LABEL);
         }
+
+        $customApp = $this->getCustomAppFromId($id);
+        if ($customApp) {
+            return strtolower($customApp['name']);
+        }
+
+        return null;
+    }
+
+    public function getStarrInterfaceLabelFromId($id)
+    {
+        $name = $this->getStarrInterfaceNameFromId($id);
+        if (!$name) {
+            return null;
+        }
+
+        $customApp = $this->isCustomApp($name);
+        if ($customApp) {
+            return $customApp['label'];
+        }
+
+        return ucfirst($name);
+    }
+
+    public function getAppIcon($name)
+    {
+        $customApp = $this->isCustomApp($name);
+        if ($customApp && $customApp['icon']) {
+            return 'images/custom/' . $customApp['icon'];
+        }
+
+        if (in_array($name, StarrApps::LIST)) {
+            return 'images/logos/' . $name . '.png';
+        }
+
+        return '';
     }
 
     public function apiVersion($app)
@@ -77,11 +176,19 @@ class Starr
             case 'whisparr':
                 return 'v3';
         }
+
+        $customApp = $this->isCustomApp($app);
+        if ($customApp) {
+            return $customApp['api_version'];
+        }
+
+        return 'v1';
     }
 
     public function testConnection($app, $url, $apikey)
     {
-        $url     = $url . '/api/' . $this->apiVersion($app) . '/config/host';
+        //-- CUSTOM APPS ARE NOT GUARANTEED TO HAVE config/host, system/status IS COMMON TO EVERY *ARR API
+        $url     = $url . '/api/' . $this->apiVersion($app) . ($this->isCustomApp($app) ? '/system/status' : '/config/host');
         $headers = ['x-api-key:' . $apikey];
         $curl    = curl($url, $headers);
 
@@ -121,7 +228,13 @@ class Starr
                 $openapi = 'https://raw.githubusercontent.com/Whisparr/Whisparr/eros/src/Whisparr.Api.V3/openapi.json';
                 break;
             default:
-                return $endpoints;
+                $customApp = $this->isCustomApp($app);
+                if (!$customApp || !$this->isHttpUrl($customApp['openapi_url'])) {
+                    return $endpoints;
+                }
+
+                $openapi = $customApp['openapi_url'];
+                break;
         }
 
         $openapi   = curl($openapi);
@@ -289,7 +402,7 @@ class Starr
 
     public function findWildcardEndpoint($starrApp, $endpoint)
     {
-        foreach (StarrApps::LIST as $listStarr) {
+        foreach ($this->getAllAppsList() as $listStarr) {
             if (strtolower($listStarr) != strtolower($starrApp)) {
                 continue;
             }
