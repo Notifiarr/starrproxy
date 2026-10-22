@@ -37,6 +37,15 @@ function forwardedQueryString($queryString, $strip = ['endpoint', 'apikey'])
     return implode('&', $kept);
 }
 
+function rewriteIndexerLinks($response, $starrUrl, $starrApikey, $proxyApikey)
+{
+    //-- PROWLARR WRITES ITS OWN URL AND APIKEY INTO NEWZNAB/TORZNAB DOWNLOAD LINKS, POINT THEM AT THE PROXY AND THE CALLERS APIKEY
+    $requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $proxyUrl    = APP_URL . preg_replace('#/\d+/api$#i', '', $requestPath);
+
+    return str_replace([rtrim($starrUrl, '/'), $starrApikey], [rtrim($proxyUrl, '/'), $proxyApikey], $response);
+}
+
 function apiResponse($code, $response, $responseHeaders = [])
 {
     session_unset();
