@@ -1,0 +1,23 @@
+name: Checks
+
+on:
+    push:
+        branches: ["main", "develop", "nightly"]
+    pull_request:
+        branches: ["main", "develop", "nightly"]
+
+permissions:
+    contents: read
+
+jobs:
+    pre-commit:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Install pre-commit
+              run: pip install pre-commit
+
+            - name: Run pre-commit
+              run: pre-commit run --all-files --show-diff-on-failure
