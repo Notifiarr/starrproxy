@@ -76,22 +76,6 @@ $cacheStats = $cache->stats();
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            foreach (StarrApps::LIST as $index => $starrApp) {
-                                $starrApp = ucfirst($starrApp);
-                                ?>
-                                <tr>
-                                    <td class="w-25">Nav link: <?= $starrApp ?></td>
-                                    <td>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="setting-uiHeader<?= $starrApp ?>" <?= $settingsTable['uiHeader' . $starrApp] ? 'checked' : '' ?>>
-                                            <label class="form-check-label" for="setting-uiHeader<?= $starrApp ?>">Show</label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <?php
-                            }
-                            ?>
                             <tr>
                                 <td class="w-25">Nav link: Notifications</td>
                                 <td>
@@ -131,7 +115,7 @@ $cacheStats = $cache->stats();
                             </tr>
                         </tbody>
                     </table>
-                    <br>** Refresh the page after changing UI settings
+                    <br>** Navigation changes apply immediately after saving
                 </div>
             </div>
         </div>
@@ -256,8 +240,8 @@ $cacheStats = $cache->stats();
                                     <i class="far fa-trash-alt text-danger" title="Bust cache" style="cursor:pointer;" onclick="bustCache('<?= STARRS_TABLE_CACHE_KEY ?>')"></i> Key: <?= STARRS_TABLE_CACHE_KEY ?>, Utilized: <?= $cache->get(STARRS_TABLE_CACHE_KEY) ? 'Yes' : 'No' ?><br>
                                     <i class="far fa-trash-alt text-danger" title="Bust cache" style="cursor:pointer;" onclick="bustCache('<?= APPS_TABLE_CACHE_KEY ?>')"></i> Key: <?= APPS_TABLE_CACHE_KEY ?>, Utilized: <?= $cache->get(APPS_TABLE_CACHE_KEY) ? 'Yes' : 'No' ?><br>
                                     <?php
-                                    foreach (StarrApps::LIST as $starr) {
-                                        $cacheKey = sprintf(STARR_ENDPOINT_LIST_KEY, $starr);
+                                    foreach ($starr->getAllAppsList() as $starrCacheApp) {
+                                        $cacheKey = sprintf(STARR_ENDPOINT_LIST_KEY, $starrCacheApp);
                                         ?>
                                         <i class="far fa-trash-alt text-danger" title="Bust cache" style="cursor:pointer;" onclick="bustCache('<?= $cacheKey ?>')"></i> Key: <?= $cacheKey ?>, Utilized: <?= $cache->get($cacheKey) ? 'Yes' : 'No' ?><br>
                                         <?php
@@ -271,5 +255,18 @@ $cacheStats = $cache->stats();
             </div>
         </div>
     </div>
+
+    <div class="col-sm-12">
+        <div class="card border-default mb-3">
+            <div class="card-header">
+                Custom Apps
+                <br><span class="text-small">Add custom *arr-like applications that behave just like the built-in ones</span>
+            </div>
+            <div class="card-body">
+                <div id="custom-apps-list">Loading...</div>
+            </div>
+        </div>
+    </div>
 </div>
+
 <?php

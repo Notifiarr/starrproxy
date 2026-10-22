@@ -48,6 +48,9 @@ if (!$_SESSION['IN_UI']) {
     </div>
 </div>
 
+<!-- Add app dialog body, rendered here so the dialog opens without a request -->
+<template id="add-app-template"><?= addAppForm($starr->loadCustomApps()) ?></template>
+
 <!-- Loading modal -->
 <div class="modal fade" id="loading-modal" style="z-index: 9999 !important;" data-bs-backdrop="static">
     <div class="modal-dialog">

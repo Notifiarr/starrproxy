@@ -69,9 +69,9 @@ if ($internalEndpoint) {
                 if (!$request['name']) {
                     $requestError = 'name field is required, should be the name of the 3rd party app/script';
                 } elseif (!$request['starr']) {
-                    $requestError = 'starr field is required, should be one of: ' . implode(', ', StarrApps::LIST);
-                } elseif (!in_array($request['starr'], StarrApps::LIST)) {
-                    $requestError = 'starr field is not valid, should be one of: ' . implode(', ', StarrApps::LIST);
+                    $requestError = 'starr field is required, should be one of: ' . implode(', ', $starr->getAllAppsList());
+                } elseif (!in_array($request['starr'], $starr->getAllAppsList())) {
+                    $requestError = 'starr field is not valid, should be one of: ' . implode(', ', $starr->getAllAppsList());
                 } elseif (!$request['url']) {
                     $requestError = 'url field is required, should be the local url to the starr app';
                 } elseif (!$request['apikey']) {

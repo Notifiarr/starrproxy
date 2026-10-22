@@ -72,6 +72,184 @@ function deleteStarr(starrId, app)
     }
 }
 // -------------------------------------------------------------------------------------------
+function openAddApp()
+{
+    dialogOpen({
+        id: 'addApp',
+        title: 'Add app',
+        size: 'lg',
+        body: $('#add-app-template').html(),
+        footer: '<button class="btn btn-outline-info" onclick="testAddApp()">Test</button> <button class="btn btn-success" onclick="saveAddApp()">Add</button>',
+        onOpen: function () {
+            $('#add-app-select').on('change', function () {
+                const selectedApp = $(this).val();
+                $('#add-app-custom-fields').toggleClass('d-none', selectedApp !== '__new__');
+                $('#add-app-instance-fields').toggleClass('d-none', !selectedApp);
+            });
+        }
+    });
+}
+// -------------------------------------------------------------------------------------------
+function getAddAppDetails()
+{
+    const selectedApp = $('#add-app-select').val();
+    if (!selectedApp) {
+        toast('Add app', 'Select an app first', 'error');
+        return null;
+    }
+
+    const app = selectedApp === '__new__' ? $.trim($('#custom-app-name').val()).toLowerCase() : selectedApp;
+    const url = $.trim($('#add-app-url').val());
+    const apikey = $.trim($('#add-app-apikey').val());
+
+    if (!app) {
+        toast('Add app', 'The custom app name is required', 'error');
+        return null;
+    }
+    if (!url || !apikey) {
+        toast('Add app', 'URL and API key are required', 'error');
+        return null;
+    }
+
+    return { app: app, url: url, apikey: apikey };
+}
+// -------------------------------------------------------------------------------------------
+function addAppError(message, definitionCreated)
+{
+    loadingStop();
+
+    if (definitionCreated) {
+        message += ' The custom app definition was saved, but no instance was added. It remains available in the Custom group the next time you open Add app.';
+    }
+
+    toast('Add app', message, 'error');
+}
+// -------------------------------------------------------------------------------------------
+function testAddApp()
+{
+    //-- A new custom app has no definition to test against yet, Add creates it and then tests
+    if ($('#add-app-select').val() === '__new__') {
+        toast('Add app', 'Add creates the custom app and tests the connection before saving the instance', 'info');
+        return;
+    }
+
+    const details = getAddAppDetails();
+    if (!details) {
+        return;
+    }
+
+    //-- No loading box for a test, the button shows it is running
+    const testButton = $('#addApp .btn-outline-info').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Testing');
+
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/starr.php',
+        data: '&m=testStarr&app=' + encodeURIComponent(details.app) + '&url=' + encodeURIComponent(details.url) + '&apikey=' + encodeURIComponent(details.apikey),
+        dataType: 'json',
+        complete: function () {
+            testButton.prop('disabled', false).text('Test');
+        },
+        error: function (xhr) {
+            addAppError('Connection test failed (HTTP ' + xhr.status + ')', false);
+        },
+        success: function (resultData) {
+            if (resultData.error) {
+                toast('Add app', resultData.error, 'error');
+                return;
+            }
+
+            toast('Add app', resultData.result, 'success');
+        }
+    });
+}
+// -------------------------------------------------------------------------------------------
+function saveAddApp()
+{
+    const details = getAddAppDetails();
+    if (!details) {
+        return;
+    }
+
+    loadingStart();
+
+    if ($('#add-app-select').val() === '__new__') {
+        createAddAppDefinition(details, function () {
+            testAndSaveAddApp(details, true);
+        });
+        return;
+    }
+
+    testAndSaveAddApp(details, false);
+}
+// -------------------------------------------------------------------------------------------
+function createAddAppDefinition(details, callback)
+{
+    const iconFile = $('#custom-app-icon')[0].files[0];
+
+    $.post('ajax/customapps.php', {
+        m: 'saveCustomApp',
+        id: 0,
+        name: details.app,
+        label: $('#custom-app-label').val(),
+        api_version: $('#custom-app-api-version').val(),
+        openapi_url: $('#custom-app-openapi-url').val()
+    }, null, 'json').done(function (saved) {
+        if (saved.error) {
+            addAppError(saved.error, false);
+            return;
+        }
+
+        //-- Select the saved definition so a retry after a failed instance step does not create it again
+        const customAppLabel = $('#custom-app-label').val();
+        $('#add-app-select optgroup[label="Custom"]').append(new Option(customAppLabel, details.app));
+        $($('#add-app-template')[0].content).find('optgroup[label="Custom"]').append(new Option(customAppLabel, details.app));
+        $('#add-app-select').val(details.app).trigger('change');
+
+        if (!iconFile) {
+            callback();
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('m', 'uploadCustomAppIcon');
+        formData.append('id', saved.id);
+        formData.append('icon', iconFile);
+
+        $.ajax({ type: 'POST', url: 'ajax/customapps.php', data: formData, processData: false, contentType: false, dataType: 'json' }).done(function (uploaded) {
+            if (uploaded.error) {
+                addAppError('The icon was rejected: ' + uploaded.error, true);
+                return;
+            }
+
+            callback();
+        }).fail(function (xhr) {
+            addAppError('Icon upload failed (HTTP ' + xhr.status + ')', true);
+        });
+    }).fail(function (xhr) {
+        addAppError('Failed to save the custom app definition (HTTP ' + xhr.status + ')', false);
+    });
+}
+// -------------------------------------------------------------------------------------------
+function testAndSaveAddApp(details, definitionCreated)
+{
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/starr.php',
+        data: '&m=saveStarr&starrId=99&app=' + encodeURIComponent(details.app) + '&url=' + encodeURIComponent(details.url) + '&apikey=' + encodeURIComponent(details.apikey) + '&username=' + encodeURIComponent($('#add-app-username').val()) + '&password=' + encodeURIComponent($('#add-app-password').val()) + '&requireTest=1',
+        error: function (xhr) {
+            addAppError('Failed to save the instance (HTTP ' + xhr.status + ')', definitionCreated);
+        },
+        success: function (saveResult) {
+            if (saveResult) {
+                addAppError(saveResult, definitionCreated);
+                return;
+            }
+
+            window.location.href = '/?app=' + encodeURIComponent(details.app);
+        }
+    });
+}
+// -------------------------------------------------------------------------------------------
 function openAppStarrAccess(app, id, clone = '')
 {
     loadingStart();
@@ -80,6 +258,10 @@ function openAppStarrAccess(app, id, clone = '')
         type: 'POST',
         url: 'ajax/starr.php',
         data: '&m=openAppStarrAccess&app=' + app + '&id=' + id + '&clone=' + clone,
+        error: function (xhr) {
+            loadingStop();
+            toast('Error', 'Failed to load access form (HTTP ' + xhr.status + '). Check the system log for details.', 'error');
+        },
         success: function (resultData) {
             dialogOpen({
                 id: 'openAppStarrAccess',
