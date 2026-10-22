@@ -1,0 +1,10 @@
+repos:
+    - repo: local
+      hooks:
+          - id: php-file-header
+            name: PHP file header
+            description: Every .php file starts with the Created/author header block.
+            language: pygrep
+            entry: '\A<\?php\r?\n\r?\n/\*\r?\n-{34}\r?\n ------  Created: \d{6}   ------\r?\n ------  [^\n]*------\r?\n-{34}\r?\n\*/'
+            args: [--multiline, --negate]
+            types: [php]
