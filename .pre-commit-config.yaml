@@ -8,3 +8,23 @@ repos:
             entry: '\A<\?php\r?\n\r?\n/\*\r?\n-{34}\r?\n ------  Created: \d{6}   ------\r?\n ------  [^\n]*------\r?\n-{34}\r?\n\*/'
             args: [--multiline, --negate]
             types: [php]
+          - id: php-lint
+            name: php -l
+            language: docker_image
+            entry: php:8.4-cli sh -c 'for f; do php -l "$f" || exit 1; done' --
+            types: [php]
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v5.0.0
+      hooks:
+          - id: check-json
+            files: ^root/app/www/public/templates/.*\.json$
+    - repo: https://github.com/shellcheck-py/shellcheck-py
+      rev: v0.10.0.1
+      hooks:
+          - id: shellcheck
+            types: [file]
+            files: ^(docker/build\.sh|root/etc/s6-overlay/.*/run)$
+    - repo: https://github.com/rhysd/actionlint
+      rev: v1.7.7
+      hooks:
+          - id: actionlint

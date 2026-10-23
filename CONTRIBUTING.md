@@ -27,7 +27,13 @@ Take a copy from any existing file, for example `root/app/www/public/classes/Sta
 
 ## Local checks
 
-Install [pre-commit](https://pre-commit.com/) once, then the header check runs on every commit:
+Install [pre-commit](https://pre-commit.com/) once, then these checks run on every commit:
+
+- the PHP header above
+- `php -l` on PHP files (runs in the `php:8.4-cli` Docker image, so Docker must be running)
+- JSON validity of `templates/**/*.json`
+- shellcheck on `docker/build.sh` and the s6 `run` scripts
+- actionlint on `.github/workflows/`
 
 ```bash
 pre-commit install
