@@ -43,5 +43,11 @@
     ],
     "/api/system/status": [
         "get"
+    ],
+    "/signalr/messages": [
+        "get"
+    ],
+    "/signalr/messages/negotiate": [
+        "post"
     ]
 }

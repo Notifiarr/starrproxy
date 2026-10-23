@@ -90,6 +90,15 @@ If you need to auto add starr apps and 3rd party apps you can do that via the ap
 
 The `template` variable is not required but if you do not use an existing template then the app will have no starr api access initially.
 
+SignalR (`/signalr/messages` and `/signalr/messages/negotiate`) is granted like any other endpoint. It is allowed only when the app's endpoint list or template includes those entries, and it goes through the same scoped key, endpoint, and method checks as the REST API. The Radarr and Sonarr Bazarr templates include them.
+
+The SignalR stream carries every broadcast event from the arr and cannot be field-redacted, so an app with any Redactions set is refused SignalR (401). Auth results for SignalR are logged as `proxyCode:auth-granted` (nginx contacts the arr after the auth check, so the real upstream status is not known to the log) and count as `allowed` in usage. SignalR connections are capped at 10 concurrent per client address (429 over the cap).
+
+SignalR limitations:
+
+- nginx opens the SignalR upstream itself, resolving the arr hostname through Docker's embedded DNS (`127.0.0.11`). An arr URL that only resolves through `/etc/hosts`, `localhost`, `extra_hosts`, or host networking works for REST but fails for SignalR. Use an IP address or a hostname resolvable by Docker DNS in the starr app URL.
+- The 10 connection cap keys on the client address nginx sees. starrproxy has no trusted-proxy setting, so behind a reverse proxy every client shares one cap of 10.
+
 An example curl would be:
 
 ``` bash
