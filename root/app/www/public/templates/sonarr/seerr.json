@@ -2,10 +2,19 @@
     "/api/v3/command": [
         "post"
     ],
+    "/api/v5/command": [
+        "post"
+    ],
     "/api/v3/episode": [
         "get"
     ],
+    "/api/v5/episode": [
+        "get"
+    ],
     "/api/v3/episode/monitor": [
+        "put"
+    ],
+    "/api/v5/episode/monitor": [
         "put"
     ],
     "/api/v3/languageprofile": [
@@ -14,10 +23,19 @@
     "/api/v3/qualityprofile": [
         "get"
     ],
+    "/api/v5/qualityprofile": [
+        "get"
+    ],
     "/api/v3/queue": [
         "get"
     ],
+    "/api/v5/queue": [
+        "get"
+    ],
     "/api/v3/rootfolder": [
+        "get"
+    ],
+    "/api/v5/rootfolder": [
         "get"
     ],
     "/api/v3/series": [
@@ -25,21 +43,42 @@
         "post",
         "put"
     ],
+    "/api/v5/series": [
+        "get",
+        "post"
+    ],
     "/api/v3/series/{id}": [
+        "get",
+        "delete"
+    ],
+    "/api/v5/series/{id}": [
         "get",
         "delete"
     ],
     "/api/v3/series/lookup": [
         "get"
     ],
+    "/api/v5/series/lookup": [
+        "get"
+    ],
     "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v5/system/status": [
         "get"
     ],
     "/api/v3/tag": [
         "get",
         "post"
     ],
+    "/api/v5/tag": [
+        "get",
+        "post"
+    ],
     "/api/v3/tag/{id}": [
+        "put"
+    ],
+    "/api/v5/tag/{id}": [
         "put"
     ]
 }

@@ -2,19 +2,34 @@
     "/api/v3/importlistexclusion": [
         "get"
     ],
+    "/api/v5/importlistexclusion": [
+        "get"
+    ],
     "/api/v3/languageprofile": [
         "get"
     ],
     "/api/v3/qualityprofile": [
         "get"
     ],
+    "/api/v5/qualityprofile": [
+        "get"
+    ],
     "/api/v3/series/lookup": [
+        "get"
+    ],
+    "/api/v5/series/lookup": [
         "get"
     ],
     "/api/v3/series": [
         "post"
     ],
+    "/api/v5/series": [
+        "post"
+    ],
     "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v5/system/status": [
         "get"
     ]
 }

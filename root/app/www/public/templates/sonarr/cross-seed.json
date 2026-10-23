@@ -4,5 +4,8 @@
     ],
     "/api/v3/parse": [
         "get"
+    ],
+    "/api/v5/parse": [
+        "get"
     ]
 }

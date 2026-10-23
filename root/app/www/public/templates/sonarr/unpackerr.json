@@ -1,5 +1,8 @@
 {
     "/api/v3/queue": [
         "get"
+    ],
+    "/api/v5/queue": [
+        "get"
     ]
 }

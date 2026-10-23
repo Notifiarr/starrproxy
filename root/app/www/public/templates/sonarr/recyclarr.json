@@ -3,7 +3,16 @@
         "get",
         "post"
     ],
+    "/api/v5/customformat": [
+        "get",
+        "post"
+    ],
     "/api/v3/customformat/{id}": [
+        "put",
+        "delete",
+        "get"
+    ],
+    "/api/v5/customformat/{id}": [
         "put",
         "delete",
         "get"
@@ -11,7 +20,14 @@
     "/api/v3/config/naming": [
         "get"
     ],
+    "/api/v5/settings/naming": [
+        "get"
+    ],
     "/api/v3/config/naming/{id}": [
+        "put",
+        "get"
+    ],
+    "/api/v5/settings/naming/{id}": [
         "put",
         "get"
     ],
@@ -19,7 +35,14 @@
         "put",
         "get"
     ],
+    "/api/v5/qualitydefinition/{id}": [
+        "put",
+        "get"
+    ],
     "/api/v3/qualitydefinition": [
+        "get"
+    ],
+    "/api/v5/qualitydefinition": [
         "get"
     ],
     "/api/v3/qualitydefinition/update": [
@@ -29,12 +52,24 @@
         "post",
         "get"
     ],
+    "/api/v5/qualityprofile": [
+        "post",
+        "get"
+    ],
     "/api/v3/qualityprofile/{id}": [
         "delete",
         "put",
         "get"
     ],
+    "/api/v5/qualityprofile/{id}": [
+        "delete",
+        "put",
+        "get"
+    ],
     "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v5/system/status": [
         "get"
     ]
 }

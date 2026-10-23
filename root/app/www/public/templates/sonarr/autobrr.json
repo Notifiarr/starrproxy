@@ -2,13 +2,25 @@
     "/api/v3/release/push": [
         "post"
     ],
+    "/api/v5/release/push": [
+        "post"
+    ],
     "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v5/system/status": [
         "get"
     ],
     "/api/v3/tag": [
         "get"
     ],
+    "/api/v5/tag": [
+        "get"
+    ],
     "/api/v3/series": [
+        "get"
+    ],
+    "/api/v5/series": [
         "get"
     ]
 }

@@ -2,7 +2,13 @@
     "/api/v3/parse": [
         "get"
     ],
+    "/api/v5/parse": [
+        "get"
+    ],
     "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v5/system/status": [
         "get"
     ]
 }

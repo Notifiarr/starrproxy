@@ -2,42 +2,82 @@
     "/api/v3/calendar": [
         "get"
     ],
+    "/api/v5/calendar": [
+        "get"
+    ],
     "/api/v3/mediacover/{seriesId}/{filename}": [
+        "get"
+    ],
+    "/api/v5/mediacover/{seriesId}/{filename}": [
         "get"
     ],
     "/api/v3/wanted/missing": [
         "get"
     ],
+    "/api/v5/wanted/missing": [
+        "get"
+    ],
     "/api/v3/queue/status": [
+        "get"
+    ],
+    "/api/v5/queue/status": [
         "get"
     ],
     "/api/v3/series": [
         "get",
         "put"
     ],
+    "/api/v5/series": [
+        "get"
+    ],
     "/api/v3/system/status": [
+        "get"
+    ],
+    "/api/v5/system/status": [
         "get"
     ],
     "/api/v3/series/{id}": [
         "get",
         "put"
     ],
+    "/api/v5/series/{id}": [
+        "get",
+        "put"
+    ],
     "/api/v3/qualityprofile": [
+        "get"
+    ],
+    "/api/v5/qualityprofile": [
         "get"
     ],
     "/api/v3/episode": [
         "get"
     ],
+    "/api/v5/episode": [
+        "get"
+    ],
     "/api/v3/rootfolder": [
+        "get"
+    ],
+    "/api/v5/rootfolder": [
         "get"
     ],
     "/api/v3/queue": [
         "get"
     ],
+    "/api/v5/queue": [
+        "get"
+    ],
     "/api/v3/episodefile": [
         "get"
     ],
+    "/api/v5/episodefile": [
+        "get"
+    ],
     "/api/v3/tag": [
+        "get"
+    ],
+    "/api/v5/tag": [
         "get"
     ],
     "/api/v3/languageprofile": [
@@ -46,7 +86,13 @@
     "/api/v3/command": [
         "post"
     ],
+    "/api/v5/command": [
+        "post"
+    ],
     "/api/v3/episode/{id}": [
+        "put"
+    ],
+    "/api/v5/episode/{id}": [
         "put"
     ]
 }
