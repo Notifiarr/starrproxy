@@ -62,8 +62,8 @@ jobs:
 
             - name: More Docker metadata
               run: |
-                  echo BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:00Z) >> $GITHUB_ENV
-                  echo COMMITS=$(git rev-list --count --all || echo 0) >> $GITHUB_ENV
+                  echo "BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:00Z)" >> "$GITHUB_ENV"
+                  echo "COMMITS=$(git rev-list --count --all || echo 0)" >> "$GITHUB_ENV"
 
             # Build and push Docker image with Buildx (don't push on PR)
             # https://github.com/docker/build-push-action
