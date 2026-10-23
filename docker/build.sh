@@ -42,6 +42,7 @@ while getopts "ht:v:" opt; do
         h) usage ;;
         t) TAG="$OPTARG" ;;
         v) VERSION="$OPTARG" ;;
+        *) usage ;;
     esac
 done
 shift $((OPTIND -1))
