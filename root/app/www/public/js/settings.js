@@ -19,6 +19,15 @@ function saveSettings()
         data: '&m=saveSettings' + params,
         success: function (resultData) {
             toast('Settings', 'The settings have been updated', 'success');
+
+            //-- Apply nav visibility changes without page reload
+            $('[data-nav-setting]').each(function() {
+                const settingKey = $(this).data('nav-setting');
+                const checkbox = $('#setting-' + settingKey);
+                if (checkbox.length) {
+                    $(this).toggleClass('d-none', !checkbox.prop('checked'));
+                }
+            });
         }
     });
 }
