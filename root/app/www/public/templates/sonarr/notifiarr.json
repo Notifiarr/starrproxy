@@ -88,7 +88,8 @@
         "put"
     ],
     "/api/v5/settings/naming": [
-        "get"
+        "get",
+        "put"
     ],
     "/api/v3/config/naming/{id}": [
         "put",
@@ -126,7 +127,8 @@
         "get"
     ],
     "/api/v5/qualitydefinition": [
-        "get"
+        "get",
+        "put"
     ],
     "/api/v3/qualitydefinition/update": [
         "put"
