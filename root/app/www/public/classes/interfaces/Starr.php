@@ -22,4 +22,5 @@ interface StarrApps
     public const SONARR_LABEL   = 'Sonarr';
     public const WHISPARR_ID    = 6;
     public const WHISPARR_LABEL = 'Whisparr';
+    public const CUSTOM_ID_OFFSET = 100;
 }
