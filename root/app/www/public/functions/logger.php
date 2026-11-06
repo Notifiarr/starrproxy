@@ -119,13 +119,60 @@ function getLogs()
     return $list;
 }
 
-function getLog($logfile, $page = 1, $app = false)
+function renderLogList()
+{
+    $logList = getLogs();
+    $index   = 0;
+
+    foreach ($logList['system'] as $group => $groupLogs) {
+        ?>
+        <h4 class="mt-2 fst-italic"><?= rtrim($group, '/') ?></h4><?php
+        foreach ($groupLogs as $log) {
+            $index++;
+            ?>
+            <ul style="margin-bottom: 0px; padding-bottom: 0px;">
+                <li>
+                    <i class="far fa-trash-alt text-danger" title="Delete access log" style="cursor:pointer;" onclick="deleteLog('<?= $log ?>')"></i>
+                    <span id="app-log-<?= $index ?>" style="cursor:pointer;" onclick="viewLog('<?= $log ?>', <?= $index ?>)"><?= basename($log) ?> (<?= date('m/d', filemtime($log)) ?>)</span>
+                    <div style="float: right;"><?= byteConversion(filesize($log)) ?></div>
+                </li>
+            </ul>
+            <?php
+        }
+    }
+
+    foreach ($logList as $app => $logs) {
+        if ($app == 'system') {
+            continue;
+        }
+
+        ?>
+        <h4 class="mt-2"><?= $app ?></h4><?php
+        foreach ($logs as $log) {
+            $index++;
+            ?>
+            <ul style="margin-bottom: 0px; padding-bottom: 0px;">
+                <li>
+                    <i class="far fa-trash-alt text-danger" title="Delete access log" style="cursor:pointer;" onclick="deleteLog('<?= $log ?>')"></i>
+                    <span id="app-log-<?= $index ?>" style="cursor:pointer;" onclick="viewLog('<?= $log ?>', <?= $index ?>)"><?= str_replace('access_', '', basename($log)) ?> (<?= date('m/d', filemtime($log)) ?>)</span>
+                    <div style="float: right;"><?= byteConversion(filesize($log)) ?></div>
+                </li>
+            </ul>
+            <?php
+        }
+    }
+}
+
+function getLog($logfile, $page = 1, $app = false, $activeTab = '#access')
 {
     global $starr, $shell;
 
     $page  = $page <= 1 ? 1 : $page;
     $start = $page == 1 ? 0 : $page * LOG_LINES_PER_PAGE - LOG_LINES_PER_PAGE;
     $end   = $start + LOG_LINES_PER_PAGE;
+
+    $accessActive    = ($activeTab !== '#endpoints') ? 'active' : '';
+    $endpointsActive = ($activeTab === '#endpoints') ? 'active' : '';
 
     $starr                 = $starr ?: new Starr();
     list($logLines, $file) = explode(' ', $shell->exec('wc -l "' . $logfile . '"'));
@@ -141,11 +188,11 @@ function getLog($logfile, $page = 1, $app = false)
     ?>
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" data-bs-toggle="tab" href="#access" aria-selected="true" role="tab">Access log (<?= number_format($logLines) ?> lines)</a>
+            <a class="nav-link <?= $accessActive ?>" data-bs-toggle="tab" href="#access" aria-selected="<?= $accessActive ? 'true' : 'false' ?>" role="tab">Access log (<?= number_format($logLines) ?> lines)</a>
         </li>
         <?php if ($app) { ?>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" data-bs-toggle="tab" href="#endpoints" aria-selected="false" tabindex="-1" role="tab">Endpoint usage</a>
+                <a class="nav-link <?= $endpointsActive ?>" data-bs-toggle="tab" href="#endpoints" aria-selected="<?= $endpointsActive ? 'true' : 'false' ?>" role="tab">Endpoint usage</a>
             </li>
         <?php } ?>
         <?php if (!$app) { ?>
@@ -169,7 +216,7 @@ function getLog($logfile, $page = 1, $app = false)
         <?php } ?>
     </ul>
     <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade show active" id="access" role="tabpanel">
+        <div class="tab-pane fade <?= $accessActive ? 'show active' : '' ?>" id="access" role="tabpanel">
             <table class="table table-no-squish table-bordered table-hover">
                 <?php
                 if ($lines) {
@@ -225,7 +272,7 @@ function getLog($logfile, $page = 1, $app = false)
             $starrApp   = $starr->getStarrInterfaceNameFromId($proxiedApp['starrAppDetails']['starr']);
 
             ?>
-            <div class="tab-pane fade" id="endpoints" role="tabpanel">
+            <div class="tab-pane fade <?= $endpointsActive ? 'show active' : '' ?>" id="endpoints" role="tabpanel">
                 <h4>Endpoint usage <span class="text-small">(<?= count($endpointUsage) ?> endpoint<?= count($endpointUsage) == 1 ? '' : 's' ?>)</span></h4>
                 <?php
                 foreach ($endpointUsage as $endpoint => $methods) {

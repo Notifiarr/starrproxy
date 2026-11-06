@@ -20,7 +20,7 @@ if (!$_SESSION['IN_UI']) {
 require '../loader.php';
 
 if ($_POST['m'] == 'viewAppLog') {
-    getLog($_POST['log'], 1, true);
+    getLog($_POST['log'], 1, true, $_POST['activeTab'] ?: '#access');
 }
 
 if ($_POST['m'] == 'viewLog') {
@@ -29,4 +29,8 @@ if ($_POST['m'] == 'viewLog') {
 
 if ($_POST['m'] == 'deleteLog') {
     unlink($_POST['log']);
+}
+
+if ($_POST['m'] == 'refreshLogList') {
+    renderLogList();
 }
