@@ -19,6 +19,7 @@ class Database
     use Settings;
     use Starrs;
     use Usage;
+    use CustomApps;
 
     public $db;
     public $dbName;

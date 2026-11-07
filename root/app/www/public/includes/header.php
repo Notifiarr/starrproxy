@@ -74,15 +74,29 @@ if (!$_SESSION['IN_UI']) {
                             }
 
                             ?>
-                            <li class="nav-item <?= !$settingsTable['uiHeader' . ucfirst($starrApp)] ? 'd-none' : '' ?>">
+                            <li class="nav-item <?= !$settingsTable['uiHeader' . ucfirst($starrApp)] ? 'd-none' : '' ?>" data-nav-setting="uiHeader<?= ucfirst($starrApp) ?>">
                                 <a class="nav-link <?= $active ? 'active' : '' ?>" href="/?app=<?= $starrApp ?>"><img src="images/logos/<?= $starrApp ?>.png" style="height: 18px;"> <span><?= ucfirst($starrApp) ?> <small><?= $starrAppCount ?></small></span></a>
+                            </li>
+                            <?php
+                        }
+
+                        foreach ($starr->loadCustomApps() as $customApp) {
+                            $customName    = strtolower($customApp['name']);
+                            $customId      = $starr->getStarrInterfaceIdFromName($customName);
+                            $active        = $app == $customName;
+                            $starrAppCount = count(array_filter($starrsTable ?: [], fn($starrDbApp) => $starrDbApp['starr'] == $customId));
+                            $icon          = $customApp['icon'] ? 'images/custom/' . $customApp['icon'] : 'images/logo-16.png';
+
+                            ?>
+                            <li class="nav-item <?= !$settingsTable['uiHeaderCustom_' . $customName] ? 'd-none' : '' ?>" data-nav-setting="uiHeaderCustom_<?= htmlspecialchars($customName) ?>">
+                                <a class="nav-link <?= $active ? 'active' : '' ?>" href="/?app=<?= urlencode($customName) ?>"><img src="<?= htmlspecialchars($icon) ?>" style="height: 18px;"> <span><?= htmlspecialchars($customApp['label']) ?> <small><?= $starrAppCount ?></small></span></a>
                             </li>
                             <?php
                         }
                         ?>
                     </ul>
                     <ul class="navbar-nav navbar-icons ms-auto">
-                        <li class="nav-item <?= !$settingsTable['uiHeaderNotifications'] ? 'd-none' : '' ?>">
+                        <li class="nav-item <?= !$settingsTable['uiHeaderNotifications'] ? 'd-none' : '' ?>" data-nav-setting="uiHeaderNotifications">
                             <a class="nav-link <?= $page == 'notifications' ? 'active' : '' ?>" href="/?page=notifications" title="Notifications"><i class="fas fa-comment-dots"></i>
                                 <span class="d-md-none">Notifications</span>
                             </a>
@@ -102,7 +116,7 @@ if (!$_SESSION['IN_UI']) {
                                 <span class="d-md-none">Settings</span>
                             </a>
                         </li>
-                        <li class="nav-item <?= !$settingsTable['uiHeaderHelp'] ? 'd-none' : '' ?>">
+                        <li class="nav-item <?= !$settingsTable['uiHeaderHelp'] ? 'd-none' : '' ?>" data-nav-setting="uiHeaderHelp">
                             <a class="nav-link <?= $page == 'help' ? 'active' : '' ?>" href="/?page=help" title="Help"><i class="far fa-question-circle"></i>
                                 <span class="d-md-none">Help</span>
                             </a>

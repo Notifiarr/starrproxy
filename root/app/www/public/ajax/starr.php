@@ -64,7 +64,7 @@ if ($_POST['m'] == 'saveStarr') {
         if (!is_array($test['response']) && str_contains($test['response'], 'doctype')) {
             $error = 'The starr app returned HTML, this typically happens with a bad base URL.';
         } else {
-            $name = $test['response']['instanceName'];
+            $name = $test['response']['instanceName'] ?: ucfirst($app);
         }
     }
 
@@ -187,7 +187,7 @@ if ($_POST['m'] == 'openAppStarrAccess') {
 
                         ?>
                         <tr class="table-primary">
-                            <td><?= $endpointInfo['label'] ?><br><span class="text-small"><?= $endpoint ?></span></td>
+                            <td><?= htmlspecialchars($endpointInfo['label']) ?><br><span class="text-small"><?= htmlspecialchars($endpoint) ?></span></td>
                             <td>
                                 <?php
                                 foreach ($endpointInfo['methods'] as $method) {
@@ -198,7 +198,7 @@ if ($_POST['m'] == 'openAppStarrAccess') {
                                     $checked = is_array($existing['endpoints']) && is_array($existing['endpoints'][$endpoint]) && in_array($method, $existing['endpoints'][$endpoint]) ? 'checked' : '';
                                     ?>
                                     <div class="form-check form-switch">
-                                        <input <?= $checked ?> id="endpoint-counter-<?= $counter ?>" data-endpoint="<?= $endpoint ?>" data-method="<?= $method ?>" type="checkbox" class="form-check-input endpoint-<?= $method ?>">
+                                        <input <?= $checked ?> id="endpoint-counter-<?= $counter ?>" data-endpoint="<?= htmlspecialchars($endpoint) ?>" data-method="<?= $method ?>" type="checkbox" class="form-check-input endpoint-<?= $method ?>">
                                         <label for="endpoint-counter-<?= $counter ?>"><?= $method ?></label>
                                     </div>
                                     <?php

@@ -32,16 +32,20 @@ function loadClassExtras($class)
 
 function automation()
 {
+    global $starr;
+
     $shell = $shell ?? new Shell();
 
     //-- CREATE DIRECTORIES
-    $createFolders = [LOGS_PATH, LOGS_PATH . 'system/', LOGS_PATH . 'notifications/', BACKUP_PATH, APP_USER_TEMPLATES_PATH, DATABASE_PATH, MIGRATIONS_PATH];
+    $createFolders = [LOGS_PATH, LOGS_PATH . 'system/', LOGS_PATH . 'notifications/', BACKUP_PATH, APP_USER_TEMPLATES_PATH, DATABASE_PATH, MIGRATIONS_PATH, ABSOLUTE_PATH . 'images/custom/'];
     foreach ($createFolders as $createFolder) {
         if (!is_dir($createFolder)) {
             createDirectoryTree($createFolder);
         }
     }
-    foreach (StarrApps::LIST as $starrApp) {
+    //-- INCLUDES CUSTOM APPS WHEN THE STARR CLASS IS LOADED
+    $allApps = $starr ? $starr->getAllAppsList() : StarrApps::LIST;
+    foreach ($allApps as $starrApp) {
         if (!is_dir(APP_USER_TEMPLATES_PATH . $starrApp)) {
             createDirectoryTree(APP_USER_TEMPLATES_PATH . $starrApp);
         }

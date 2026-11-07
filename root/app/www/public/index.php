@@ -22,7 +22,7 @@ require ABSOLUTE_PATH . 'includes/header.php';
 <div class="row w-100" style="margin: 1rem;">
     <?php
     switch (true) {
-        case in_array($app, StarrApps::LIST):
+        case in_array($app, $starr->getAllAppsList()):
             $requiredPage = 'starr';
             break;
         case $page:
