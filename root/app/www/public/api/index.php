@@ -260,6 +260,18 @@ if ($internalEndpoint) {
             $request['responseHeaders'] = array_filter($request['responseHeaders'], fn($rhKey) => strtolower($rhKey) != 'content-length', ARRAY_FILTER_USE_KEY);
         }
 
+        if ($request['code'] && is_string($request['response']) && preg_match('#/\d+/download$#', $originalEndpoint)) { //-- INDEXER GRAB, PASS THE FILE OR REDIRECT THROUGH AS IS, apiResponse() WOULD EMPTY BINARY TORRENTS AND DROP Location
+            http_response_code($request['code']);
+            foreach ($request['responseHeaders'] as $rhKey => $rhVal) {
+                if (!in_array(strtolower($rhKey), ['transfer-encoding', 'connection'])) {
+                    header($rhKey . ': ' . $rhVal[0]);
+                }
+            }
+
+            echo $request['response'];
+            exit();
+        }
+
         if ($request['code'] <= 299 && str_contains($endpoint, 'mediacover')) { //-- OUTPUT THE REQUESTED IMAGE
             foreach ($request['responseHeaders'] as $rhKey => $rhVal) {
                 header($rhKey . ': ' . $rhVal[0]);
