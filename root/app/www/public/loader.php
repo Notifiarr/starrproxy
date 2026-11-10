@@ -63,7 +63,11 @@ automation();
 
 //-- INITIALIZE THE DATABASE CLASS
 $proxyDb = new Database(PROXY_DATABASE_NAME);
-if ($_SESSION['IN_UI']) {
+if (defined('IS_STARTUP')) {
+    //-- Nothing else runs this early, a lock left here is from a start that died mid migration
+    if (file_exists(MIGRATION_FILE)) {
+        deleteFile(MIGRATION_FILE);
+    }
     $proxyDb->migrations();
 }
 $usageDb = new Database(USAGE_DATABASE_NAME);

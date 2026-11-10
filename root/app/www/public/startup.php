@@ -15,6 +15,9 @@ if (!defined('ABSOLUTE_PATH')) {
 	define('ABSOLUTE_PATH', __DIR__ . '/');
 }
 
+//-- Migrations only run here on container start, not on every UI request
+define('IS_STARTUP', true);
+
 echo 'require_once ' . ABSOLUTE_PATH . 'loader.php' . "\n";
 require_once ABSOLUTE_PATH . 'loader.php';
 
