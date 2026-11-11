@@ -170,6 +170,7 @@ function getLog($logfile, $page = 1, $app = false)
     $page  = $page <= 1 ? 1 : $page;
     $start = $page == 1 ? 0 : $page * LOG_LINES_PER_PAGE - LOG_LINES_PER_PAGE;
     $end   = $start + LOG_LINES_PER_PAGE;
+    $key   = $_POST['key'] ?? $_GET['key'] ?? '';
 
     $starr                 = $starr ?: new Starr();
     list($logLines, $file) = explode(' ', $shell->exec('wc -l "' . $logfile . '"'));
@@ -232,7 +233,7 @@ function getLog($logfile, $page = 1, $app = false)
                             $error = '<span class="text-info">[VERIFICATION]</span> ';
                         }
 
-                        if ($app && !str_contains($line, 'key:' . $_POST['key'])) {
+                        if ($app && !str_contains($line, 'key:' . $key)) {
                             continue;
                         }
 
@@ -240,7 +241,7 @@ function getLog($logfile, $page = 1, $app = false)
                             $line = htmlspecialchars($line);
                         }
 
-                        $line = str_replace('key:' . $_POST['key'] . ';', '<span class="text-warning">key:' . $_POST['key'] . ';</span>', $line);
+                        $line = str_replace('key:' . $key . ';', '<span class="text-warning">key:' . $key . ';</span>', $line);
 
                         preg_match('/endpoint:(.*);/U', $line, $endpointMatch);
                         preg_match('/method:(.*);/U', $line, $methodMatch);
@@ -265,7 +266,7 @@ function getLog($logfile, $page = 1, $app = false)
         </div>
         <?php
         if ($app) {
-            $proxiedApp = $starr->getAppFromProxiedKey($_POST['key'], true);
+            $proxiedApp = $starr->getAppFromProxiedKey($key, true);
             $starrApp   = $starr->getStarrInterfaceNameFromId($proxiedApp['starrAppDetails']['starr']);
 
             ?>

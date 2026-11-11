@@ -3,6 +3,7 @@ let logSubscription = null;
 let logAutoRefresh = true;
 
 let appLog = null;
+let appKey = null;
 let appLogSubscription = null;
 
 function setRefreshButton(button, enabled)
@@ -108,7 +109,7 @@ function subscribeAppLog()
                 showTab(body, activeTab);
             });
         }
-    }, { log: appLog });
+    }, { log: appLog, key: appKey });
 }
 // -------------------------------------------------------------------------------------------
 function viewAppLog(log, key, appName)
@@ -116,6 +117,7 @@ function viewAppLog(log, key, appName)
     loadingStart();
 
     appLog = log;
+    appKey = key;
 
     $.post('ajax/logs.php', { m: 'viewAppLog', key: key, log: log }, function (resultData) {
         dialogOpen({
@@ -136,6 +138,7 @@ function viewAppLog(log, key, appName)
                 }
 
                 appLog = null;
+                appKey = null;
             }
         });
     });
