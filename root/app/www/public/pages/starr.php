@@ -16,11 +16,14 @@ if (!$_SESSION['IN_UI']) {
 }
 ?>
 
-<?php $tabIdPrefix = 'starr-' . $app; ?>
+<?php
+$tabIdPrefix = 'starr-' . $app;
+$appLabel    = $starr->isCustomApp($app)['label'] ?? $appLabel;
+?>
 <div class="col-sm-12">
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" data-bs-toggle="tab" href="#<?= $tabIdPrefix ?>-instances" aria-selected="true" role="tab"><?= $appLabel ?> instances</a>
+            <a class="nav-link active" data-bs-toggle="tab" href="#<?= $tabIdPrefix ?>-instances" aria-selected="true" role="tab"><?php if ($appIcon = $starr->getAppIcon($app)) { ?><img src="<?= htmlspecialchars($appIcon) ?>" style="height: 18px;"> <?php } ?><?= htmlspecialchars($appLabel) ?> instances</a>
         </li>
         <li class="nav-item" role="presentation">
             <a class="nav-link" data-bs-toggle="tab" href="#<?= $tabIdPrefix ?>-apps" aria-selected="false" role="tab">3<sup>rd</sup> party apps</a>
