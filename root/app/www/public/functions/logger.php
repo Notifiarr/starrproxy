@@ -9,50 +9,67 @@
 
 function logger($logfile, $logParameters)
 {
-    global $settingsTable, $LOG_ROTATE_SIZE;
+    global $settingsTable, $LOG_ROTATE_SIZE, $proxiedApp;
 
     $backtrace = debug_backtrace();
     $log       = [];
     $date      = date(sprintf('Y-m-d\TH:i:s%s', substr(microtime(), 1, 8)));
     $log[]     = $date;
+    $accessLog = array_key_exists('req', $logParameters) || array_key_exists('proxyCode', $logParameters);
+    $providedKey = $logParameters['apikey'] ?? null;
+    $contextKey = $proxiedApp['proxiedAppDetails']['apikey'] ?? null;
 
-    if ($logParameters['req']) {
-        $log[] = '[' . $logParameters['req'] . ']';
+    if ($accessLog && !array_key_exists('consumerId', $logParameters) && !array_key_exists('backendId', $logParameters)
+        && is_string($providedKey) && $providedKey !== '' && is_string($contextKey) && hash_equals($contextKey, $providedKey)) {
+        $logParameters['consumerId'] = $proxiedApp['proxiedAppDetails']['id'] ?? 0;
+        $logParameters['backendId'] = $proxiedApp['starrAppDetails']['id'] ?? 0;
     }
 
-    if ($logParameters['starr']) {
+    if (!empty($logParameters['req'])) {
+        $log[] = '[' . intval($logParameters['req']) . ']';
+    }
+
+    if (!$accessLog && !empty($logParameters['starr'])) {
         $log[] = '[' . $logParameters['starr'] . ']';
     }
 
-    if ($logParameters['text']) {
+    if (!$accessLog && !empty($logParameters['text'])) {
         $log[] = $logParameters['text'];
 
         if ($logParameters['notificationCode']) {
             $log[] = 'notificationCode:' . $logParameters['notificationCode'] . ';';
         }
     } else {
-        $log[] = 'ua:' . $_SERVER['HTTP_USER_AGENT'] . ';';
-        if ($logParameters['apikey']) {
-            $log[] = 'key:' . truncateMiddle($logParameters['apikey'], 20) . ';';
+        foreach (['consumerId' => 'consumer', 'backendId' => 'backend'] as $parameter => $label) {
+            if (!empty($logParameters[$parameter])) {
+                $log[] = $label . ':' . intval($logParameters[$parameter]) . ';';
+            }
         }
-        if ($logParameters['endpoint']) {
-            $log[] = 'endpoint:' . $logParameters['endpoint'] . ';';
+        if (in_array($logParameters['event'] ?? '', ['verification', 'endpoint_map'], true)) {
+            $log[] = 'event:' . $logParameters['event'] . ';';
+        }
+        $endpoint = parse_url($logParameters['endpoint'] ?? '', PHP_URL_PATH);
+        if (is_string($endpoint) && preg_match('#^/[A-Za-z0-9_./{}-]*$#D', $endpoint)) {
+            $log[] = 'endpoint:' . $endpoint . ';';
         }
 
-        $log[] = 'method:' . strtolower($_SERVER['REQUEST_METHOD']) . ';';
-        $log[] = 'proxyCode:' . $logParameters['proxyCode'] . ';';
+        $method = strtolower($_SERVER['REQUEST_METHOD'] ?? '');
+        $method = in_array($method, ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'], true) ? $method : 'unknown';
+        $log[]  = 'method:' . $method . ';';
 
-        if ($logParameters['starrCode']) {
-            $log[] = 'starrCode:' . $logParameters['starrCode'] . ';';
-
-            if ($logParameters['starrCode'] != 200 && $logParameters['starrRequest']) {
-                $log[] = 'starrResponse:' . json_encode($logParameters['starrRequest']);
+        foreach (['proxyCode', 'starrCode'] as $status) {
+            if (array_key_exists($status, $logParameters)) {
+                $value = $logParameters[$status];
+                $value = $status === 'proxyCode' && $value === 'auth-granted' ? $value : intval($value);
+                $log[] = $status . ':' . $value . ';';
             }
         }
     }
 
-    $log[] = 'file:' . $backtrace[0]['file'] . ';';
-    $log[] = 'line:' . $backtrace[0]['line'] . ';';
+    if (!$accessLog) {
+        $log[] = 'file:' . $backtrace[0]['file'] . ';';
+        $log[] = 'line:' . $backtrace[0]['line'] . ';';
+    }
 
     file_put_contents($logfile, implode(' ', $log) . "\n", FILE_APPEND);
 
@@ -165,7 +182,7 @@ function renderLogList()
 
 function getLog($logfile, $page = 1, $app = false)
 {
-    global $starr, $shell;
+    global $starr, $shell, $appsTable;
 
     $page  = $page <= 1 ? 1 : $page;
     $start = $page == 1 ? 0 : $page * LOG_LINES_PER_PAGE - LOG_LINES_PER_PAGE;
@@ -173,6 +190,11 @@ function getLog($logfile, $page = 1, $app = false)
     $key   = $_POST['key'] ?? $_GET['key'] ?? '';
 
     $starr                 = $starr ?: new Starr();
+    $proxiedApp            = $app ? $starr->getAppFromProxiedKey($key, true) : [];
+    $consumerId            = intval($proxiedApp['proxiedAppDetails']['id'] ?? 0);
+    $legacyKey             = truncateMiddle($proxiedApp['proxiedAppDetails']['apikey'] ?? '', 20);
+    $legacyMatches         = array_filter($appsTable ?: [], fn($entry) => $legacyKey !== '' && hash_equals($legacyKey, truncateMiddle($entry['apikey'] ?? '', 20)));
+    $legacyKey             = count($legacyMatches) === 1 ? $legacyKey : '';
     list($logLines, $file) = explode(' ', $shell->exec('wc -l "' . $logfile . '"'));
     $logLines              = intval(trim($logLines));
     $cmd                   = $app ? 'tail -' . LOG_LINES_PER_PAGE . ' "' . $logfile . '"' : 'awk -vs="' . $start . '" -ve="' . $end . '" \'NR>=s&&NR<=e\' "' . $logfile . '"';
@@ -221,7 +243,7 @@ function getLog($logfile, $page = 1, $app = false)
                     $endpointUsage = [];
                     foreach ($lines as $line) {
                         $error = '';
-                        if (str_contains_any($line, ['endpoint map matched'])) {
+                        if (str_contains_any($line, ['endpoint map matched', 'event:endpoint_map;'])) {
                             $error = '<span class="text-warning">[WARNING]</span> ';
                         }
 
@@ -229,19 +251,36 @@ function getLog($logfile, $page = 1, $app = false)
                             $error = '<span class="text-danger">[ERROR]</span> ';
                         }
 
-                        if (str_contains($line, 'getAppFromProxiedKey')) {
+                        if (str_contains_any($line, ['getAppFromProxiedKey', 'event:verification;'])) {
                             $error = '<span class="text-info">[VERIFICATION]</span> ';
                         }
 
-                        if ($app && !str_contains($line, 'key:' . $key)) {
-                            continue;
+                        $nativeConsumerLine = $consumerId && preg_match('/\\A\\S+(?: \\[\\d+\\])? consumer:' . $consumerId . ';/', $line)
+                            && !str_contains_any($line, [' ua:', ' key:', ' starrResponse:', ' file:', ' line:']);
+                        if ($app && !$nativeConsumerLine) {
+                            if (!$consumerId || !$legacyKey || substr_count($line, ' key:') != 1
+                                || substr_count($line, ' method:') != 1 || substr_count($line, ' proxyCode:') != 1
+                                || substr_count($line, ' starrCode:') > 1
+                                || !preg_match('/\\A(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?) \\[(\\d+)\\] /', $line, $legacyPrefix)
+                                || !preg_match('/ key:([^;\\s]+);/', $line, $legacyIdentity)
+                                || !hash_equals($legacyKey, $legacyIdentity[1])
+                                || !preg_match('/ method:(get|post|put|patch|delete|head|options);/', $line, $legacyMethod)
+                                || !preg_match('/ proxyCode:([1-5]\\d{2}|auth-granted);/', $line, $legacyStatus)
+                                || $legacyStatus[1] == '401') {
+                                continue;
+                            }
+                            // Unauthenticated legacy rows can forge a key field through user-agent text.
+                            preg_match('/ starrCode:(0|[1-5]\\d{2});/', $line, $legacyBackendStatus);
+                            $line = $legacyPrefix[1] . ' [' . intval($legacyPrefix[2]) . '] consumer:' . $consumerId
+                                . '; event:legacy; method:' . $legacyMethod[1] . '; proxyCode:' . $legacyStatus[1] . ';'
+                                . (isset($legacyBackendStatus[1]) ? ' starrCode:' . $legacyBackendStatus[1] . ';' : '');
                         }
 
                         if (!str_contains($logfile, 'migrations')) {
                             $line = htmlspecialchars($line);
                         }
 
-                        $line = str_replace('key:' . $key . ';', '<span class="text-warning">key:' . $key . ';</span>', $line);
+                        $line = str_replace('consumer:' . $consumerId . ';', '<span class="text-warning">consumer:' . $consumerId . ';</span>', $line);
 
                         preg_match('/endpoint:(.*);/U', $line, $endpointMatch);
                         preg_match('/method:(.*);/U', $line, $methodMatch);
@@ -266,7 +305,6 @@ function getLog($logfile, $page = 1, $app = false)
         </div>
         <?php
         if ($app) {
-            $proxiedApp = $starr->getAppFromProxiedKey($key, true);
             $starrApp   = $starr->getStarrInterfaceNameFromId($proxiedApp['starrAppDetails']['starr']);
 
             ?>

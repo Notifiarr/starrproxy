@@ -10,9 +10,15 @@ repos:
             types: [php]
           - id: php-lint
             name: php -l
-            language: docker_image
-            entry: php:8.4-cli sh -c 'for f; do php -l "$f" || exit 1; done' --
+            language: system
+            entry: bash -c 'exec docker run --rm --name starrproxy-php-lint-$$ --network none --user "$(id -u):$(id -g)" --volume "$PWD:/src:ro" --workdir /src php:8.4-cli php -l "$@"' --
             types: [php]
+          - id: access-logging
+            name: Access logging regression
+            language: system
+            entry: bash -c 'exec docker run --rm --name starrproxy-access-logging-$$ --network none --user "$(id -u):$(id -g)" --volume "$PWD:/src:ro" --workdir /src php:8.4-cli php tests/access_logging.php'
+            pass_filenames: false
+            files: ^(root/app/www/public/(api/index|functions/logger)\.php|tests/access_logging\.php|\.pre-commit-config\.yaml)$
     - repo: https://github.com/pre-commit/pre-commit-hooks
       rev: v5.0.0
       hooks:

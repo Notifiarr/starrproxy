@@ -25,6 +25,7 @@ $requestCounter = $cache->get(REQUEST_COUNTER_KEY) + 1;
 $cache->set(REQUEST_COUNTER_KEY, $requestCounter, REQUEST_COUNTER_TIME);
 
 $logfile = LOGS_PATH . 'access.log';
+$accessContext = [];
 
 $internalEndpoint = false;
 $_GET['endpoint'] = strtolower($_GET['endpoint']);
@@ -38,7 +39,7 @@ $apikey             = $_GET['apikey'] ?: $_SERVER['HTTP_X_API_KEY'];
 $endpoint           = rtrim($endpoint, '/');
 
 if (!$apikey) {
-    logger($logfile, ['req' => $requestCounter, 'proxyCode' => 401]);
+    logger($logfile, $accessContext + ['req' => $requestCounter, 'proxyCode' => 401]);
     apiResponse(401, ['error' => sprintf(APP_API_ERROR, 'no apikey provided')]);
 }
 
@@ -50,8 +51,8 @@ if ($internalEndpoint) {
     switch ($endpoint) {
         case '/api/proxystats':
             $stats = [
-                        'instances' => getTotalAppStats($starrsTable), 
-                        'endpoints' => getTotalEndpointStats($starrsTable, $appsTable), 
+                        'instances' => getTotalAppStats($starrsTable),
+                        'endpoints' => getTotalEndpointStats($starrsTable, $appsTable),
                         'usage'     => getTotalUsageStats($starrsTable, $appsTable, $usageTable)
                     ];
 
@@ -102,13 +103,13 @@ if ($internalEndpoint) {
                     } else {
                         //-- ADD THE STARR APP
                         $fields = [
-                                    'name'      => $test['response']['instanceName'], 
-                                    'url'       => $request['url'], 
-                                    'apikey'    => $request['apikey'], 
-                                    'username'  => rawurldecode($request['username']), 
+                                    'name'      => $test['response']['instanceName'],
+                                    'url'       => $request['url'],
+                                    'apikey'    => $request['apikey'],
+                                    'username'  => rawurldecode($request['username']),
                                     'password'  => rawurldecode($request['password'])
                                 ];
-            
+
                         $error = $proxyDb->addStarrApp($request['starr'], $fields);
 
                         //-- RELOAD, THE TABLE LOADED BY loader.php IS STALE AFTER THE INSERT
@@ -122,8 +123,8 @@ if ($internalEndpoint) {
                             $scopeAccess    = $request['template'] ? json_decode(file_get_contents('../templates/' . $request['starr'] . '/' . $request['template'] . '.json'), true) : [];
 
                             $fields = [
-                                        'name'      => $request['name'], 
-                                        'apikey'    => $scopeKey, 
+                                        'name'      => $request['name'],
+                                        'apikey'    => $scopeKey,
                                         'starr_id'  => intval($starrApp['id']),
                                         'endpoints' => json_encode($scopeAccess, JSON_UNESCAPED_SLASHES)
                                     ];
@@ -136,7 +137,7 @@ if ($internalEndpoint) {
                                 $response['proxied-key']    = $scopeKey;
                             } else {
                                 $code       = 400;
-                                $response   = ['error' => sprintf(APP_API_ERROR, 'failed to add proxied app')];                                
+                                $response   = ['error' => sprintf(APP_API_ERROR, 'failed to add proxied app')];
                             }
                         } else {
                             $code       = 400;
@@ -158,21 +159,25 @@ if ($internalEndpoint) {
     $app        = $starr->getStarrInterfaceNameFromId($proxiedApp['starrAppDetails']['starr']);
 
     if (!$proxiedApp || !$proxiedApp['starrApp']) {
-        logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $endpoint, 'proxyCode' => 401]);
+        logger($logfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $endpoint, 'proxyCode' => 401]);
         apiResponse(401, ['error' => sprintf(APP_API_ERROR, 'provided apikey is not valid or has no access')]);
     }
 
     $proxiedAppLogfile = str_replace('access.log', 'access_' . $proxiedApp['proxiedAppDetails']['name'] . '.log', $logfile);
 
-    logger($proxiedAppLogfile, ['req' => $requestCounter, 'starr' => $proxiedApp['starrAppDetails']['name'], 'text' => 'apikey: ' . truncateMiddle($apikey, 20) . '; $starr->getAppFromProxiedKey: id=' . $proxiedApp['proxiedAppDetails']['id'] . '; app=' . $proxiedApp['proxiedAppDetails']['name']]);
+    $accessContext = [
+        'consumerId' => $proxiedApp['proxiedAppDetails']['id'],
+        'backendId'  => $proxiedApp['starrAppDetails']['id']
+    ];
+    logger($proxiedAppLogfile, $accessContext + ['req' => $requestCounter, 'event' => 'verification']);
 
     if (!$endpoint && $_GET['backup']) { //--- Notifiarr corruption checking
         $proxyBackup = $starr->downloadBackup($_GET['backup'], $proxiedApp['starrAppDetails']);
 
         if ($proxyBackup) {
             header('Content-Type: application/octet-stream');
-            header('Content-Transfer-Encoding: Binary'); 
-            header('Content-disposition: attachment; filename="' . $proxyBackup . '"'); 
+            header('Content-Transfer-Encoding: Binary');
+            header('Content-disposition: attachment; filename="' . $proxyBackup . '"');
             readfile($proxyBackup);
         }
     } elseif (!$endpoint && $_GET['feed']) { //-- iCal links, let them through
@@ -181,8 +186,8 @@ if ($internalEndpoint) {
         $starrUrl       = $proxiedApp['starrAppDetails']['url'] . $feedRequest;
         $request        = curl($starrUrl, ['X-Api-Key:' . $proxiedApp['starrAppDetails']['apikey']], $method, $json);
 
-        logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $feedRequest, 'proxyCode' => 200, 'starrCode' => $request['code']]);
-        logger($proxiedAppLogfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $feedRequest, 'proxyCode' => 200, 'starrCode' => $request['code'], 'starrRequest' => $request]);
+        logger($logfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $feedRequest, 'proxyCode' => 200, 'starrCode' => $request['code']]);
+        logger($proxiedAppLogfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $feedRequest, 'proxyCode' => 200, 'starrCode' => $request['code']]);
 
         $usageDb->adjustAppUsage($proxiedApp['proxiedAppDetails']['id'], $request['code']);
 
@@ -196,8 +201,8 @@ if ($internalEndpoint) {
         if ($isAllowed) {
             $endpoint = $starrEndpoint;
         } else {
-            logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $endpoint, 'proxyCode' => 401]);
-            logger($proxiedAppLogfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $endpoint, 'proxyCode' => 401]);
+            logger($logfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $endpoint, 'proxyCode' => 401]);
+            logger($proxiedAppLogfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $endpoint, 'proxyCode' => 401]);
             $usageDb->adjustAppUsage($proxiedApp['proxiedAppDetails']['id'], 401);
 
             if ($proxyDb->isNotificationTriggerEnabled('blocked')) {
@@ -214,15 +219,15 @@ if ($internalEndpoint) {
         }
 
         if (!$accessMethod = $starr->isAllowedEndpointMethod($proxiedApp['access'], $endpoint, $method)) {
-            logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $endpoint, 'proxyCode' => 405]);
-            logger($proxiedAppLogfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $endpoint, 'proxyCode' => 405]);
+            logger($logfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $endpoint, 'proxyCode' => 405]);
+            logger($proxiedAppLogfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $endpoint, 'proxyCode' => 405]);
             $usageDb->adjustAppUsage($proxiedApp['proxiedAppDetails']['id'], 405);
 
             if ($proxyDb->isNotificationTriggerEnabled('blocked')) {
                 $payload    = [
-                                'event'     => 'blocked', 
-                                'proxyApp'  => $proxiedApp['proxiedAppDetails']['name'], 
-                                'starrApp'  => $proxiedApp['starrAppDetails']['name'], 
+                                'event'     => 'blocked',
+                                'proxyApp'  => $proxiedApp['proxiedAppDetails']['name'],
+                                'starrApp'  => $proxiedApp['starrAppDetails']['name'],
                                 'endpoint'  => $endpoint,
                                 'method'    => $method
                             ];
@@ -239,7 +244,7 @@ if ($internalEndpoint) {
                 }
 
                 if ($endpointMap[$method] && $endpointMap[$method][$endpoint]) {
-                    logger($proxiedAppLogfile, ['req' => $requestCounter, 'starr' => $proxiedApp['starrAppDetails']['name'], 'text' => 'endpoint map matched, changing \'' . $originalEndpoint . '\' to \'' . $endpointMap[$method][$endpoint] . '\'']);
+                    logger($proxiedAppLogfile, $accessContext + ['req' => $requestCounter, 'event' => 'endpoint_map', 'endpoint' => $endpointMap[$method][$endpoint]]);
                     $originalEndpoint = $endpointMap[$method][$endpoint];
                     break;
                 }
@@ -250,8 +255,8 @@ if ($internalEndpoint) {
         $starrUrl       = $proxiedApp['starrAppDetails']['url'] . $originalEndpoint . ($forwardedQuery !== '' ? '?' . $forwardedQuery : '');
         $request        = curl($starrUrl, ['X-Api-Key:' . $proxiedApp['starrAppDetails']['apikey']], $method, $json);
 
-        logger($logfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $originalEndpoint, 'proxyCode' => 200, 'starrCode' => $request['code']]);
-        logger($proxiedAppLogfile, ['req' => $requestCounter, 'apikey' => $apikey, 'endpoint' => $originalEndpoint, 'proxyCode' => 200, 'starrCode' => $request['code'], 'starrRequest' => $request]);
+        logger($logfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $originalEndpoint, 'proxyCode' => 200, 'starrCode' => $request['code']]);
+        logger($proxiedAppLogfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $originalEndpoint, 'proxyCode' => 200, 'starrCode' => $request['code']]);
 
         $usageDb->adjustAppUsage($proxiedApp['proxiedAppDetails']['id'], $request['code']);
 
@@ -286,13 +291,13 @@ if ($internalEndpoint) {
 
             //-- CHECK FOR FIELD REDACTIONS
             if (is_array($request['response']) && $redactions = $proxiedApp['proxiedAppDetails']['redactions']) { //-- XML (newznab/torznab) responses have no fields to redact
-                logger($logfile, ['req' => $requestCounter, 'endpoint' => $originalEndpoint, 'redactions' => $redactions]);
-                logger($proxiedAppLogfile, ['req' => $requestCounter, 'endpoint' => $originalEndpoint, 'redactions' => $redactions]);
+                logger($logfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $originalEndpoint, 'redactions' => $redactions]);
+                logger($proxiedAppLogfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $originalEndpoint, 'redactions' => $redactions]);
 
                 $redactionList = explode(',', $redactions);
                 foreach ($request['response'] as $responseKey => $responseVal) {
                     if (in_array($responseKey, $redactionList)) {
-                        logger($logfile, ['req' => $requestCounter, 'endpoint' => $originalEndpoint, 'redaction-match' => $responseKey]);
+                        logger($logfile, $accessContext + ['req' => $requestCounter, 'endpoint' => $originalEndpoint, 'redaction-match' => $responseKey]);
                         $request['response'][$responseKey] = REDACTION_VALUE;
                     }
                 }
